@@ -16,10 +16,10 @@ public class HomeController {
 
     @GetMapping(path = "/test-dynamic")
     public String getTest2Page(
-            @RequestParam(value = "name",
+            @RequestParam(value = "name-from-url",
                     required = false,
-                    defaultValue = "World") String name, Model model) {
-        model.addAttribute("name", name);
+                    defaultValue = "World") String nameFromUrl, Model model) {
+        model.addAttribute("nameTemplate", nameFromUrl);
         return "home/index_dynamic";
     }
 }
