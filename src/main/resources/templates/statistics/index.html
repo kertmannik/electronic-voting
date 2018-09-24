@@ -5,8 +5,9 @@
     <title>Statistics</title>
 </head>
 <body>
-<div th:insert="fragments/header">
-</div>
+<div th:insert="fragments/header"></div>
+<div th:replace="fragments/header :: header(statistics)"></div>
+
 
 </body>
 </html>
