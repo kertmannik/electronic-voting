@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+</head>
+<body>
+<div th:fragment="navbar(activeTab)">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <img class="navbar-brand" th:src="@{/images/brand.png}" alt="Logo">
+
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li th:class="${activeTab == 'home'}? 'active' : null"><a th:href="@{/home}">Home</a></li>
+                <li th:class="${activeTab == 'statistics'}? 'active' : null"><a th:href="@{/statistics}">Statistics</a></li>
+                <li th:class="${activeTab == 'candidacy'}? 'active' : null"><a th:href="@{candidacy}">Candidacy</a></li>
+                <li th:class="${activeTab == 'contact'}? 'active' : null"><a th:href="@{contact}">Contact</a></li>
+                <li th:class="${activeTab == 'login'}? 'active' : null"><a th:href="@{login}"><span class="glyphicon glyphicon-user"></span></a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+</body>
+</html>
+
+
+
