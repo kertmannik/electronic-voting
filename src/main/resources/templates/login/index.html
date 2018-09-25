@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,9 +8,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="css/login.css" type="text/css">
 
-    <title>Signin</title>>
+    <div th:replace="/fragments/head :: head" ></div>
+    <title>Login</title>>
 </head>
 <body class="text-center">
+<div th:replace="fragments/navbar :: navbar(login)"></div>
 <form class="form-signin">
     <h1 class="h3 mb-3 font-weight-normal">Sign in using Smart-ID</h1>
     <label for="inputIdCode" class="sr-only">Password</label>
