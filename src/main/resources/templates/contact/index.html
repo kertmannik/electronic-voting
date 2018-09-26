@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <div th:replace="/fragments/head :: head" ></div>
+    <div th:replace="/fragments/head :: head"></div>
     <title>Contact</title>
 </head>
 <body>
@@ -26,6 +26,10 @@
                 Address: J. Liivi 2, 50409 Tartu, Eesti
             </address>
             <p>Here is map</p>
+            <div id="map-container" class="z-depth-1">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2091.898507877275!2d26.712484616034015!3d58.37824848133619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46eb36e1900bfbf1%3A0x5a26b1670e99e751!2sJuhan+Liivi+2%2C+50409+Tartu!5e0!3m2!1set!2see!4v1537960744526"
+                        width="400" height="300" frameborder="0" autofullscreen></iframe>
+            </div>
         </div>
         <div class="col-sm-6">
             <p>Here is contact form</p>
