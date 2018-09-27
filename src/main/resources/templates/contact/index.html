@@ -19,20 +19,17 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
-            <h2>Contact us</h2>
+            <h2 th:text="#{contact.welcome}"></h2>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-6">
-            <address>
-                Phone: +372 56789012<br>
-                E-mail: <a href="mailto:evoting@mailinator.com">evoting@mailinator.com</a><br>
-                Address: J. Liivi 2, 50409 Tartu, Eesti
-            </address>
-            <p>Here is map</p>
+            <address th:text="#{contact.phone}"></address>
+            <address th:text="#{contact.mail}"></address>
+            <address th:text="#{contact.address}"></address>
         </div>
         <div class="col-sm-6">
-            <p>Here is contact form</p>
+            <p th:text="#{contact.form}"></p>
         </div>
     </div>
 </div>
