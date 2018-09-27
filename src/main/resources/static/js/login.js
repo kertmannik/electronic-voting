@@ -1,5 +1,3 @@
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip({
-        placement : 'top'
-    });
-});
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
