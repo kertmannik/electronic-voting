@@ -9,13 +9,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="css/login.css" type="text/css">
 
-    <div th:replace="/fragments/head :: head" ></div>
+    <div th:replace="/fragments/head :: head"></div>
     <title>Login</title>>
 </head>
 <body class="text-center">
 <div th:replace="fragments/navbar :: navbar(login)"></div>
 <form class="form-signin">
-    <h1 class="h3 mb-3 font-weight-normal" data-toggle="tooltip" data-placement="top" title="Estonian identification numbers only">Sign in using Smart-ID</h1>
+    <h1 class="h3 mb-3 font-weight-normal" data-toggle="tooltip" data-placement="top"
+        title="Estonian identification numbers only">Sign in using Smart-ID</h1>
     <label for="inputIdCode" class="sr-only">Password</label>
     <input type="name" id="inputIdCode" class="form-control" placeholder="Identification number" maxlength="11" required
            autofocus>
