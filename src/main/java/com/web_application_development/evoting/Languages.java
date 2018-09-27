@@ -13,7 +13,7 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import java.util.Locale;
 
 @Configuration
-public class Messages implements WebMvcConfigurer {
+public class Languages implements WebMvcConfigurer {
 
 
     @Bean(name = "localeResolver")
@@ -36,5 +36,4 @@ public class Messages implements WebMvcConfigurer {
         localeInterceptor.setParamName("lang");
         registry.addInterceptor(localeInterceptor).addPathPatterns("/*");
     }
-
 }

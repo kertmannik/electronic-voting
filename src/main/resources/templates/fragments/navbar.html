@@ -7,7 +7,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <img class="navbar-brand" th:src="@{/images/brand.png}" alt="Logo">
+                <a th:href="@{/home}"><img class="navbar-brand"  th:src="@{/images/brand.png}" alt="Logo"></a>
             </div>
             <ul class="nav navbar-nav navbar-right">
                 <li th:class="${activeTab == 'home'}? 'active' : null"><a th:href="@{/home}" th:text="#{home}"></a></li>
@@ -15,11 +15,8 @@
                 <li th:class="${activeTab == 'candidacy'}? 'active' : null"><a th:href="@{candidacy}" th:text="#{candidacy}"></a></li>
                 <li th:class="${activeTab == 'contact'}? 'active' : null"><a th:href="@{contact}" th:text="#{contact}"></a></li>
                 <li th:class="${activeTab == 'login'}? 'active' : null"><a th:href="@{login}"><span class="glyphicon glyphicon-user"></span></a></li>
-                <li> <a th:href="@{?lang=et}">EST</a> </li>
-                <li> <a th:href="@{?lang=en}">ENG</a>  </li>
-                <!--<li> <button class="navbar-btn btn-link">-->
-                    <!--<img src="images/eng.png" width="20">-->
-                <!--</button> </li>-->
+                <li> <a th:href="@{?lang=et}"><img src="images/est.png" width="20"></a></li>
+                <li> <a th:href="@{?lang=en}"><img src="images/eng.png" width="20"></a></li>
             </ul>
         </div>
     </nav>
