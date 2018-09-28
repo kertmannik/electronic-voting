@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/login.css" type="text/css">
 
     <div th:replace="/fragments/head :: head"></div>
-    <title>Login</title>
+    <title th:text="#{login.signin}"></title>
 </head>
 <body class="text-center">
 <div th:replace="fragments/navbar :: navbar(login)"></div>
