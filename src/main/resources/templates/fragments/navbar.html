@@ -7,10 +7,10 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a th:href="@{/home}"><img class="navbar-brand"  th:src="@{/images/brand.png}" alt="Logo"></a>
+                <a th:href="@{/}"><img class="navbar-brand" th:src="@{/images/brand.png}" alt="Logo"></a>
             </div>
             <ul class="nav navbar-nav navbar-right">
-                <li th:class="${activeTab == 'home'}? 'active' : null"><a th:href="@{/home}"
+                <li th:class="${activeTab == 'home'}? 'active' : null"><a th:href="@{/}"
                                                                           th:text="#{navbar.home}"></a></li>
                 <li th:class="${activeTab == 'statistics'}? 'active' : null"><a th:href="@{/statistics}"
                                                                                 th:text="#{navbar.statistics}"></a></li>
