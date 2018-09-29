@@ -2,6 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <div th:replace="/fragments/head :: head" ></div>
+    <script type="text/javascript">
+        window.jQuery || document.write('<script src="js/jquery-3.3.1.min.js"/>');
+    </script>
     <title th:text="#{navbar.contact}"></title>
 </head>
 <body>
