@@ -21,49 +21,4 @@ public class Vote {
     private long isWithdrawn;
     private java.sql.Timestamp votingTime;
 
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-
-    public String getVoterIdentityCode() {
-        return voterIdentityCode;
-    }
-
-    public void setVoterIdentityCode(String voterIdentityCode) {
-        this.voterIdentityCode = voterIdentityCode;
-    }
-
-
-    public long getCandidateId() {
-        return candidateId;
-    }
-
-    public void setCandidateId(long candidateId) {
-        this.candidateId = candidateId;
-    }
-
-
-    public long getIsWithdrawn() {
-        return isWithdrawn;
-    }
-
-    public void setIsWithdrawn(long isWithdrawn) {
-        this.isWithdrawn = isWithdrawn;
-    }
-
-
-    public java.sql.Timestamp getVotingTime() {
-        return votingTime;
-    }
-
-    public void setVotingTime(java.sql.Timestamp votingTime) {
-        this.votingTime = votingTime;
-    }
-
 }
