@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="utf-8">
     <link rel="stylesheet" href="css/login.css" type="text/css">
 
-    <div th:replace="/fragments/head :: head" ></div>
-    <title>Login</title>>
+    <div th:replace="/fragments/head :: head"></div>
+    <title th:text="#{login.signin}"></title>
 </head>
 <body class="text-center">
 <div th:replace="fragments/navbar :: navbar(login)"></div>
 <form class="form-signin">
-    <h1 class="h3 mb-3 font-weight-normal" th:text="#{login.introduction}"></h1>
+    <h1 class="h3 mb-3 font-weight-normal" data-toggle="tooltip" data-placement="top"
+        title="Estonian identification numbers only" th:text="#{login.introduction}"></h1>
     <input type="name" id="inputIdCode" class="form-control" th:placeholder="#{login.placeholder}" maxlength="11"
-           required
-           autofocus>
+           required autofocus>
     <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.signin}"></button>
 </form>
 </body>
