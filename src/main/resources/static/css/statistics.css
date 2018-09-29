@@ -1,0 +1,18 @@
+.col-xs-12 {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.row {
+    margin-left: 0px;
+}
+
+.table-responsive {
+    border: 0px;
+}
+
+@media (min-width: 960px) {
+    .container {
+        width: 750px;
+    }
+}
