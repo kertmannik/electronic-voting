@@ -2,7 +2,7 @@
 function initMap() {
     var myCenter = new google.maps.LatLng(58.378243, 26.714534);
     var mapCanvas = document.getElementById("map");
-    var mapOptions = {center: myCenter, zoom: 6};
+    var mapOptions = {center: myCenter, zoom: 10};
     var map = new google.maps.Map(mapCanvas, mapOptions);
     var marker = new google.maps.Marker({
         position:myCenter,
@@ -15,7 +15,7 @@ function initMap() {
 
     //Listener for click event, zooming and setting center
     google.maps.event.addListener(marker,'click',function() {
-        map.setZoom(14);
+        map.setZoom(16);
         map.setCenter(marker.getPosition());
     });
 }
