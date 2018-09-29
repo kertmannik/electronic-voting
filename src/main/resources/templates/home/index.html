@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <div th:replace="/fragments/head :: head" ></div>
-    <title>Home</title>
+    <title th:text="#{navbar.home}"></title>
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar(home)"></div>
