@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 public class Candidate {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @NotNull
     private String identityCode;

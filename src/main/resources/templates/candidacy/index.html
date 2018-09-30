@@ -28,7 +28,7 @@
                        th:placeholder="#{candidacy.identityCode}" required>
             </div>
             <div class="form-group col-md-6">
-                <select class="form-control" id="region" th:placeholder="#{candidacy.region}">
+                <select class="form-control" id="region" name="region" th:placeholder="#{candidacy.region}">
                     <option>Põhja-Eesti</option>
                     <option>Ida-Eesti</option>
                     <option>Lõuna-Eesti</option>
@@ -36,7 +36,7 @@
                 </select>
             </div>
             <div class="form-group col-md-6">
-                <select class="form-control" id="party" th:placeholder="#{candidacy.party}">
+                <select class="form-control" id="party" name="party" th:placeholder="#{candidacy.party}">
                     <option>Erakond Eesti Normaalsed</option>
                     <option>Fašistlik erakond</option>
                     <option>Ükskõiksuserakond</option>
