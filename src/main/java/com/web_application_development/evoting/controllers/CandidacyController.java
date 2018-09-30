@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.sql.Timestamp;
+
 @Controller
 public class CandidacyController {
 
@@ -42,6 +44,8 @@ public class CandidacyController {
         candidateEntity.setIdentityCode(candidateDTO.getIdentityCode());
         candidateEntity.setRegion(candidateDTO.getRegion());
         candidateEntity.setParty(candidateDTO.getParty());
+        candidateEntity.setHasWithdrawn(0);
+        candidateEntity.setCandidacyAnnounced(new Timestamp(System.currentTimeMillis()));
         return candidateEntity;
     }
 }

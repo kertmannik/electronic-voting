@@ -4,9 +4,8 @@ package com.web_application_development.evoting.entities;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Entity
@@ -16,13 +15,21 @@ import java.sql.Timestamp;
 public class Candidate {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
+    @NotNull
     private String identityCode;
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
+    @NotNull
     private String region;
+    @NotNull
     private String party;
+    @NotNull
     private long hasWithdrawn;
+    @NotNull
     private java.sql.Timestamp candidacyAnnounced;
 
     public long getId() {
