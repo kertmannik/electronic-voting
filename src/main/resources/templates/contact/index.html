@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Contact</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/contact.css" type="text/css">
+    <div th:replace="/fragments/head :: head"></div>
+    <script type="text/javascript">
+        window.jQuery || document.write('<script src="js/jquery-3.3.1.min.js"/>');
+    </script>
+    <title th:text="#{navbar.contact}"></title>
 </head>
 <body>
-
+  <div th:replace="fragments/navbar :: navbar(contact)"></div>
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-sm-12">
+              <h2 th:text="#{contact.welcome}"></h2>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-sm-6">
+              <address th:text="#{contact.phone}"></address>
+              <address th:text="#{contact.mail}"></address>
+              <address th:text="#{contact.address}"></address>
+              <div>
+                  <div id="map">maps error</div>
+                  <script src="js/map.js"></script>
+                  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB39NlYkSsY9rVRLJB_X29-IS9MEiIwTas&callback=initMap"></script>
+              </div>
+          </div>
+          <div class="col-sm-6">
+              <p th:text="#{contact.form}"></p>
+          </div>
+      </div>
+  </div>
 </body>
 </html>

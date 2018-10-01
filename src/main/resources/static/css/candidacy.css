@@ -1,0 +1,9 @@
+#vorm {
+    width: 30%;
+}
+
+@media screen and (max-width: 40em) {
+    #vorm {
+        width: 100%;
+    }
+}

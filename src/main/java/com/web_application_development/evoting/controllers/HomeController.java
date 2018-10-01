@@ -1,4 +1,4 @@
-package com.web_application_development.evoting;
+package com.web_application_development.evoting.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
-    @RequestMapping(path = "/test", method = RequestMethod.GET)
+    @RequestMapping(path = "/", method = RequestMethod.GET)
     public String getTestPage() {
         return "home/index";
     }
