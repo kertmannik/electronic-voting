@@ -48,6 +48,4 @@ public class CandidacyController {
         candidateEntity.setCandidacyAnnounced(new Timestamp(System.currentTimeMillis()));
         return candidateEntity;
     }
-
-
 }

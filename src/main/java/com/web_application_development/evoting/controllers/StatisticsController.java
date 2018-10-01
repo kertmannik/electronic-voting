@@ -1,4 +1,4 @@
-package com.web_application_development.evoting;
+package com.web_application_development.evoting.controllers;
 
 import com.web_application_development.evoting.dtos.VoteResultsDTO;
 import com.web_application_development.evoting.repositories.VoteRepository;
