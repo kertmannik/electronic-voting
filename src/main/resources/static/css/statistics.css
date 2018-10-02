@@ -1,18 +1,12 @@
 .col-xs-12 {
-    padding-right: 0px;
-    padding-left: 0px;
+    padding-right: 0em;
+    padding-left: 0em;
 }
 
 .row {
-    margin-left: 0px;
+    margin-left: 0em;
 }
 
 .table-responsive {
-    border: 0px;
-}
-
-@media (min-width: 960px) {
-    .container {
-        width: 750px;
-    }
+    border: 0em;
 }
