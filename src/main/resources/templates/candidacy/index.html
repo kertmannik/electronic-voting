@@ -7,46 +7,47 @@
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar(candidacy)"></div>
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-12">
-            <h2 th:text="#{candidacy.welcome}"></h2>
+<div class="jumbotron vertical-center">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 th:text="#{candidacy.welcome}"></h2>
+            </div>
         </div>
-    </div>
-    <div class="form-row">
-        <form method="post" id="vorm">
-            <div class="form-group">
-                <input type="text" class="form-control" id="firstName" name="firstName"
-                       th:placeholder="#{candidacy.firstname}" required>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" id="lastName" name="lastName"
-                       th:placeholder="#{candidacy.lastname}" required>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" id="identityCode" name="identityCode"
-                       th:placeholder="#{candidacy.identityCode}" required>
-            </div>
-            <div class="form-group">
-                <select type="text" class="form-control" id="region" name="region"
-                        th:placeholder="#{candidacy.region}">
-                    <option>Põhja-Eesti</option>
-                    <option>Ida-Eesti</option>
-                    <option>Lõuna-Eesti</option>
-                    <option>Lääne-Eesti</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <select type="text" class="form-control" id="party" name="party"
-                        th:placeholder="#{candidacy.party}">
-                    <option>Erakond Eesti Normaalsed</option>
-                    <option>Fašistlik erakond</option>
-                    <option>Ükskõiksuserakond</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary" th:text="#{candidacy.sendbutton}"></button>
-        </form>
+        <div class="form-row">
+            <form method="post" id="vorm">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="firstName" name="firstName"
+                           th:placeholder="#{candidacy.firstname}" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="lastName" name="lastName"
+                           th:placeholder="#{candidacy.lastname}" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="identityCode" name="identityCode"
+                           th:placeholder="#{candidacy.identityCode}" required>
+                </div>
+                <div class="form-group">
+                    <select type="text" class="form-control" id="region" name="region"
+                            th:placeholder="#{candidacy.region}">
+                        <option>Põhja-Eesti</option>
+                        <option>Ida-Eesti</option>
+                        <option>Lõuna-Eesti</option>
+                        <option>Lääne-Eesti</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select type="text" class="form-control" id="party" name="party"
+                            th:placeholder="#{candidacy.party}">
+                        <option>Erakond Eesti Normaalsed</option>
+                        <option>Fašistlik erakond</option>
+                        <option>Ükskõiksuserakond</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" th:text="#{candidacy.sendbutton}"></button>
+            </form>
+        </div>
     </div>
 </div>
 </body>
