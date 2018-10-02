@@ -10,9 +10,3 @@
 .table-responsive {
     border: 0em;
 }
-
-@media (min-width: 960em) {
-    .container {
-        width: 750em;
-    }
-}
