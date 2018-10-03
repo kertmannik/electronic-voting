@@ -7,6 +7,7 @@
     <script type="text/javascript">
         window.jQuery || document.write('<script src="js/jquery-3.3.1.min.js"/>');
     </script>
+    <script src="js/delayloading.js"></script>
     <title th:text="#{navbar.contact}"></title>
 </head>
 <body>
@@ -26,6 +27,10 @@
                   <div id="map">maps error</div>
                   <script src="js/map.js"></script>
                   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB39NlYkSsY9rVRLJB_X29-IS9MEiIwTas&callback=initMap"></script>
+              </div>
+              <div>
+                  <img id="image" class="load-delay" th:text="#{contact.image}" src="http://i.imgur.com/7ZMlu3C.gif"
+                       data-original="http://revolutionhealthcentre.com/wp-content/uploads/2018/04/Happy-team-1024x673.jpg"/>
               </div>
           </div>
           <div class="col-sm-6">

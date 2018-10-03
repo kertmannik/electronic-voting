@@ -2,3 +2,9 @@
     height: 30em;
     width: 100%;
 }
+
+#image {
+    height: 67%;
+    width: 100%;
+    padding-top: 2em;
+}
