@@ -1,9 +1,8 @@
-#vorm {
-    width: 30%;
+.jumbotron {
+    background-color: transparent;
 }
 
-@media screen and (max-width: 40em) {
-    #vorm {
-        width: 100%;
-    }
+.vertical-center {
+  display: flex;
+  align-items: center;
 }
