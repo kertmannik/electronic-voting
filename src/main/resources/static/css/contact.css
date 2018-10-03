@@ -3,8 +3,12 @@
     width: 100%;
 }
 
-#image {
+.image {
+    height: 20%;
+    width: 20%;
+}
+
+.image-after {
     height: 67%;
     width: 100%;
-    padding-top: 2em;
 }
