@@ -4,9 +4,11 @@ package com.web_application_development.evoting.entities;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Id;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Getter
@@ -16,9 +18,18 @@ public class Vote {
 
     @Id
     private long id;
-    private String voterIdentityCode;
-    private long candidateId;
-    private long isWithdrawn;
-    private java.sql.Timestamp votingTime;
 
+    @Size(max = 11)
+    @Size(min = 11)
+    @NotNull
+    private String voterIdentityCode;
+
+    @NotNull
+    private long candidateId;
+
+    @NotNull
+    private long isWithdrawn;
+
+    @NotNull
+    private java.sql.Timestamp votingTime;
 }
