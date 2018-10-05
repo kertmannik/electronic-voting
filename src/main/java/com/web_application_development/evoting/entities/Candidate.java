@@ -19,8 +19,7 @@ public class Candidate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Size(max = 11)
-    @Size(min = 11)
+    @Size(min = 11, max = 11)
     @NotNull
     private String identityCode;
 
