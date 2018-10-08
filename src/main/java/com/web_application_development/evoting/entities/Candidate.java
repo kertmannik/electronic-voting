@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
 @Entity
@@ -17,18 +18,30 @@ public class Candidate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Size(min = 11, max = 11)
     @NotNull
     private String identityCode;
+
+    @Size(max = 50)
     @NotNull
     private String firstName;
+
+    @Size(max = 50)
     @NotNull
     private String lastName;
+
+    @Size(max = 50)
     @NotNull
     private String region;
+
+    @Size(max = 50)
     @NotNull
     private String party;
+
     @NotNull
     private long hasWithdrawn;
+
     @NotNull
     private java.sql.Timestamp candidacyAnnounced;
 
