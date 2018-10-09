@@ -11,7 +11,6 @@ function initMap() {
         animation: google.maps.Animation.DROP
     });
     marker.setMap(map);
-    console.log("Map created!");
 
     //Listener for click event, zooming and setting center
     google.maps.event.addListener(marker,'click',function() {

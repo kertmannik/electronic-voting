@@ -7,6 +7,7 @@
     <script type="text/javascript">
         window.jQuery || document.write('<script src="js/jquery-3.3.1.min.js"/>');
     </script>
+    <script src="js/delayloading.js"></script>
     <title th:text="#{navbar.contact}"></title>
 </head>
 <body>
@@ -26,6 +27,11 @@
                   <div id="map">maps error</div>
                   <script src="js/map.js"></script>
                   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB39NlYkSsY9rVRLJB_X29-IS9MEiIwTas&callback=initMap"></script>
+              </div>
+              <div>
+                  <h3 th:text="#{contact.image}"></h3>
+                  <img class="load-delay image" src="images/loading.gif"
+                       data-original="images/team.jpg"/>
               </div>
           </div>
           <div class="col-sm-6">
