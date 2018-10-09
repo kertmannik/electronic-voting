@@ -12,3 +12,12 @@
     height: 48%;
     width: 100%;
 }
+
+.jumbotron {
+    background-color: transparent;
+}
+
+.vertical-center {
+  display: flex;
+  align-items: center;
+}
