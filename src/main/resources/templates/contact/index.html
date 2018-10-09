@@ -6,37 +6,28 @@
     <link rel="stylesheet" href="css/contact.css" type="text/css">
     <script type="text/javascript">
         window.jQuery || document.write('<script src="js/jquery-3.3.1.min.js"/>');
-
     </script>
-    <!--<script src="js/delayloading.js"></script>-->
+    <script src="js/delayloading.js"></script>
     <title th:text="#{navbar.contact}"></title>
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar(contact)"></div>
-<div class="jumbotron vertical-center">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <h2 th:text="#{contact.welcome}"></h2>
-            </div>
+<div class="jumbotron center">
+    <div class="container-fluid" align="center">
+        <h2 th:text="#{contact.welcome}"></h2>
+        <address th:text="#{contact.phone}"></address>
+        <address th:text="#{contact.mail}"></address>
+        <address th:text="#{contact.address}"></address>
+        <div>
+            <div id="map">maps error</div>
+            <script src="js/map.js"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB39NlYkSsY9rVRLJB_X29-IS9MEiIwTas&callback=initMap"></script>
         </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <address th:text="#{contact.phone}"></address>
-                <address th:text="#{contact.mail}"></address>
-                <address th:text="#{contact.address}"></address>
-                <div>
-                    <div id="map">maps error</div>
-                    <script src="js/map.js"></script>
-                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB39NlYkSsY9rVRLJB_X29-IS9MEiIwTas&callback=initMap"></script>
-                </div>
-                <p th:text="#{contact.form}"></p>
-                <div>
-                    <h3 th:text="#{contact.image}"></h3>
-                    <img class="load-delay image" src="images/loading.gif"
-                         data-original="images/team.jpg"/>
-                </div>
-            </div>
+        <p th:text="#{contact.form}"></p>
+        <div>
+            <h3 th:text="#{contact.image}"></h3>
+            <img class="load-delay image" src="images/loading.gif"
+                 data-original="images/team.jpg"/>
         </div>
     </div>
 </div>
