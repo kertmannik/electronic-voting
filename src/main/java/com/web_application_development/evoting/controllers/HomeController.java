@@ -35,13 +35,4 @@ public class HomeController {
         model.addAttribute("candidates", candidateList);
         return "home/index";
     }
-
-    @GetMapping(path = "/test-dynamic")
-    public String getTest2Page(
-            @RequestParam(value = "name-from-url",
-                    required = false,
-                    defaultValue = "World") String nameFromUrl, Model model) {
-        model.addAttribute("nameTemplate", nameFromUrl);
-        return "home/index_dynamic";
-    }
 }
