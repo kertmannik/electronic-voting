@@ -12,6 +12,14 @@ public class CandidateDTO {
     private String region;
     private String party;
 
+    public CandidateDTO(String identityCode, String firstName, String lastName, String region, String party) {
+        this.identityCode = identityCode;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.region = region;
+        this.party = party;
+    }
+
     public String getIdentityCode() {
         return identityCode;
     }

@@ -6,6 +6,31 @@
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar(home)"></div>
-Hello World
+
+<div class="container">
+    <div class="row col-xs-12 table-responsive">
+        <table id="candidateTable" class="table table-striped">
+            <thead>
+            <tr>
+                <th th:text="#{statistics.nr}"></th>
+                <th th:text="#{statistics.firstname}"></th>
+                <th th:text="#{statistics.lastname}"></th>
+                <th th:text="#{statistics.region}"></th>
+                <th th:text="#{statistics.party}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="candidate, rowStat: ${candidates}">
+                <td th:text="${candidate.identityCode}"></td>
+                <td th:text="${candidate.firstName}"></td>
+                <td th:text="${candidate.lastName}"></td>
+                <td th:text="${candidate.region}"></td>
+                <td th:text="${candidate.party}"></td>
+                </td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 </body>
 </html>
