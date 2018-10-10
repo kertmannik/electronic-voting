@@ -36,4 +36,8 @@ dependencies {
 	compileOnly('org.projectlombok:lombok')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.security:spring-security-test')
+
+	// Smart-ID client
+	compile("ee.sk.smartid:smart-id-java-client:1.0")
+	compile("org.glassfish.jersey.inject:jersey-hk2:2.26")
 }

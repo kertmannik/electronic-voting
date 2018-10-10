@@ -3,17 +3,26 @@
 <head>
     <div th:replace="fragments/head :: head"></div>
     <script src="js/login.js"></script>
+    <script src="/js/smartid.js"></script>
     <link rel="stylesheet" href="css/login.css" type="text/css">
     <title th:text="#{login.signin}"></title>
 </head>
 <body class="text-center">
 <div th:replace="fragments/navbar :: navbar(login)"></div>
+<div id="smart-id-login-container">
 <form class="form-signin">
     <h1 class="h3 mb-3 font-weight-normal" data-toggle="tooltip" data-placement="top"
         title="Estonian identification numbers only" th:text="#{login.introduction}"></h1>
-    <input type="name" id="inputIdCode" class="form-control" th:placeholder="#{login.placeholder}"
+    <input type="text" class="form-control" id="countryCode" name="countryCode" placeholder="EE">
+    <input type="number" id="nationalIdentityNumber" name="nationalIdentityNumber" class="form-control" th:placeholder="#{login.placeholder}"
            pattern=".{11,11}" required th:title="#{login.input}" autofocus maxlength="11">
     <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.signin}"></button>
 </form>
+</div>
+
+<div id="smart-id-verification-code-container" style="display:none;">
+    <h1 class="display-3" id="verification-code-text">XXXX</h1>
+</div>
+
 </body>
 </html>
