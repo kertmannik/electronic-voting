@@ -31,7 +31,7 @@ function pollResult() {
             console.log("Success");
             console.log(data);
             console.log("redirect here");
-            window.location.href = "/secured";
+            window.location.href = "/";
         },
         error: function (data) {
             console.log("Failure");
@@ -46,6 +46,7 @@ function getFormData() {
     $.each($("form").serializeArray(), function(index, value) {
         formDataAsJSON[value.name] = value.value;
     });
+    formDataAsJSON["countryCode"] = "EE";
     return formDataAsJSON;
 }
 function toggleContainerView(code) {

@@ -1,6 +1,7 @@
 package com.web_application_development.evoting.smartid;
 
 import ee.sk.smartid.*;
+import ee.sk.smartid.exception.DocumentUnusableException;
 import ee.sk.smartid.exception.SmartIdException;
 import ee.sk.smartid.exception.UserAccountNotFoundException;
 import ee.sk.smartid.exception.UserRefusedException;
@@ -42,14 +43,12 @@ public class SmartIdController {
                 .authenticate();
         AuthenticationResponseValidator authenticationResponseValidator = new AuthenticationResponseValidator();
         SmartIdAuthenticationResult authenticationResult = authenticationResponseValidator.validate(authenticationResponse);
-        //if (authenticationResult.isValid()) {
         Authentication auth = new SmartIdAuthenticationToken(
                 authenticationResult.getAuthenticationIdentity(),
                 null,
                 null
         );
         SecurityContextHolder.getContext().setAuthentication(auth);
-        //}
         return authenticationResult;
     }
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -61,6 +60,9 @@ public class SmartIdController {
         }
         if (smartIdException instanceof UserRefusedException) {
             errorMap.put("errorMessage", "User cancelled Smart-ID request");
+        }
+        if (smartIdException instanceof DocumentUnusableException) {
+            errorMap.put("errorMessage", "The document is unusable");
         }
         return errorMap;
     }
