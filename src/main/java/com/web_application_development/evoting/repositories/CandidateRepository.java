@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CandidateRepository extends JpaRepository<Candidate, Long> {
 
-    @Query(value = "select id, first_name, last_name, region, party from candidates where has_withdrawn = 0",
+    @Query(value = "select id, first_name, last_name, region, party from candidates where has_withdrawn = 0 order by id",
             nativeQuery = true)
     List<Object[]> findAllCandidates();
 }
