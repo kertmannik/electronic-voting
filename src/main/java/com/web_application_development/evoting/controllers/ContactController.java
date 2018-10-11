@@ -20,7 +20,7 @@ public class ContactController {
     final String SUBJECT = "E-voting / E-hääletamine ";
     final String BODY = "Hello!" + "\n" + "\n" + "Thank you for contacting us! We will answer you shortly." + "\n" + "\n" + "E-voting developers"
             + "\n" + "\n" + "---------------" + "\n" + "\n" +
-            "Tervist!" + "\n" + "\n" + "Täname yeid, et meiega ühendust võtsite! Vastame teile peagi." + "\n" + "\n" + "E-hääletamise arendajad";
+            "Tervist!" + "\n" + "\n" + "Täname teid, et meiega ühendust võtsite! Vastame teile peagi." + "\n" + "\n" + "E-hääletamise arendajad";
     @Autowired
     public JavaMailSender emailsender;
 
