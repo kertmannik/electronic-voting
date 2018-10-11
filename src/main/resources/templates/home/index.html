@@ -18,22 +18,28 @@
                 <th th:text="#{home.lastname}"></th>
                 <th th:text="#{home.region}"></th>
                 <th th:text="#{home.party}"></th>
-                <th> </th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="candidate, rowStat: ${candidates}">
-                <td th:text="${candidate.identityCode}"></td>
-                <td th:text="${candidate.firstName}"></td>
-                <td th:text="${candidate.lastName}"></td>
-                <td th:text="${candidate.region}"></td>
-                <td th:text="${candidate.party}"></td>
-                <td>
-                    <form>
+            <tr th:each="candidate, rowStat: ${candidatesForVoting}">
+
+                <form th:action="@{/add_vote}" method="post" th:object="${candidate}">
+
+                    <td th:text="${candidate.candidateId}"></td>
+                    <td th:text="${candidate.firstName}"></td>
+                    <td th:text="${candidate.lastName}"></td>
+                    <td th:text="${candidate.region}"></td>
+                    <td th:text="${candidate.party}"></td>
+
+                    <td>
+                        <input type="hidden" th:value="${candidate.candidateId}" name="candidateId"/>
                         <button type="submit" class="btn btn-primary" th:text="#{home.vote}"></button>
-                    </form>
-                </td>
+                    </td>
+                </form>
+
             </tr>
+
             </tbody>
         </table>
     </div>
