@@ -18,6 +18,7 @@
                 <th th:text="#{home.lastname}"></th>
                 <th th:text="#{home.region}"></th>
                 <th th:text="#{home.party}"></th>
+                <th> </th>
             </tr>
             </thead>
             <tbody>
@@ -27,7 +28,12 @@
                 <td th:text="${candidate.lastName}"></td>
                 <td th:text="${candidate.region}"></td>
                 <td th:text="${candidate.party}"></td>
-                </td></tr>
+                <td>
+                    <form>
+                        <button type="submit" class="btn btn-primary" th:text="#{home.vote}"></button>
+                    </form>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
