@@ -16,6 +16,11 @@ import javax.mail.internet.MimeMessage;
 @Controller
 public class ContactController {
 
+    final String DEVELOPER_EMAIL = "kert.mannik@gmail.com";
+    final String SUBJECT = "E-voting / E-hääletamine ";
+    final String BODY = "Hello!" + "\n" + "\n" + "Thank you for contacting us! We will answer you shortly." + "\n" + "\n" + "E-voting developers"
+            + "\n" + "\n" + "---------------" + "\n" + "\n" +
+            "Tervist!" + "\n" + "\n" + "Täname yeid, et meiega ühendust võtsite! Vastame teile peagi." + "\n" + "\n" + "E-hääletamise arendajad";
     @Autowired
     public JavaMailSender emailsender;
 
@@ -31,26 +36,23 @@ public class ContactController {
         String subject = contactDTO.getSubject();
         String body = contactDTO.getBody();
 
-        System.out.println(name + mail + subject + body);
+        createAndSendEmail(mail, SUBJECT, BODY);
+        createAndSendEmail(DEVELOPER_EMAIL, subject, body);
+        return "redirect:/";
+    }
 
+    private void createAndSendEmail(String email, String subject, String body) {
         MimeMessage message = emailsender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
         try {
-            helper.setTo(mail);
-            helper.setText(body);
+            helper.setTo(email);
+            helper.setText(body, false);
             helper.setSubject(subject);
             emailsender.send(message);
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-
-        /*SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setTo(mail);
-        msg.setText(body);
-        msg.setSubject(subject);
-        emailsender.send(msg);*/
-        return "redirect:/";
     }
 
 }
