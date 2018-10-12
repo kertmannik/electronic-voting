@@ -5,27 +5,27 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CandidateDTO {
-    private String identityCode;
+public class CandidateForVotingDTO {
+    private Integer candidateId;
     private String firstName;
     private String lastName;
     private String region;
     private String party;
 
-    public CandidateDTO(String identityCode, String firstName, String lastName, String region, String party) {
-        this.identityCode = identityCode;
+    public CandidateForVotingDTO(Integer id, String firstName, String lastName, String region, String party) {
+        this.candidateId = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.region = region;
         this.party = party;
     }
 
-    public String getIdentityCode() {
-        return identityCode;
+    public Integer getCandidateId() {
+        return candidateId;
     }
 
-    public void setIdentityCode(String identityCode) {
-        this.identityCode = identityCode;
+    public void setCandidateId(Integer candidateId) {
+        this.candidateId = candidateId;
     }
 
     public String getFirstName() {
@@ -60,3 +60,4 @@ public class CandidateDTO {
         this.party = party;
     }
 }
+
