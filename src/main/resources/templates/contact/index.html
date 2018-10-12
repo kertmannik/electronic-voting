@@ -23,7 +23,29 @@
             <script src="js/map.js"></script>
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB39NlYkSsY9rVRLJB_X29-IS9MEiIwTas&callback=initMap"></script>
         </div>
-        <p th:text="#{contact.form}"></p>
+        <h3 th:text="#{contact.form}"></h3>
+        <div class="form-row">
+            <form method="post">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="name" name="name"
+                           th:placeholder="#{contact.name}" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" id="email" name="email"
+                           th:placeholder="#{contact.email}" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="subject" name="subject"
+                           th:placeholder="#{contact.subject}" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="body" name="body"
+                           th:placeholder="#{contact.body}" required>
+                </div>
+                <button type="submit" class="btn btn-primary" th:text="#{contact.sendbutton}"></button>
+            </form>
+        </div>
+
         <div>
             <h3 th:text="#{contact.image}"></h3>
             <img class="load-delay image" src="images/loading.gif"
