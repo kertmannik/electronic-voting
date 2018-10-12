@@ -7,3 +7,10 @@
 .dropdown-menu{
     text-align: center;
 }
+
+.linkButton{
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline:none;
+}

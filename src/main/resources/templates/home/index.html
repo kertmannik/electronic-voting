@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <div th:replace="fragments/head :: head"></div>
     <link rel="stylesheet" href="css/home.css" type="text/css">
@@ -8,7 +8,12 @@
 <body>
 <div th:replace="fragments/navbar :: navbar(home)"></div>
 
+<div sec:authorize="isAuthenticated()">
+    This content is only shown to authenticated users.
+</div>
+
 <div class="container">
+
     <div class="row col-xs-12 table-responsive">
         <table id="candidateTable" class="table table-striped">
             <thead>
