@@ -7,6 +7,9 @@
 .dropdown-menu{
     text-align: center;
 }
+.dropdown-menu a:hover{
+    background-color: transparent !important;
+}
 
 .linkButton{
     background: none;
