@@ -1,4 +1,4 @@
-package com.web_application_development.evoting;
+package com.web_application_development.evoting.configurations;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import java.util.Locale;
 
 @Configuration
-public class Languages implements WebMvcConfigurer {
+public class LanguagesConfiguration implements WebMvcConfigurer {
 
 
     @Bean(name = "localeResolver")

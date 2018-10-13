@@ -1,4 +1,4 @@
-package com.web_application_development.evoting;
+package com.web_application_development.evoting.configurations;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
