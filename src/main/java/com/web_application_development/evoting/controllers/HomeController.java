@@ -53,8 +53,7 @@ public class HomeController {
         // save new entity
         voteRepository.save(entity);
 
-        Long id = new Long(voteDTO.getCandidateId());
-        Candidate candidate = candidateRepository.findByVoteId(id);
+        Candidate candidate = candidateRepository.findById(voteDTO.getCandidateId());
         messagingTemplate.convertAndSend("/topic/votes", candidate);
 
         // redirect to home page where all candidates are displayed

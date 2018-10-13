@@ -15,5 +15,5 @@ public interface CandidateRepository extends JpaRepository<Candidate, Long> {
 
     @Query(value = "SELECT * FROM candidates WHERE id = :id AND has_withdrawn = 0",
             nativeQuery = true)
-    Candidate findByVoteId(@Param("id") long id);
+    Candidate findById(@Param("id") long id);
 }
