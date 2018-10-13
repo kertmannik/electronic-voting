@@ -17,7 +17,7 @@ var notificationsContainer = null;
 }
  function showNotification(candidate) {
     var notificationMessage = $(
-        "<div class=\"alert alert-info\"><strong>Info</strong><br>" +
+        "<div class=\"alert alert-info\" align='center'>" +
             candidate.firstName + " " + candidate.lastName + " +1" + "</div>");
     notificationsContainer.append(notificationMessage);
     setTimeout(function() {
