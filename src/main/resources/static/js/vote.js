@@ -1,32 +1,30 @@
 /**
  * Example based on https://spring.io/guides/gs/messaging-stomp-websocket/
  */
- var stompClient = null;
+var stompClient = null;
 var notificationsContainer = null;
  function connect() {
-    var socket = new SockJS('/my-websocket');
+    var socket = new SockJS('/vote-websocket');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/subscriptions', function (greeting) {
-            var subscription = JSON.parse(greeting.body);
-            console.log(subscription);
-            showNotification(subscription);
+        stompClient.subscribe('/topic/votes', function (greeting) {
+            var candidate = JSON.parse(greeting.body);
+            console.log(candidate);
+            showNotification(candidate);
         });
     });
 }
- function showNotification(subscription) {
+ function showNotification(candidate) {
     var notificationMessage = $(
         "<div class=\"alert alert-info\"><strong>Info</strong><br>" +
-            subscription.name.toUpperCase() + " subscribed with e-mail: " + subscription.email +
-        "</div>");
+            candidate.firstName + " " + candidate.lastName + " +1" + "</div>");
     notificationsContainer.append(notificationMessage);
-     setTimeout(function() {
+    setTimeout(function() {
         notificationMessage.remove();
-    }, 3000);
+    }, 5000);
 }
  $(function () {
-    notificationsContainer = $("#subscription-notifications-container");
-     // On page load, connect to websocket
+    notificationsContainer = $("#vote-notifications-container");
     connect();
  });
