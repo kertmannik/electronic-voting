@@ -4,6 +4,7 @@
     <div th:replace="fragments/head :: head"></div>
     <link rel="stylesheet" href="css/home.css" type="text/css">
     <title th:text="#{navbar.home}"></title>
+    <script src="js/login.js"></script>
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar(home)"></div>
@@ -37,9 +38,14 @@
                     <td th:text="${candidate.region}"></td>
                     <td th:text="${candidate.party}"></td>
 
-                    <td>
+                    <td th:if="${#authorization.expression('isAuthenticated()')}">
                         <input type="hidden" th:value="${candidate.candidateId}" name="candidateId"/>
                         <button type="submit" class="btn btn-primary" th:text="#{home.vote}"></button>
+                    </td>
+                    <td th:unless="${#authorization.expression('isAuthenticated()')}" data-toggle="tooltip"
+                        data-placement="top"
+                        th:title="#{voting.tooltip}">
+                        <button disabled="disabled" class="btn btn-primary" th:text="#{home.vote}"></button>
                     </td>
                 </form>
 

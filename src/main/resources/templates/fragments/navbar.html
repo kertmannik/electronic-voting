@@ -32,9 +32,8 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <!--<li><a th:if="${#authorization.expression('isAuthenticated()')}" th:href="@{/}"-->
-                                   <!--th:text="#{login.signout}"> </a></li>-->
-                            <form th:if="${#authorization.expression('isAuthenticated()')}" th:action="@{/logout}" method="POST" >
+                            <form th:if="${#authorization.expression('isAuthenticated()')}" th:action="@{/logout}"
+                                  method="POST">
                                 <input class="linkButton" type="submit" th:value="#{login.signout}"/>
                             </form>
                             <li><a th:unless="${#authorization.expression('isAuthenticated()')}" th:href="@{login}"
