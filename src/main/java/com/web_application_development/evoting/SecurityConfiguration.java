@@ -13,9 +13,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.cors().and().csrf().disable();
         http.authorizeRequests()
-                //.antMatchers("/").authenticated()
+                .antMatchers("/candidacy").authenticated()
                 .antMatchers("/**").permitAll()
                 .and()
-                .formLogin().loginPage("/login");
+                .formLogin().loginPage("/login")
+                .and().logout()    //logout configuration
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login");
     }
 }
