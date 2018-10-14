@@ -10,3 +10,7 @@
 .table-responsive {
     border: 0em;
 }
+
+.tooltip {
+    position: fixed;
+}

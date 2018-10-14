@@ -41,7 +41,6 @@ dependencies {
 	compile("ee.sk.smartid:smart-id-java-client:1.0")
 	compile("org.glassfish.jersey.inject:jersey-hk2:2.26")
 
-	//Authentication
+	//Authorization
 	compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
-
 }
