@@ -3,6 +3,10 @@
     width: 80%;
 }
 
+.vorm {
+    width: 80%;
+}
+
 .image {
     height: 10%;
     width: 10%;
@@ -34,6 +38,10 @@
      }
 
      .image-after {
+         width: 100%;
+     }
+
+     .vorm {
          width: 100%;
      }
 }
