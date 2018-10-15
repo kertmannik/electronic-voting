@@ -2,10 +2,12 @@ package com.web_application_development.evoting.controllers;
 
 import com.web_application_development.evoting.dtos.CandidateForVotingDTO;
 import com.web_application_development.evoting.dtos.VoteDTO;
+import com.web_application_development.evoting.entities.Candidate;
 import com.web_application_development.evoting.entities.Vote;
 import com.web_application_development.evoting.repositories.CandidateRepository;
 import com.web_application_development.evoting.repositories.VoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +23,12 @@ public class HomeController {
 
     private final CandidateRepository candidateRepository;
     private final VoteRepository voteRepository;
-
+    private final SimpMessageSendingOperations messagingTemplate;
     @Autowired
-    HomeController(CandidateRepository candidateRepository, VoteRepository voteRepository) {
+    HomeController(CandidateRepository candidateRepository, VoteRepository voteRepository, SimpMessageSendingOperations messagingTemplate) {
         this.candidateRepository = candidateRepository;
         this.voteRepository = voteRepository;
+        this.messagingTemplate = messagingTemplate;
     }
 
     @GetMapping("/")
@@ -49,6 +52,10 @@ public class HomeController {
         Vote entity = mapDtoToEntity(voteDTO);
         // save new entity
         voteRepository.save(entity);
+
+        Candidate candidate = candidateRepository.findById(voteDTO.getCandidateId());
+        messagingTemplate.convertAndSend("/topic/votes", candidate);
+
         // redirect to home page where all candidates are displayed
         return "redirect:/";
     }

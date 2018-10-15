@@ -4,7 +4,13 @@
     <div th:replace="fragments/head :: head"></div>
     <link rel="stylesheet" href="css/home.css" type="text/css">
     <title th:text="#{navbar.home}"></title>
+  
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="js/vote.js"></script>
+  
     <script src="js/login.js"></script>
+
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar(home)"></div>
@@ -51,6 +57,9 @@
         </table>
     </div>
 </div>
+
+<h3 th:text="#{home.realtime}"></h3>
+<div id="vote-notifications-container"></div>
 
 </body>
 </html>
