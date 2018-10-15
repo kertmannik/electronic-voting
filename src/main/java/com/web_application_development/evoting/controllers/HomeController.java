@@ -24,6 +24,7 @@ public class HomeController {
     private final CandidateRepository candidateRepository;
     private final VoteRepository voteRepository;
     private final SimpMessageSendingOperations messagingTemplate;
+
     @Autowired
     HomeController(CandidateRepository candidateRepository, VoteRepository voteRepository, SimpMessageSendingOperations messagingTemplate) {
         this.candidateRepository = candidateRepository;
