@@ -1,7 +1,7 @@
 package com.web_application_development.evoting.controllers;
 
 import com.web_application_development.evoting.dtos.VoteResultsDTO;
-import com.web_application_development.evoting.repositories.VoteRepository;
+import com.web_application_development.evoting.services.MasterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,16 +14,12 @@ import java.util.List;
 @Controller
 public class StatisticsController {
 
-    private final VoteRepository voteRepository;
-
     @Autowired
-    StatisticsController(VoteRepository voteRepository) {
-        this.voteRepository = voteRepository;
-    }
+    private MasterService masterService;
 
     @GetMapping("/statistics")
     public String showAllVotes(Model model) {
-        List<Object[]> votesListObj = voteRepository.findAllVotes();
+        List<Object[]> votesListObj = masterService.findAllVotes();
         List<VoteResultsDTO> votesList = new ArrayList<>();
         for (Object[] candidate : votesListObj) {
             votesList.add(new VoteResultsDTO((Integer) candidate[0],
