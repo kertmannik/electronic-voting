@@ -17,19 +17,6 @@
         <div class="form-row">
             <form method="post" id="vorm">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="firstName" name="firstName"
-                           th:placeholder="#{candidacy.firstname}" required maxlength="50">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="lastName" name="lastName"
-                           th:placeholder="#{candidacy.lastname}" required maxlength="50">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="identityCode" name="identityCode"
-                           th:placeholder="#{candidacy.identityCode}" pattern=".{11,11}" required
-                           th:title="#{login.input}" maxlength="11">
-                </div>
-                <div class="form-group">
                     <select type="text" class="form-control" id="region" name="region"
                             th:placeholder="#{candidacy.region}">
                         <option>Põhja-Eesti</option>
