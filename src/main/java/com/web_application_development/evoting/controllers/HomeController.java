@@ -3,9 +3,7 @@ package com.web_application_development.evoting.controllers;
 import com.web_application_development.evoting.dtos.CandidateForVotingDTO;
 import com.web_application_development.evoting.dtos.VoteDTO;
 import com.web_application_development.evoting.entities.Candidate;
-import com.web_application_development.evoting.entities.Vote;
-import com.web_application_development.evoting.repositories.CandidateRepository;
-import com.web_application_development.evoting.repositories.VoteRepository;
+import com.web_application_development.evoting.services.MasterService;
 import ee.sk.smartid.AuthenticationIdentity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -16,27 +14,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class HomeController {
-
-    private final CandidateRepository candidateRepository;
-    private final VoteRepository voteRepository;
     private final SimpMessageSendingOperations messagingTemplate;
 
     @Autowired
-    HomeController(CandidateRepository candidateRepository, VoteRepository voteRepository, SimpMessageSendingOperations messagingTemplate) {
-        this.candidateRepository = candidateRepository;
-        this.voteRepository = voteRepository;
+    private MasterService masterService;
+
+    HomeController(SimpMessageSendingOperations messagingTemplate) {
         this.messagingTemplate = messagingTemplate;
     }
 
     @GetMapping("/")
     public String showAllVotes(Model model) {
-        List<Object[]> candidateListObj = candidateRepository.findAllCandidates();
+        List<Object[]> candidateListObj = masterService.findAllCandidates();
         List<CandidateForVotingDTO> candidateList = new ArrayList<>();
         for (Object[] candidate : candidateListObj) {
             candidateList.add(new CandidateForVotingDTO((Integer) candidate[0],
@@ -52,23 +46,13 @@ public class HomeController {
     @PostMapping(path = "/add_vote")
     public String sendVote(@ModelAttribute VoteDTO voteDTO) {
         AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
-        // map DTO to entity
-        Vote entity = mapDtoToEntity(voteDTO, authIdentity.getIdentityCode());
         // save new entity
-        voteRepository.save(entity);
-        Candidate candidate = candidateRepository.findById(voteDTO.getCandidateId());
+        masterService.saveVote(voteDTO, authIdentity.getIdentityCode());
+
+        Candidate candidate = masterService.findCandidateById(voteDTO.getCandidateId());
         messagingTemplate.convertAndSend("/topic/votes", candidate);
 
         // redirect to home page where all candidates are displayed
         return "redirect:/";
-    }
-
-    private Vote mapDtoToEntity(VoteDTO voteDTO, String voterId) {
-        Vote voteEntity = new Vote();
-        voteEntity.setVoterIdentityCode(voterId);
-        voteEntity.setCandidateId(voteDTO.getCandidateId());
-        voteEntity.setIsWithdrawn(0);
-        voteEntity.setVotingTime(new Timestamp(System.currentTimeMillis()));
-        return voteEntity;
     }
 }
