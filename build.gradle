@@ -28,12 +28,24 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-web')
-
+	compile('org.springframework.boot:spring-boot-starter-mail')
 	// Database related dependencies
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	runtime('org.postgresql:postgresql')
+
+	compile("org.springframework.boot:spring-boot-starter-websocket")
+	compile("org.webjars:webjars-locator-core")
+	compile("org.webjars:sockjs-client:1.0.2")
+	compile("org.webjars:stomp-websocket:2.3.3")
 	
 	compileOnly('org.projectlombok:lombok')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.security:spring-security-test')
+
+	// Smart-ID client
+	compile("ee.sk.smartid:smart-id-java-client:1.0")
+	compile("org.glassfish.jersey.inject:jersey-hk2:2.26")
+
+	//Authorization
+	compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
 }

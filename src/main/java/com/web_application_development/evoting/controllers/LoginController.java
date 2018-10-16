@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class LoginController {
     @RequestMapping(path = "/login", method = RequestMethod.GET)
-    public String getTestPage() {
+    public String getSmartIdLoginPage() {
         return "login/index";
     }
 }

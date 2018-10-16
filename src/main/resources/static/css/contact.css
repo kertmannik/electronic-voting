@@ -1,4 +1,47 @@
 #map {
     height: 30em;
-    width: 100%;
+    width: 80%;
+}
+
+.vorm {
+    width: 80%;
+}
+
+.image {
+    height: 10%;
+    width: 10%;
+}
+
+.image-after {
+    height: 48%;
+    width: 80%;
+}
+
+.jumbotron {
+    background-color: transparent;
+    padding-top: 0px;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+
+@media only screen and (max-width: 768px) {
+    .center {
+        width: 100%;
+    }#map {
+         height: 20em;
+         width: 100%;
+     }
+
+     .image-after {
+         width: 100%;
+     }
+
+     .vorm {
+         width: 100%;
+     }
 }

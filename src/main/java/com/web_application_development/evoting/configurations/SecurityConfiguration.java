@@ -1,4 +1,4 @@
-package com.web_application_development.evoting;
+package com.web_application_development.evoting.configurations;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +12,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
 
         http.cors().and().csrf().disable();
-        http.authorizeRequests().antMatchers("/**").permitAll();
+        http.authorizeRequests()
+                .antMatchers("/candidacy").authenticated()
+                .antMatchers("/**").permitAll()
+                .and()
+                .formLogin().loginPage("/login")
+                .and().logout()    //logout configuration
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login");
     }
 }

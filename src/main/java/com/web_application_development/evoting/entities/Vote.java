@@ -4,9 +4,10 @@ package com.web_application_development.evoting.entities;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Id;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.sql.Timestamp;
 
 @Entity
 @Getter
@@ -15,10 +16,60 @@ import javax.persistence.Table;
 public class Vote {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+
+    @Size(min = 11, max = 11)
+    @NotNull
     private String voterIdentityCode;
+
+    @NotNull
     private long candidateId;
+
+    @NotNull
     private long isWithdrawn;
+
+    @NotNull
     private java.sql.Timestamp votingTime;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getVoterIdentityCode() {
+        return voterIdentityCode;
+    }
+
+    public void setVoterIdentityCode(String voterIdentityCode) {
+        this.voterIdentityCode = voterIdentityCode;
+    }
+
+    public long getCandidateId() {
+        return candidateId;
+    }
+
+    public void setCandidateId(long candidateId) {
+        this.candidateId = candidateId;
+    }
+
+    public long getIsWithdrawn() {
+        return isWithdrawn;
+    }
+
+    public void setIsWithdrawn(long isWithdrawn) {
+        this.isWithdrawn = isWithdrawn;
+    }
+
+    public Timestamp getVotingTime() {
+        return votingTime;
+    }
+
+    public void setVotingTime(Timestamp votingTime) {
+        this.votingTime = votingTime;
+    }
 }
