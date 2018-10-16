@@ -6,8 +6,10 @@ import com.web_application_development.evoting.entities.Candidate;
 import com.web_application_development.evoting.entities.Vote;
 import com.web_application_development.evoting.repositories.CandidateRepository;
 import com.web_application_development.evoting.repositories.VoteRepository;
+import ee.sk.smartid.AuthenticationIdentity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,11 +51,11 @@ public class HomeController {
 
     @PostMapping(path = "/add_vote")
     public String sendVote(@ModelAttribute VoteDTO voteDTO) {
+        AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
         // map DTO to entity
-        Vote entity = mapDtoToEntity(voteDTO);
+        Vote entity = mapDtoToEntity(voteDTO, authIdentity.getIdentityCode());
         // save new entity
         voteRepository.save(entity);
-
         Candidate candidate = candidateRepository.findById(voteDTO.getCandidateId());
         messagingTemplate.convertAndSend("/topic/votes", candidate);
 
@@ -61,9 +63,9 @@ public class HomeController {
         return "redirect:/";
     }
 
-    private Vote mapDtoToEntity(VoteDTO voteDTO) {
+    private Vote mapDtoToEntity(VoteDTO voteDTO, String voterId) {
         Vote voteEntity = new Vote();
-        voteEntity.setVoterIdentityCode(voteDTO.getVoterIdentityCode());
+        voteEntity.setVoterIdentityCode(voterId);
         voteEntity.setCandidateId(voteDTO.getCandidateId());
         voteEntity.setIsWithdrawn(0);
         voteEntity.setVotingTime(new Timestamp(System.currentTimeMillis()));
