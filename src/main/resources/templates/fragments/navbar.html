@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-</head>
-<body>
+<th:block>
 <div th:fragment="navbar(activeTab)">
     <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container-fluid">
@@ -32,23 +30,24 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <form th:if="${#authorization.expression('isAuthenticated()')}" th:action="@{/logout}"
-                                  method="POST">
-                                <input class="linkButton" type="submit" th:value="#{login.signout}"/>
-                            </form>
+                            <li>
+                                <form th:if="${#authorization.expression('isAuthenticated()')}" th:action="@{/logout}"
+                                      method="POST">
+                                    <input class="linkButton" type="submit" th:value="#{login.signout}"/>
+                                </form>
+                            </li>
                             <li><a th:unless="${#authorization.expression('isAuthenticated()')}" th:href="@{login}"
                                    th:text="#{login.signin}"> id="navSignin" </a></li>
                         </ul>
                     </li>
-
-                    <li><a th:href="@{?lang=et}"><img src="images/est.png" alt="EST" width="20em"></a></li>
-                    <li><a th:href="@{?lang=en}"><img src="images/eng.png" alt="ENG" width="20em"></a></li>
+                    <li><a th:href="@{?lang=et}"><img src="images/est.png" alt="EST"></a></li>
+                    <li><a th:href="@{?lang=en}"><img src="images/eng.png" alt="ENG"></a></li>
                 </ul>
             </div>
         </div>
     </nav>
 </div>
-</body>
+</th:block>
 </html>
 
 

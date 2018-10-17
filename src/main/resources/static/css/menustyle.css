@@ -16,3 +16,6 @@
     cursor: pointer;
     outline:none;
 }
+#myNavbar img{
+    width:1.5em;
+}
