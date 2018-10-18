@@ -8,7 +8,7 @@
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="js/vote.js"></script>
-
+    <script src="js/vote-post.js"></script>
     <script src="js/login.js"></script>
 
 </head>
@@ -39,9 +39,10 @@
                 <td th:text="${candidate.party}"></td>
 
                 <td th:if="${#authorization.expression('isAuthenticated()')}">
-                    <form th:action="@{/add_vote}" method="post" th:object="${candidate}">
+                    <form th:object="${candidate}">
                         <input type="hidden" th:value="${candidate.candidateId}" name="candidateId"/>
-                        <button type="submit" class="btn btn-primary" th:text="#{home.vote}"></button>
+                        <button type="submit" class="btn btn-primary btn-block" th:text="#{home.vote}"
+                                th:value="${candidate.candidateId}"></button>
                     </form>
                 </td>
                 <td th:unless="${#authorization.expression('isAuthenticated()')}" data-toggle="tooltip"
