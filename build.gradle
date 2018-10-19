@@ -48,7 +48,4 @@ dependencies {
 
 	//Authorization
 	compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
-
-
-	compile 'com.google.code.gson:gson:2.8.1'
 }
