@@ -38,6 +38,8 @@ public class StatisticsController {
         model.addAttribute("votes", votesList);
 
         model.addAttribute("visitors", masterService.getUniqueVisitorsToday());
+        model.addAttribute("browsers", masterService.getTopBrowsers());
+        model.addAttribute("landings", masterService.getTopLandingPages());
 
         return "statistics/index";
     }

@@ -117,12 +117,12 @@ public class MasterService {
 //        return userStatisticsEntity;
 //    }
 
-    public List<String> getBrowsers() {
-        return userStatisticsRepository.getBrowsers();
+    public List<String> getTopBrowsers() {
+        return userStatisticsRepository.getTopBrowsers();
     }
 
-    public List<String> getLandingPages() {
-        return userStatisticsRepository.getLandingPages();
+    public List<String> getTopLandingPages() {
+        return userStatisticsRepository.getTopLandingPages();
     }
 
     public long getUniqueVisitorsToday() {

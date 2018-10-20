@@ -22,11 +22,11 @@ public interface UserStatisticsRepository extends JpaRepository<UserStatistics, 
             nativeQuery = true)
     long getUniqueVisitorsToday();
 
-    @Query(value = "SELECT browser FROM user_statistics GROUP BY browser ORDER BY count(browser) DESC",
+    @Query(value = "SELECT browser FROM user_statistics GROUP BY browser ORDER BY count(browser) DESC LIMIT 3",
             nativeQuery = true)
-    List<String> getBrowsers();
+    List<String> getTopBrowsers();
 
-    @Query(value = "SELECT landing_page FROM user_statistics GROUP BY landing_page ORDER BY count(landing_page) DESC",
+    @Query(value = "SELECT landing_page FROM user_statistics GROUP BY landing_page ORDER BY count(landing_page) DESC LIMIT 3",
             nativeQuery = true)
-    List<String> getLandingPages();
+    List<String> getTopLandingPages();
 }
