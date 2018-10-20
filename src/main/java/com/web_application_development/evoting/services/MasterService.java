@@ -101,21 +101,10 @@ public class MasterService {
         String ip = request.getRemoteAddr();
         UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
         String browser = userAgent.getBrowser().getName();
-//        UserStatistics entity = mapDTOToEntity(voteDTO, voterId);
         if (!sessionExists(session_id) && !ipLoggedToday(ip, browser)) {
             userStatisticsRepository.save(new UserStatistics(session_id, landing_page, browser, ip, new Timestamp(System.currentTimeMillis())));
         }
     }
-
-//    private UserStatistics mapDTOToEntity(UserStatisticsDTO userStatisticsDTO) {
-//        UserStatistics userStatisticsEntity = new UserStatistics();
-//        userStatisticsEntity.setSessionId(userStatisticsDTO.getSessionId());
-//        userStatisticsEntity.setLandingPage(userStatisticsDTO.getLandingPage());
-//        userStatisticsEntity.setBrowser(userStatisticsDTO.getBrowser());
-//        userStatisticsEntity.setIp(userStatisticsDTO.getIp());
-//        userStatisticsEntity.setTimestamp(new Timestamp(System.currentTimeMillis()));
-//        return userStatisticsEntity;
-//    }
 
     public List<String> getTopBrowsers() {
         return userStatisticsRepository.getTopBrowsers();
