@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +16,14 @@ import java.util.List;
 public class StatisticsController {
 
     @Autowired
+    private HttpServletRequest request;
+
+    @Autowired
     private MasterService masterService;
 
     @GetMapping("/statistics")
     public String showAllVotes(Model model) {
+        masterService.saveUserStatistics(request,"/statistics");
         List<Object[]> votesListObj = masterService.findAllVotes();
         List<VoteResultsDTO> votesList = new ArrayList<>();
         for (Object[] candidate : votesListObj) {
@@ -31,6 +36,8 @@ public class StatisticsController {
         }
 
         model.addAttribute("votes", votesList);
+
+        model.addAttribute("visitors", masterService.getUniqueVisitorsToday());
 
         return "statistics/index";
     }

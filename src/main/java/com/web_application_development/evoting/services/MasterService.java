@@ -1,16 +1,22 @@
 package com.web_application_development.evoting.services;
 
 import com.web_application_development.evoting.dtos.CandidateDTO;
+import com.web_application_development.evoting.dtos.UserStatisticsDTO;
 import com.web_application_development.evoting.dtos.VoteDTO;
 import com.web_application_development.evoting.entities.Candidate;
+import com.web_application_development.evoting.entities.UserStatistics;
 import com.web_application_development.evoting.entities.Vote;
 import com.web_application_development.evoting.repositories.CandidateRepository;
+import com.web_application_development.evoting.repositories.UserStatisticsRepository;
 import com.web_application_development.evoting.repositories.VoteRepository;
 import ee.sk.smartid.AuthenticationIdentity;
+import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -24,9 +30,13 @@ public class MasterService {
     @Autowired
     private final VoteRepository voteRepository;
 
-    MasterService(CandidateRepository candidateRepository, VoteRepository voteRepository) {
+    @Autowired
+    private final UserStatisticsRepository userStatisticsRepository;
+
+    MasterService(CandidateRepository candidateRepository, VoteRepository voteRepository, UserStatisticsRepository userStatisticsRepository) {
         this.candidateRepository = candidateRepository;
         this.voteRepository = voteRepository;
+        this.userStatisticsRepository = userStatisticsRepository;
     }
 
     public List<Object[]> findAllCandidates() {
@@ -76,5 +86,46 @@ public class MasterService {
         candidateEntity.setHasWithdrawn(0);
         candidateEntity.setCandidacyAnnounced(new Timestamp(System.currentTimeMillis()));
         return candidateEntity;
+    }
+
+    private boolean sessionExists(String session_id) {
+        return userStatisticsRepository.sessionExists(session_id) > 0;
+    }
+
+    private boolean ipLoggedToday(String ip, String browser) {
+        return userStatisticsRepository.ipLoggedToday(ip, browser) > 0;
+    }
+
+    public void saveUserStatistics(HttpServletRequest request, String landing_page) {
+        String session_id = RequestContextHolder.currentRequestAttributes().getSessionId();
+        String ip = request.getRemoteAddr();
+        UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
+        String browser = userAgent.getBrowser().getName();
+//        UserStatistics entity = mapDTOToEntity(voteDTO, voterId);
+        if (!sessionExists(session_id) && !ipLoggedToday(ip, browser)) {
+            userStatisticsRepository.save(new UserStatistics(session_id, landing_page, browser, ip, new Timestamp(System.currentTimeMillis())));
+        }
+    }
+
+//    private UserStatistics mapDTOToEntity(UserStatisticsDTO userStatisticsDTO) {
+//        UserStatistics userStatisticsEntity = new UserStatistics();
+//        userStatisticsEntity.setSessionId(userStatisticsDTO.getSessionId());
+//        userStatisticsEntity.setLandingPage(userStatisticsDTO.getLandingPage());
+//        userStatisticsEntity.setBrowser(userStatisticsDTO.getBrowser());
+//        userStatisticsEntity.setIp(userStatisticsDTO.getIp());
+//        userStatisticsEntity.setTimestamp(new Timestamp(System.currentTimeMillis()));
+//        return userStatisticsEntity;
+//    }
+
+    public List<String> getBrowsers() {
+        return userStatisticsRepository.getBrowsers();
+    }
+
+    public List<String> getLandingPages() {
+        return userStatisticsRepository.getLandingPages();
+    }
+
+    public long getUniqueVisitorsToday() {
+        return userStatisticsRepository.getUniqueVisitorsToday();
     }
 }

@@ -14,12 +14,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class HomeController {
     private final SimpMessageSendingOperations messagingTemplate;
+
+
+    @Autowired
+    private HttpServletRequest request;
 
     @Autowired
     private MasterService masterService;
@@ -30,6 +35,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String showAllVotes(Model model) {
+        masterService.saveUserStatistics(request, "/");
         List<Object[]> candidateListObj = masterService.findAllCandidates();
         List<CandidateForVotingDTO> candidateList = new ArrayList<>();
         for (Object[] candidate : candidateListObj) {
@@ -45,6 +51,7 @@ public class HomeController {
 
     @PostMapping(path = "/add_vote")
     public String sendVote(@ModelAttribute VoteDTO voteDTO) {
+        masterService.saveUserStatistics(request, "/add_vote");
         AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
         // save new entity
         masterService.saveVote(voteDTO, authIdentity.getIdentityCode());
