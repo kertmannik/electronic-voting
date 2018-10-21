@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-
 @RestController
 @RequestMapping(value = "/voting")
 public class VoteController {
@@ -26,7 +24,7 @@ public class VoteController {
         this.messagingTemplate = messagingTemplate;
     }
 
-    @PostMapping(value = "/vote", produces = APPLICATION_JSON)
+    @PostMapping(value = "/vote")
     public void sendVote(@RequestBody VoteDTO voteDTO) {
         AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
         // save new entity

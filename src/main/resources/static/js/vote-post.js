@@ -5,7 +5,6 @@ $(function() {
         $.ajax({
             url: '/voting/vote',
             type: 'post',
-            dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
                 console.log("Success");
