@@ -43,6 +43,7 @@ public class HomeController {
         return "home/index";
     }
 
+    @Deprecated
     @PostMapping(path = "/add_vote")
     public String sendVote(@ModelAttribute VoteDTO voteDTO) {
         AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
