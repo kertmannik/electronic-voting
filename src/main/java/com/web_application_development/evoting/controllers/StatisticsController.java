@@ -40,11 +40,6 @@ public class StatisticsController {
         }
 
         model.addAttribute("votes", votesList);
-
-        model.addAttribute("visitors", userStatisticsService.getUniqueVisitorsToday());
-        model.addAttribute("browsers", userStatisticsService.getTopBrowsers());
-        model.addAttribute("landings", userStatisticsService.getTopLandingPages());
-
         return "statistics/index";
     }
 }
