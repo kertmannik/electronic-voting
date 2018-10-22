@@ -1,22 +1,16 @@
 package com.web_application_development.evoting.services;
 
 import com.web_application_development.evoting.dtos.CandidateDTO;
-import com.web_application_development.evoting.dtos.UserStatisticsDTO;
 import com.web_application_development.evoting.dtos.VoteDTO;
 import com.web_application_development.evoting.entities.Candidate;
-import com.web_application_development.evoting.entities.UserStatistics;
 import com.web_application_development.evoting.entities.Vote;
 import com.web_application_development.evoting.repositories.CandidateRepository;
-import com.web_application_development.evoting.repositories.UserStatisticsRepository;
 import com.web_application_development.evoting.repositories.VoteRepository;
 import ee.sk.smartid.AuthenticationIdentity;
-import eu.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.request.RequestContextHolder;
 
-import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -30,7 +24,7 @@ public class MasterService {
     @Autowired
     private final VoteRepository voteRepository;
 
-    MasterService(CandidateRepository candidateRepository, VoteRepository voteRepository, UserStatisticsRepository userStatisticsRepository) {
+    MasterService(CandidateRepository candidateRepository, VoteRepository voteRepository) {
         this.candidateRepository = candidateRepository;
         this.voteRepository = voteRepository;
     }
