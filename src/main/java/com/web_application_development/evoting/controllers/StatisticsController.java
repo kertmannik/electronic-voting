@@ -2,6 +2,7 @@ package com.web_application_development.evoting.controllers;
 
 import com.web_application_development.evoting.dtos.VoteResultsDTO;
 import com.web_application_development.evoting.services.MasterService;
+import com.web_application_development.evoting.services.UserStatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +22,12 @@ public class StatisticsController {
     @Autowired
     private MasterService masterService;
 
+    @Autowired
+    private UserStatisticsService userStatisticsService;
+
     @GetMapping("/statistics")
     public String showAllVotes(Model model) {
-        masterService.saveUserStatistics(request,"/statistics");
+        userStatisticsService.saveUserStatistics(request,"/statistics");
         List<Object[]> votesListObj = masterService.findAllVotes();
         List<VoteResultsDTO> votesList = new ArrayList<>();
         for (Object[] candidate : votesListObj) {
@@ -37,9 +41,9 @@ public class StatisticsController {
 
         model.addAttribute("votes", votesList);
 
-        model.addAttribute("visitors", masterService.getUniqueVisitorsToday());
-        model.addAttribute("browsers", masterService.getTopBrowsers());
-        model.addAttribute("landings", masterService.getTopLandingPages());
+        model.addAttribute("visitors", userStatisticsService.getUniqueVisitorsToday());
+        model.addAttribute("browsers", userStatisticsService.getTopBrowsers());
+        model.addAttribute("landings", userStatisticsService.getTopLandingPages());
 
         return "statistics/index";
     }

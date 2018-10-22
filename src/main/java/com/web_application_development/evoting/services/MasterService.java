@@ -30,13 +30,9 @@ public class MasterService {
     @Autowired
     private final VoteRepository voteRepository;
 
-    @Autowired
-    private final UserStatisticsRepository userStatisticsRepository;
-
     MasterService(CandidateRepository candidateRepository, VoteRepository voteRepository, UserStatisticsRepository userStatisticsRepository) {
         this.candidateRepository = candidateRepository;
         this.voteRepository = voteRepository;
-        this.userStatisticsRepository = userStatisticsRepository;
     }
 
     public List<Object[]> findAllCandidates() {
@@ -86,35 +82,5 @@ public class MasterService {
         candidateEntity.setHasWithdrawn(0);
         candidateEntity.setCandidacyAnnounced(new Timestamp(System.currentTimeMillis()));
         return candidateEntity;
-    }
-
-    private boolean sessionExists(String session_id) {
-        return userStatisticsRepository.sessionExists(session_id) > 0;
-    }
-
-    private boolean ipLoggedToday(String ip, String browser) {
-        return userStatisticsRepository.ipLoggedToday(ip, browser) > 0;
-    }
-
-    public void saveUserStatistics(HttpServletRequest request, String landing_page) {
-        String session_id = RequestContextHolder.currentRequestAttributes().getSessionId();
-        String ip = request.getRemoteAddr();
-        UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
-        String browser = userAgent.getBrowser().getName();
-        if (!sessionExists(session_id) && !ipLoggedToday(ip, browser)) {
-            userStatisticsRepository.save(new UserStatistics(session_id, landing_page, browser, ip, new Timestamp(System.currentTimeMillis())));
-        }
-    }
-
-    public List<String> getTopBrowsers() {
-        return userStatisticsRepository.getTopBrowsers();
-    }
-
-    public List<String> getTopLandingPages() {
-        return userStatisticsRepository.getTopLandingPages();
-    }
-
-    public long getUniqueVisitorsToday() {
-        return userStatisticsRepository.getUniqueVisitorsToday();
     }
 }

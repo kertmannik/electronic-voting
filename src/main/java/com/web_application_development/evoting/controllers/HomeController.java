@@ -4,6 +4,7 @@ import com.web_application_development.evoting.dtos.CandidateForVotingDTO;
 import com.web_application_development.evoting.dtos.VoteDTO;
 import com.web_application_development.evoting.entities.Candidate;
 import com.web_application_development.evoting.services.MasterService;
+import com.web_application_development.evoting.services.UserStatisticsService;
 import ee.sk.smartid.AuthenticationIdentity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -29,13 +30,16 @@ public class HomeController {
     @Autowired
     private MasterService masterService;
 
+    @Autowired
+    private UserStatisticsService userStatisticsService;
+
     HomeController(SimpMessageSendingOperations messagingTemplate) {
         this.messagingTemplate = messagingTemplate;
     }
 
     @GetMapping("/")
     public String showAllVotes(Model model) {
-        masterService.saveUserStatistics(request, "/");
+        userStatisticsService.saveUserStatistics(request, "/");
         List<Object[]> candidateListObj = masterService.findAllCandidates();
         List<CandidateForVotingDTO> candidateList = new ArrayList<>();
         for (Object[] candidate : candidateListObj) {
@@ -51,7 +55,7 @@ public class HomeController {
 
     @PostMapping(path = "/add_vote")
     public String sendVote(@ModelAttribute VoteDTO voteDTO) {
-        masterService.saveUserStatistics(request, "/add_vote");
+        userStatisticsService.saveUserStatistics(request, "/add_vote");
         AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
         // save new entity
         masterService.saveVote(voteDTO, authIdentity.getIdentityCode());

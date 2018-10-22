@@ -2,6 +2,7 @@ package com.web_application_development.evoting.controllers;
 
 import com.web_application_development.evoting.dtos.CandidateDTO;
 import com.web_application_development.evoting.services.MasterService;
+import com.web_application_development.evoting.services.UserStatisticsService;
 import ee.sk.smartid.AuthenticationIdentity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,15 +23,18 @@ public class CandidacyController {
     @Autowired
     private MasterService masterService;
 
+    @Autowired
+    private UserStatisticsService userStatisticsService;
+
     @RequestMapping(path = "/candidacy", method = RequestMethod.GET)
     public String getTestPage() {
-        masterService.saveUserStatistics(request, "/candidacy");
+        userStatisticsService.saveUserStatistics(request, "/candidacy");
         return "candidacy/index";
     }
 
     @PostMapping(path = "/candidacy")
     public String sendSubscription(@ModelAttribute CandidateDTO candidateDTO) {
-        masterService.saveUserStatistics(request, "/candidacy");
+        userStatisticsService.saveUserStatistics(request, "/candidacy");
         AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
 
         masterService.saveCandidate(candidateDTO, authIdentity);

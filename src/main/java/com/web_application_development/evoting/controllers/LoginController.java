@@ -1,6 +1,6 @@
 package com.web_application_development.evoting.controllers;
 
-import com.web_application_development.evoting.services.MasterService;
+import com.web_application_development.evoting.services.UserStatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,11 +15,11 @@ public class LoginController {
     private HttpServletRequest request;
 
     @Autowired
-    private MasterService masterService;
+    private UserStatisticsService userStatisticsService;
 
     @RequestMapping(path = "/login", method = RequestMethod.GET)
     public String getSmartIdLoginPage() {
-        masterService.saveUserStatistics(request, "/login");
+        userStatisticsService.saveUserStatistics(request, "/login");
         return "login/index";
     }
 }
