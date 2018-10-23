@@ -3,6 +3,7 @@ package com.web_application_development.evoting.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -27,6 +28,7 @@ public class Vote {
     @NotNull
     private long candidateId;
 
+    @Where(clause = "is_withdrawn = '0'")
     @NotNull
     private long isWithdrawn;
 
