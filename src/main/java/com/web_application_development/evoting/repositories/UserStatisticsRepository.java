@@ -11,16 +11,16 @@ public interface UserStatisticsRepository extends JpaRepository<UserStatistics, 
 
     @Query(value = "SELECT count(*) FROM user_statistics WHERE session_id = :session_id",
             nativeQuery = true)
-    long sessionExists(@Param("session_id") String session_id);
+    Long sessionExists(@Param("session_id") String session_id);
 
     @Query(value = "SELECT count(*) FROM user_statistics " +
             "WHERE ip = :ip AND browser = :browser",
             nativeQuery = true)
-    long ipLoggedToday(@Param("ip") String ip, @Param("browser") String browser);
+    Long ipLoggedToday(@Param("ip") String ip, @Param("browser") String browser);
 
     @Query(value = "SELECT count(*) FROM user_statistics WHERE date(timestamp) = date(now() AT TIME ZONE 'Europe/Tallinn')",
             nativeQuery = true)
-    long getUniqueVisitorsToday();
+    Long getUniqueVisitorsToday();
 
     @Query(value = "SELECT browser FROM user_statistics GROUP BY browser ORDER BY count(browser) DESC LIMIT 3",
             nativeQuery = true)
