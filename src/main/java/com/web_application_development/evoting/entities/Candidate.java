@@ -8,6 +8,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -44,5 +45,5 @@ public class Candidate {
     private Long hasWithdrawn;
 
     @NotNull
-    private java.sql.Timestamp candidacyAnnounced;
+    private LocalDate candidacyAnnounced;
 }
