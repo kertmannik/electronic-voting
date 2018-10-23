@@ -24,11 +24,11 @@ public class UserStatisticsService {
 
 
     private boolean sessionExists(String session_id) {
-        return userStatisticsRepository.sessionExists(session_id) > 0;
+        return userStatisticsRepository.sessionExists(session_id);
     }
 
     private boolean ipLoggedToday(String ip, String browser) {
-        return userStatisticsRepository.ipLoggedToday(ip, browser) > 0;
+        return userStatisticsRepository.ipLoggedToday(ip, browser);
     }
 
     public void saveUserStatistics(HttpServletRequest request, String landing_page) {

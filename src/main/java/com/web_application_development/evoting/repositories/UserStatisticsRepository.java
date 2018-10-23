@@ -9,14 +9,15 @@ import java.util.List;
 
 public interface UserStatisticsRepository extends JpaRepository<UserStatistics, Integer> {
 
-    @Query(value = "SELECT count(*) FROM user_statistics WHERE session_id = :session_id",
+    @Query(value = "SELECT CASE WHEN count(*) > 0 THEN true ELSE false END FROM user_statistics " +
+            "WHERE session_id = :session_id",
             nativeQuery = true)
-    Long sessionExists(@Param("session_id") String session_id);
+    boolean sessionExists(@Param("session_id") String session_id);
 
-    @Query(value = "SELECT count(*) FROM user_statistics " +
+    @Query(value = "SELECT CASE WHEN count(*) > 0 THEN true ELSE false END FROM user_statistics " +
             "WHERE ip = :ip AND browser = :browser",
             nativeQuery = true)
-    Long ipLoggedToday(@Param("ip") String ip, @Param("browser") String browser);
+    boolean ipLoggedToday(@Param("ip") String ip, @Param("browser") String browser);
 
     @Query(value = "SELECT count(*) FROM user_statistics WHERE date(timestamp) = date(now() AT TIME ZONE 'Europe/Tallinn')",
             nativeQuery = true)
