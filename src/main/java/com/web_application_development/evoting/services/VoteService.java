@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -39,7 +39,7 @@ public class VoteService {
         voteEntity.setVoterIdentityCode(voterId);
         voteEntity.setCandidateId(voteDTO.getCandidateId().longValue());
         voteEntity.setIsWithdrawn(0L);
-        voteEntity.setVotingTime(LocalTime.now());
+        voteEntity.setVotingTime(LocalDateTime.now());
         return voteEntity;
     }
 }
