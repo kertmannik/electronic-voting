@@ -8,7 +8,6 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.sql.Timestamp;
 
 @Entity
 @Getter
@@ -46,68 +45,4 @@ public class Candidate {
 
     @NotNull
     private java.sql.Timestamp candidacyAnnounced;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getIdentityCode() {
-        return identityCode;
-    }
-
-    public void setIdentityCode(String identityCode) {
-        this.identityCode = identityCode;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public String getParty() {
-        return party;
-    }
-
-    public void setParty(String party) {
-        this.party = party;
-    }
-
-    public Long getHasWithdrawn() {
-        return hasWithdrawn;
-    }
-
-    public void setHasWithdrawn(Long hasWithdrawn) {
-        this.hasWithdrawn = hasWithdrawn;
-    }
-
-    public Timestamp getCandidacyAnnounced() {
-        return candidacyAnnounced;
-    }
-
-    public void setCandidacyAnnounced(Timestamp candidacyAnnounced) {
-        this.candidacyAnnounced = candidacyAnnounced;
-    }
 }

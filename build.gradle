@@ -38,7 +38,7 @@ dependencies {
 	compile("org.webjars:sockjs-client:1.0.2")
 	compile("org.webjars:stomp-websocket:2.3.3")
 	
-	compileOnly('org.projectlombok:lombok')
+	compileOnly('org.projectlombok:lombok:1.18.2')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.security:spring-security-test')
 

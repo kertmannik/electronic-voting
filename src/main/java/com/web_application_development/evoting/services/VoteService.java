@@ -37,7 +37,7 @@ public class VoteService {
     private Vote mapDTOToEntity(VoteDTO voteDTO, String voterId) {
         Vote voteEntity = new Vote();
         voteEntity.setVoterIdentityCode(voterId);
-        voteEntity.setCandidateId(voteDTO.getCandidateId());
+        voteEntity.setCandidateId(voteDTO.getCandidateId().longValue());
         voteEntity.setIsWithdrawn(0L);
         voteEntity.setVotingTime(new Timestamp(System.currentTimeMillis()));
         return voteEntity;

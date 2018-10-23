@@ -1,7 +1,12 @@
 package com.web_application_development.evoting.dtos;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigInteger;
 
+@Getter
+@Setter
 public class VoteResultsDTO {
 
     private Integer id;
@@ -18,29 +23,5 @@ public class VoteResultsDTO {
         this.region = region;
         this.party = party;
         this.cnt = cnt;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public String getParty() {
-        return party;
-    }
-
-    public BigInteger getCnt() {
-        return cnt;
     }
 }
