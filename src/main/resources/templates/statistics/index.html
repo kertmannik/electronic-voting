@@ -9,6 +9,11 @@
 <div th:replace="fragments/navbar :: navbar(statistics)"></div>
 
 <div class="container">
+
+    <div class="row col-xs-12">
+        <h2 th:text="#{statistics.votestatistics}"></h2>
+    </div>
+
     <div class="row col-xs-12 table-responsive">
         <table id="votesTable" class="table table-striped">
             <thead>

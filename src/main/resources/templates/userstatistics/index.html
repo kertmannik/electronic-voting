@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <div th:replace="fragments/head :: head"></div>
+    <link rel="stylesheet" href="css/statistics.css" type="text/css">
+    <title th:text="#{navbar.statistics}"></title>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar(userstatistics)"></div>
+
+<div class="container">
+    <div class="row col-xs-12">
+        <h2 th:text="#{userstatistics.userstatistics}"></h2>
+    </div>
+
+    <div class="row col-xs-12">
+        <p>
+            <span th:text="#{userstatistics.uniquevisitors}"></span>
+            <span th:text="${visitors}"></span>
+        </p>
+    </div>
+
+    <div class="row col-xs-12 table-responsive">
+        <table id="browserTable" class="table table-condensed">
+            <thead>
+            <tr>
+                <th th:text="#{userstatistics.browsers}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="browser, rowStat: ${browsers}">
+                <td th:text="${browser}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row col-xs-12 table-responsive">
+        <table id="landingsTable" class="table table-condensed">
+            <thead>
+            <tr>
+                <th th:text="#{userstatistics.landings}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="landing, rowStat: ${landings}">
+                <td th:text="${landing}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.web_application_development.evoting.controllers;
 
 import com.web_application_development.evoting.dtos.ContactDTO;
+import com.web_application_development.evoting.services.UserStatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class ContactController {
@@ -24,13 +26,21 @@ public class ContactController {
     @Autowired
     public JavaMailSender emailsender;
 
+    @Autowired
+    private HttpServletRequest request;
+
+    @Autowired
+    private UserStatisticsService userStatisticsService;
+
     @RequestMapping(path = "/contact", method = RequestMethod.GET)
     public String getTestPage() {
+        userStatisticsService.saveUserStatistics(request, "/contact");
         return "contact/index";
     }
 
     @PostMapping(path = "/contact")
     public String sendEmailNotification(@ModelAttribute ContactDTO contactDTO) {
+        userStatisticsService.saveUserStatistics(request, "/contact");
         String name = contactDTO.getName();
         String mail = contactDTO.getEmail();
         String subject = contactDTO.getSubject();
