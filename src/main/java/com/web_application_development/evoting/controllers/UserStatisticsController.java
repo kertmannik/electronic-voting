@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class UserStatisticsController {
 
+    private final UserStatisticsService userStatisticsService;
+
     @Autowired
-    private UserStatisticsService userStatisticsService;
+    public UserStatisticsController(UserStatisticsService userStatisticsService) {
+        this.userStatisticsService = userStatisticsService;
+    }
 
     @GetMapping("/userstatistics")
     public String showStatistics(Model model) {

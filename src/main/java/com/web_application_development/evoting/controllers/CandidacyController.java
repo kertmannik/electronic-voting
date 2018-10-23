@@ -1,7 +1,7 @@
 package com.web_application_development.evoting.controllers;
 
 import com.web_application_development.evoting.dtos.CandidateDTO;
-import com.web_application_development.evoting.services.MasterService;
+import com.web_application_development.evoting.services.CandidateService;
 import com.web_application_development.evoting.services.UserStatisticsService;
 import ee.sk.smartid.AuthenticationIdentity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +17,16 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class CandidacyController {
 
-    @Autowired
-    private HttpServletRequest request;
+    private final HttpServletRequest request;
+    private final CandidateService candidateService;
+    private final UserStatisticsService userStatisticsService;
 
     @Autowired
-    private MasterService masterService;
-
-    @Autowired
-    private UserStatisticsService userStatisticsService;
+    public CandidacyController(HttpServletRequest request, CandidateService candidateService, UserStatisticsService userStatisticsService) {
+        this.request = request;
+        this.candidateService = candidateService;
+        this.userStatisticsService = userStatisticsService;
+    }
 
     @RequestMapping(path = "/candidacy", method = RequestMethod.GET)
     public String getTestPage() {
@@ -37,7 +39,7 @@ public class CandidacyController {
         userStatisticsService.saveUserStatistics(request, "/candidacy");
         AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
 
-        masterService.saveCandidate(candidateDTO, authIdentity);
+        candidateService.saveCandidate(candidateDTO, authIdentity);
 
         // redirect to home page where all candidates are displayed
         return "redirect:/";

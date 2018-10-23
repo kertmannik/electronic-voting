@@ -23,14 +23,17 @@ public class ContactController {
     final String BODY = "Hello!" + "\n" + "\n" + "Thank you for contacting us! We will answer you shortly." + "\n" + "\n" + "E-voting developers"
             + "\n" + "\n" + "---------------" + "\n" + "\n" +
             "Tervist!" + "\n" + "\n" + "Täname teid, et meiega ühendust võtsite! Vastame teile peagi." + "\n" + "\n" + "E-hääletamise arendajad";
-    @Autowired
-    public JavaMailSender emailsender;
 
-    @Autowired
+    private JavaMailSender mailSender;
     private HttpServletRequest request;
+    private UserStatisticsService userStatisticsService;
 
     @Autowired
-    private UserStatisticsService userStatisticsService;
+    public ContactController(JavaMailSender emailSender, HttpServletRequest request, UserStatisticsService userStatisticsService) {
+        this.mailSender = emailSender;
+        this.request = request;
+        this.userStatisticsService = userStatisticsService;
+    }
 
     @RequestMapping(path = "/contact", method = RequestMethod.GET)
     public String getTestPage() {
@@ -52,14 +55,14 @@ public class ContactController {
     }
 
     private void createAndSendEmail(String email, String subject, String body) {
-        MimeMessage message = emailsender.createMimeMessage();
+        MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
         try {
             helper.setTo(email);
             helper.setText(body, false);
             helper.setSubject(subject);
-            emailsender.send(message);
+            mailSender.send(message);
         } catch (MessagingException e) {
             e.printStackTrace();
         }

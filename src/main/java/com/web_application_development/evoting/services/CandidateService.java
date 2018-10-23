@@ -1,11 +1,8 @@
 package com.web_application_development.evoting.services;
 
 import com.web_application_development.evoting.dtos.CandidateDTO;
-import com.web_application_development.evoting.dtos.VoteDTO;
 import com.web_application_development.evoting.entities.Candidate;
-import com.web_application_development.evoting.entities.Vote;
 import com.web_application_development.evoting.repositories.CandidateRepository;
-import com.web_application_development.evoting.repositories.VoteRepository;
 import ee.sk.smartid.AuthenticationIdentity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,25 +13,17 @@ import java.util.List;
 
 @Service
 @Transactional
-public class MasterService {
+public class CandidateService {
 
-    @Autowired
     private final CandidateRepository candidateRepository;
 
     @Autowired
-    private final VoteRepository voteRepository;
-
-    MasterService(CandidateRepository candidateRepository, VoteRepository voteRepository) {
+    CandidateService(CandidateRepository candidateRepository) {
         this.candidateRepository = candidateRepository;
-        this.voteRepository = voteRepository;
     }
 
     public List<Object[]> findAllCandidates() {
         return candidateRepository.findAllCandidates();
-    }
-
-    public List<Object[]> findAllVotes() {
-        return voteRepository.findAllVotes();
     }
 
     public Candidate findCandidateById(Integer candidateId) {
@@ -46,20 +35,6 @@ public class MasterService {
         Candidate entity = mapDTOToEntity(candidateDTO, authIdentity);
         // save new entity
         candidateRepository.save(entity);
-    }
-
-    public void saveVote(VoteDTO voteDTO, String voterId) {
-        Vote entity = mapDTOToEntity(voteDTO, voterId);
-        voteRepository.save(entity);
-    }
-
-    private Vote mapDTOToEntity(VoteDTO voteDTO, String voterId) {
-        Vote voteEntity = new Vote();
-        voteEntity.setVoterIdentityCode(voterId);
-        voteEntity.setCandidateId(voteDTO.getCandidateId());
-        voteEntity.setIsWithdrawn(0);
-        voteEntity.setVotingTime(new Timestamp(System.currentTimeMillis()));
-        return voteEntity;
     }
 
     private Candidate mapDTOToEntity(CandidateDTO candidateDTO, AuthenticationIdentity authIdentity) {
