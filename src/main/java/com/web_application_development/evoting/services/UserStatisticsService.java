@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Timestamp;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -47,7 +47,7 @@ public class UserStatisticsService {
         userStatistics.setId(Long.valueOf(session_id));
         userStatistics.setLandingPage(landing_page);
         userStatistics.setIp(ip);
-        userStatistics.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        userStatistics.setTimestamp(LocalTime.now());
         return userStatistics;
     }
 

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -49,7 +49,7 @@ public class CandidateService {
         candidateEntity.setRegion(candidateDTO.getRegion());
         candidateEntity.setParty(candidateDTO.getParty());
         candidateEntity.setHasWithdrawn(0L);
-        candidateEntity.setCandidacyAnnounced(new Timestamp(System.currentTimeMillis()));
+        candidateEntity.setCandidacyAnnounced(LocalTime.now());
         return candidateEntity;
     }
 }
