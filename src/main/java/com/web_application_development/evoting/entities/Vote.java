@@ -18,24 +18,23 @@ public class Vote {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
+    private Long id;
 
     @Size(min = 11, max = 11)
     @NotNull
     private String voterIdentityCode;
 
     @NotNull
-    private long candidateId;
+    private Long candidateId;
 
     @Where(clause = "is_withdrawn = '0'")
     @NotNull
-    private long isWithdrawn;
+    private Long isWithdrawn;
 
     @NotNull
     private java.sql.Timestamp votingTime;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

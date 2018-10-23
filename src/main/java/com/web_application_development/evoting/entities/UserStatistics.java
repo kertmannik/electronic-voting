@@ -7,7 +7,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.sql.Timestamp;
 
 @Entity
 @Getter
@@ -15,17 +14,9 @@ import java.sql.Timestamp;
 @Table(name = "user_statistics")
 public class UserStatistics {
 
-    public UserStatistics(@Size(max = 50) @NotNull String sessionId, @Size(max = 50) @NotNull String landingPage, @Size(max = 50) @NotNull String browser, @Size(max = 50) @NotNull String ip, Timestamp timestamp) {
-        this.sessionId = sessionId;
-        this.landingPage = landingPage;
-        this.browser = browser;
-        this.ip = ip;
-        this.timestamp = timestamp;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Size(max = 50)
     @NotNull
@@ -46,12 +37,11 @@ public class UserStatistics {
     @NotNull
     private java.sql.Timestamp timestamp;
 
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

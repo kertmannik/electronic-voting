@@ -18,7 +18,7 @@ public class Candidate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Size(min = 11, max = 11)
     @NotNull
@@ -42,12 +42,12 @@ public class Candidate {
 
     @Where(clause = "has_withdrawn = '0'")
     @NotNull
-    private long hasWithdrawn;
+    private Long hasWithdrawn;
 
     @NotNull
     private java.sql.Timestamp candidacyAnnounced;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -95,11 +95,11 @@ public class Candidate {
         this.party = party;
     }
 
-    public long getHasWithdrawn() {
+    public Long getHasWithdrawn() {
         return hasWithdrawn;
     }
 
-    public void setHasWithdrawn(long hasWithdrawn) {
+    public void setHasWithdrawn(Long hasWithdrawn) {
         this.hasWithdrawn = hasWithdrawn;
     }
 

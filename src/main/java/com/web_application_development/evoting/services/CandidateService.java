@@ -22,12 +22,12 @@ public class CandidateService {
         this.candidateRepository = candidateRepository;
     }
 
-    public List<Object[]> findAllCandidates() {
+    public List<Candidate> findAllCandidates() {
         return candidateRepository.findAllCandidates();
     }
 
     public Candidate findCandidateById(Integer candidateId) {
-        return candidateRepository.findById(candidateId);
+        return candidateRepository.findById(candidateId.longValue()).orElse(null);
     }
 
     public void saveCandidate(CandidateDTO candidateDTO, AuthenticationIdentity authIdentity) {
@@ -48,7 +48,7 @@ public class CandidateService {
         candidateEntity.setIdentityCode(authIdentity.getIdentityCode());
         candidateEntity.setRegion(candidateDTO.getRegion());
         candidateEntity.setParty(candidateDTO.getParty());
-        candidateEntity.setHasWithdrawn(0);
+        candidateEntity.setHasWithdrawn(0L);
         candidateEntity.setCandidacyAnnounced(new Timestamp(System.currentTimeMillis()));
         return candidateEntity;
     }

@@ -41,14 +41,11 @@ public class HomeController {
     @GetMapping("/")
     public String showAllVotes(Model model) {
         userStatisticsService.saveUserStatistics(request, "/");
-        List<Object[]> candidateListObj = candidateService.findAllCandidates();
+        List<Candidate> candidateListObj = candidateService.findAllCandidates();
         List<CandidateForVotingDTO> candidateList = new ArrayList<>();
-        for (Object[] candidate : candidateListObj) {
-            candidateList.add(new CandidateForVotingDTO((Integer) candidate[0],
-                    (String) candidate[1],
-                    (String) candidate[2],
-                    (String) candidate[3],
-                    (String) candidate[4]));
+        for (Candidate candidate : candidateListObj) {
+            CandidateForVotingDTO candidateDTO = new CandidateForVotingDTO(candidate.getId().intValue(), candidate.getFirstName(), candidate.getLastName(), candidate.getRegion(), candidate.getParty());
+            candidateList.add(candidateDTO);
         }
         model.addAttribute("candidatesForVoting", candidateList);
         return "home/index";

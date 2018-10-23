@@ -37,8 +37,18 @@ public class UserStatisticsService {
         UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
         String browser = userAgent.getBrowser().getName();
         if (!sessionExists(session_id) && !ipLoggedToday(ip, browser)) {
-            userStatisticsRepository.save(new UserStatistics(session_id, landing_page, browser, ip, new Timestamp(System.currentTimeMillis())));
+            userStatisticsRepository.save(setUserStatistics(landing_page, session_id, ip, browser));
         }
+    }
+
+    private UserStatistics setUserStatistics(String landing_page, String session_id, String ip, String browser) {
+        UserStatistics userStatistics = new UserStatistics();
+        userStatistics.setBrowser(browser);
+        userStatistics.setId(Long.valueOf(session_id));
+        userStatistics.setLandingPage(landing_page);
+        userStatistics.setIp(ip);
+        userStatistics.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        return userStatistics;
     }
 
     public List<String> getTopBrowsers() {

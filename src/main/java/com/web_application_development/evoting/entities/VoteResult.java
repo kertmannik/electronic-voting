@@ -37,14 +37,53 @@ public class VoteResult {
     @NotNull
     private String party;
 
-    private BigInteger cnt;
+    private BigInteger count;
 
-    public VoteResult(Integer id, String firstName, String lastName, String region, String party, BigInteger cnt) {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
         this.region = region;
+    }
+
+    public String getParty() {
+        return party;
+    }
+
+    public void setParty(String party) {
         this.party = party;
-        this.cnt = cnt;
+    }
+
+    public BigInteger getCount() {
+        return count;
+    }
+
+    public void setCount(BigInteger cnt) {
+        this.count = cnt;
     }
 }

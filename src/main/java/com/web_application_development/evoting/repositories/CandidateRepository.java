@@ -9,14 +9,14 @@ import java.util.Optional;
 
 public interface CandidateRepository extends JpaRepository<Candidate, Long> {
 
-    @Query(value = "SELECT id, first_name, last_name, region, party FROM candidates WHERE has_withdrawn = 0 ORDER BY id",
+    @Query(value = "SELECT id, identity_code, first_name, last_name, region, party, has_withdrawn, candidacy_announced FROM candidates WHERE has_withdrawn = 0 ORDER BY id",
             nativeQuery = true)
-    List<Candidate[]> findAllCandidates();
+    List<Candidate> findAllCandidates();
 
 //    @Query(value = "SELECT * FROM candidates WHERE id = :id AND has_withdrawn = 0",
 //            nativeQuery = true)
 //    Candidate findById(@Param("id") long id);
 
     @Override
-    Optional<Candidate> findById(Long aLong);
+    Optional<Candidate> findById(Long id);
 }
