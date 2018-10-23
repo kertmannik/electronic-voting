@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class UserStatisticsService {
     }
 
     private boolean ipLoggedToday(String ip, String browser) {
-        return userStatisticsRepository.ipLoggedToday(ip, browser);
+        return userStatisticsRepository.ipLoggedToday(ip, browser, LocalDate.now());
     }
 
     public void saveUserStatistics(HttpServletRequest request, String landing_page) {
@@ -44,7 +45,7 @@ public class UserStatisticsService {
     private UserStatistics setUserStatistics(String landing_page, String session_id, String ip, String browser) {
         UserStatistics userStatistics = new UserStatistics();
         userStatistics.setBrowser(browser);
-        userStatistics.setId(Long.valueOf(session_id));
+        userStatistics.setSessionId(session_id);
         userStatistics.setLandingPage(landing_page);
         userStatistics.setIp(ip);
         userStatistics.setTimestamp(LocalDateTime.now());

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface UserStatisticsRepository extends JpaRepository<UserStatistics, Integer> {
@@ -15,9 +16,9 @@ public interface UserStatisticsRepository extends JpaRepository<UserStatistics, 
     boolean sessionExists(@Param("session_id") String session_id);
 
     @Query(value = "SELECT CASE WHEN count(*) > 0 THEN true ELSE false END FROM user_statistics " +
-            "WHERE ip = :ip AND browser = :browser",
+            "WHERE ip = :ip AND browser = :browser AND DATE_TRUNC('day', timestamp) = :date",
             nativeQuery = true)
-    boolean ipLoggedToday(@Param("ip") String ip, @Param("browser") String browser);
+    boolean ipLoggedToday(@Param("ip") String ip, @Param("browser") String browser, @Param("date") LocalDate date);
 
     @Query(value = "SELECT count(*) FROM user_statistics WHERE date(timestamp) = date(now() AT TIME ZONE 'Europe/Tallinn')",
             nativeQuery = true)
