@@ -44,7 +44,7 @@ public class HomeController {
         List<Candidate> candidateListObj = candidateService.findAllCandidates();
         List<CandidateForVotingDTO> candidateList = new ArrayList<>();
         for (Candidate candidate : candidateListObj) {
-            CandidateForVotingDTO candidateDTO = getCandidateDTO(candidate);
+            CandidateForVotingDTO candidateDTO = mapEntityToDTO(candidate);
             candidateList.add(candidateDTO);
         }
         model.addAttribute("candidatesForVoting", candidateList);
@@ -66,7 +66,7 @@ public class HomeController {
         return "redirect:/";
     }
 
-    private CandidateForVotingDTO getCandidateDTO(Candidate candidate) {
+    private CandidateForVotingDTO mapEntityToDTO(Candidate candidate) {
         return new CandidateForVotingDTO(candidate.getId().intValue(), candidate.getFirstName(), candidate.getLastName(), candidate.getRegion(), candidate.getParty());
     }
 }

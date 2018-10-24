@@ -33,7 +33,7 @@ public class StatisticsController {
         List<VoteResult> votesListObj = voteService.findAllVotes();
         List<VoteResultsDTO> votesList = new ArrayList<>();
         for (VoteResult candidate : votesListObj) {
-            VoteResultsDTO voteResult = getVoteResult(candidate);
+            VoteResultsDTO voteResult = mapEntityToDTO(candidate);
             votesList.add(voteResult);
         }
 
@@ -41,7 +41,7 @@ public class StatisticsController {
         return "statistics/index";
     }
 
-    private VoteResultsDTO getVoteResult(VoteResult candidate) {
-        return new VoteResultsDTO(candidate.getId(), candidate.getFirstName(), candidate.getLastName(), candidate.getRegion(), candidate.getParty(), candidate.getCount());
+    private VoteResultsDTO mapEntityToDTO(VoteResult voteResult) {
+        return new VoteResultsDTO(voteResult.getId(), voteResult.getFirstName(), voteResult.getLastName(), voteResult.getRegion(), voteResult.getParty(), voteResult.getCount());
     }
 }
