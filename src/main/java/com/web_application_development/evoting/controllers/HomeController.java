@@ -44,7 +44,7 @@ public class HomeController {
         List<Candidate> candidateListObj = candidateService.findAllCandidates();
         List<CandidateForVotingDTO> candidateList = new ArrayList<>();
         for (Candidate candidate : candidateListObj) {
-            CandidateForVotingDTO candidateDTO = new CandidateForVotingDTO(candidate.getId().intValue(), candidate.getFirstName(), candidate.getLastName(), candidate.getRegion(), candidate.getParty());
+            CandidateForVotingDTO candidateDTO = getCandidateDTO(candidate);
             candidateList.add(candidateDTO);
         }
         model.addAttribute("candidatesForVoting", candidateList);
@@ -64,5 +64,9 @@ public class HomeController {
 
         // redirect to home page where all candidates are displayed
         return "redirect:/";
+    }
+
+    private CandidateForVotingDTO getCandidateDTO(Candidate candidate) {
+        return new CandidateForVotingDTO(candidate.getId().intValue(), candidate.getFirstName(), candidate.getLastName(), candidate.getRegion(), candidate.getParty());
     }
 }

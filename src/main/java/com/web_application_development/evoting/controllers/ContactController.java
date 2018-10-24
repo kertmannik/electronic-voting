@@ -24,9 +24,9 @@ public class ContactController {
             + "\n" + "\n" + "---------------" + "\n" + "\n" +
             "Tervist!" + "\n" + "\n" + "Täname teid, et meiega ühendust võtsite! Vastame teile peagi." + "\n" + "\n" + "E-hääletamise arendajad";
 
-    private JavaMailSender mailSender;
-    private HttpServletRequest request;
-    private UserStatisticsService userStatisticsService;
+    private final JavaMailSender mailSender;
+    private final HttpServletRequest request;
+    private final UserStatisticsService userStatisticsService;
 
     @Autowired
     public ContactController(JavaMailSender emailSender, HttpServletRequest request, UserStatisticsService userStatisticsService) {

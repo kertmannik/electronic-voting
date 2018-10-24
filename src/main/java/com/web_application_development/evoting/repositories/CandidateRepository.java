@@ -13,10 +13,6 @@ public interface CandidateRepository extends JpaRepository<Candidate, Long> {
             nativeQuery = true)
     List<Candidate> findAllCandidates();
 
-//    @Query(value = "SELECT * FROM candidates WHERE id = :id AND has_withdrawn = 0",
-//            nativeQuery = true)
-//    Candidate findById(@Param("id") long id);
-
     @Override
     Optional<Candidate> findById(Long id);
 }

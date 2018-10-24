@@ -33,11 +33,15 @@ public class StatisticsController {
         List<VoteResult> votesListObj = voteService.findAllVotes();
         List<VoteResultsDTO> votesList = new ArrayList<>();
         for (VoteResult candidate : votesListObj) {
-            VoteResultsDTO voteResult = new VoteResultsDTO(candidate.getId(), candidate.getFirstName(), candidate.getLastName(), candidate.getRegion(), candidate.getParty(), candidate.getCount());
+            VoteResultsDTO voteResult = getVoteResult(candidate);
             votesList.add(voteResult);
         }
 
         model.addAttribute("votes", votesList);
         return "statistics/index";
+    }
+
+    private VoteResultsDTO getVoteResult(VoteResult candidate) {
+        return new VoteResultsDTO(candidate.getId(), candidate.getFirstName(), candidate.getLastName(), candidate.getRegion(), candidate.getParty(), candidate.getCount());
     }
 }
