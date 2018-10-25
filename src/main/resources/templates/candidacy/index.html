@@ -11,6 +11,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
+                <div th:if="${candidacySuccessMessage != null}" class="alert alert-success" role="alert"
+                     th:text="${candidacySuccessMessage}"></div>
+                <div th:if="${candidacyErrorMessage != null}" class="alert alert-danger" role="alert"
+                     th:text="${candidacyErrorMessage}"></div>
                 <h2 th:text="#{candidacy.welcome}"></h2>
             </div>
         </div>
