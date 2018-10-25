@@ -45,9 +45,9 @@ public class CandidacyController {
             userStatisticsService.saveUserStatistics(request, "/candidacy");
             AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
             candidateService.saveCandidate(candidateDTO, authIdentity);
-            model.addAttribute("candidacySuccessMessage", messageSource.getMessage("candidacy.successmessage", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
+            model.addAttribute("candidacySuccessMessage", messageSource.getMessage("error.candidacysuccess", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
         } catch (Exception exception) {
-            model.addAttribute("candidacyErrorMessage", messageSource.getMessage("candidacy.successmessage", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
+            model.addAttribute("candidacyErrorMessage", messageSource.getMessage("error.candidacyerror", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
         }
         return "candidacy/index";
     }

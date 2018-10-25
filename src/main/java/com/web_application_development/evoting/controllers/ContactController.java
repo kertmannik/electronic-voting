@@ -58,9 +58,9 @@ public class ContactController {
 
             createAndSendEmail(mail, SUBJECT, BODY);
             createAndSendEmail(DEVELOPER_EMAIL, subject, body);
-            model.addAttribute("contactSuccessMessage", messageSource.getMessage("contact.successmessage", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
+            model.addAttribute("contactSuccessMessage", messageSource.getMessage("error.contactsuccess", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
         } catch (Exception exception) {
-            model.addAttribute("contactErrorMessage", messageSource.getMessage("contact.errormessage", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
+            model.addAttribute("contactErrorMessage", messageSource.getMessage("error.contacterror", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
         }
         return "contact/index";
     }
