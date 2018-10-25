@@ -19,45 +19,5 @@ public class CandidateForVotingDTO {
         this.region = region;
         this.party = party;
     }
-
-    public Integer getCandidateId() {
-        return candidateId;
-    }
-
-    public void setCandidateId(Integer candidateId) {
-        this.candidateId = candidateId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public String getParty() {
-        return party;
-    }
-
-    public void setParty(String party) {
-        this.party = party;
-    }
 }
 

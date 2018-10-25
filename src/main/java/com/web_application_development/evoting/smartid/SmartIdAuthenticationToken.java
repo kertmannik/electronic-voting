@@ -2,6 +2,7 @@ package com.web_application_development.evoting.smartid;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
+
 import java.util.Collection;
 public class SmartIdAuthenticationToken extends AbstractAuthenticationToken {
     private Object principal;

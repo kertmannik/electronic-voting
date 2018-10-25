@@ -9,7 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -24,11 +25,11 @@ public class UserStatisticsService {
 
 
     private boolean sessionExists(String session_id) {
-        return userStatisticsRepository.sessionExists(session_id) > 0;
+        return userStatisticsRepository.sessionExists(session_id);
     }
 
     private boolean ipLoggedToday(String ip, String browser) {
-        return userStatisticsRepository.ipLoggedToday(ip, browser) > 0;
+        return userStatisticsRepository.ipLoggedToday(ip, browser, LocalDate.now());
     }
 
     public void saveUserStatistics(HttpServletRequest request, String landing_page) {
@@ -37,8 +38,18 @@ public class UserStatisticsService {
         UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
         String browser = userAgent.getBrowser().getName();
         if (!sessionExists(session_id) && !ipLoggedToday(ip, browser)) {
-            userStatisticsRepository.save(new UserStatistics(session_id, landing_page, browser, ip, new Timestamp(System.currentTimeMillis())));
+            userStatisticsRepository.save(setUserStatistics(landing_page, session_id, ip, browser));
         }
+    }
+
+    private UserStatistics setUserStatistics(String landing_page, String session_id, String ip, String browser) {
+        UserStatistics userStatistics = new UserStatistics();
+        userStatistics.setBrowser(browser);
+        userStatistics.setSessionId(session_id);
+        userStatistics.setLandingPage(landing_page);
+        userStatistics.setIp(ip);
+        userStatistics.setTimestamp(LocalDateTime.now());
+        return userStatistics;
     }
 
     public List<String> getTopBrowsers() {

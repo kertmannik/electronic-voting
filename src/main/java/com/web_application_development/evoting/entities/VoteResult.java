@@ -3,26 +3,23 @@ package com.web_application_development.evoting.entities;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Where;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
+import java.math.BigInteger;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "candidates")
-public class Candidate {
+public class VoteResult {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Size(min = 11, max = 11)
-    @NotNull
-    private String identityCode;
+    private Integer id;
 
     @Size(max = 50)
     @NotNull
@@ -40,10 +37,5 @@ public class Candidate {
     @NotNull
     private String party;
 
-    @Where(clause = "has_withdrawn = '0'")
-    @NotNull
-    private Long hasWithdrawn;
-
-    @NotNull
-    private LocalDateTime candidacyAnnounced;
+    private BigInteger count;
 }

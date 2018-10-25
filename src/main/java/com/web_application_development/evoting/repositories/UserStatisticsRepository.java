@@ -5,22 +5,24 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface UserStatisticsRepository extends JpaRepository<UserStatistics, Integer> {
 
-    @Query(value = "SELECT count(*) FROM user_statistics WHERE session_id = :session_id",
+    @Query(value = "SELECT CASE WHEN count(*) > 0 THEN true ELSE false END FROM user_statistics " +
+            "WHERE session_id = :session_id",
             nativeQuery = true)
-    long sessionExists(@Param("session_id") String session_id);
+    boolean sessionExists(@Param("session_id") String session_id);
 
-    @Query(value = "SELECT count(*) FROM user_statistics " +
-            "WHERE ip = :ip AND browser = :browser",
+    @Query(value = "SELECT CASE WHEN count(*) > 0 THEN true ELSE false END FROM user_statistics " +
+            "WHERE ip = :ip AND browser = :browser AND DATE_TRUNC('day', timestamp) = :date",
             nativeQuery = true)
-    long ipLoggedToday(@Param("ip") String ip, @Param("browser") String browser);
+    boolean ipLoggedToday(@Param("ip") String ip, @Param("browser") String browser, @Param("date") LocalDate date);
 
     @Query(value = "SELECT count(*) FROM user_statistics WHERE date(timestamp) = date(now() AT TIME ZONE 'Europe/Tallinn')",
             nativeQuery = true)
-    long getUniqueVisitorsToday();
+    Long getUniqueVisitorsToday();
 
     @Query(value = "SELECT browser FROM user_statistics GROUP BY browser ORDER BY count(browser) DESC LIMIT 3",
             nativeQuery = true)

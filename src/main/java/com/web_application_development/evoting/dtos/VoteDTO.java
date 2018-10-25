@@ -15,12 +15,4 @@ public class VoteDTO {
     public VoteDTO(Integer candidateId) {
         this.candidateId = candidateId;
     }
-
-    public Integer getCandidateId() {
-        return candidateId;
-    }
-
-    public void setCandidateId(Integer candidateId) {
-        this.candidateId = candidateId;
-    }
 }

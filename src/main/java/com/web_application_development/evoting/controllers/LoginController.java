@@ -11,11 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class LoginController {
 
-    @Autowired
-    private HttpServletRequest request;
+    private final HttpServletRequest request;
+    private final UserStatisticsService userStatisticsService;
 
     @Autowired
-    private UserStatisticsService userStatisticsService;
+    public LoginController(HttpServletRequest request, UserStatisticsService userStatisticsService) {
+        this.request = request;
+        this.userStatisticsService = userStatisticsService;
+    }
 
     @RequestMapping(path = "/login", method = RequestMethod.GET)
     public String getSmartIdLoginPage() {

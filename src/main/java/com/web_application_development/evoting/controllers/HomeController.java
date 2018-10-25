@@ -3,8 +3,9 @@ package com.web_application_development.evoting.controllers;
 import com.web_application_development.evoting.dtos.CandidateForVotingDTO;
 import com.web_application_development.evoting.dtos.VoteDTO;
 import com.web_application_development.evoting.entities.Candidate;
-import com.web_application_development.evoting.services.MasterService;
+import com.web_application_development.evoting.services.CandidateService;
 import com.web_application_development.evoting.services.UserStatisticsService;
+import com.web_application_development.evoting.services.VoteService;
 import ee.sk.smartid.AuthenticationIdentity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -21,33 +22,30 @@ import java.util.List;
 
 @Controller
 public class HomeController {
+
     private final SimpMessageSendingOperations messagingTemplate;
-
-
-    @Autowired
-    private HttpServletRequest request;
-
-    @Autowired
-    private MasterService masterService;
+    private final HttpServletRequest request;
+    private final CandidateService candidateService;
+    private final VoteService voteService;
+    private final UserStatisticsService userStatisticsService;
 
     @Autowired
-    private UserStatisticsService userStatisticsService;
-
-    HomeController(SimpMessageSendingOperations messagingTemplate) {
+    HomeController(SimpMessageSendingOperations messagingTemplate, HttpServletRequest request, CandidateService candidateService, VoteService voteService, UserStatisticsService userStatisticsService) {
         this.messagingTemplate = messagingTemplate;
+        this.request = request;
+        this.candidateService = candidateService;
+        this.voteService = voteService;
+        this.userStatisticsService = userStatisticsService;
     }
 
     @GetMapping("/")
     public String showAllVotes(Model model) {
         userStatisticsService.saveUserStatistics(request, "/");
-        List<Object[]> candidateListObj = masterService.findAllCandidates();
+        List<Candidate> candidateListObj = candidateService.findAllCandidates();
         List<CandidateForVotingDTO> candidateList = new ArrayList<>();
-        for (Object[] candidate : candidateListObj) {
-            candidateList.add(new CandidateForVotingDTO((Integer) candidate[0],
-                    (String) candidate[1],
-                    (String) candidate[2],
-                    (String) candidate[3],
-                    (String) candidate[4]));
+        for (Candidate candidate : candidateListObj) {
+            CandidateForVotingDTO candidateDTO = mapEntityToDTO(candidate);
+            candidateList.add(candidateDTO);
         }
         model.addAttribute("candidatesForVoting", candidateList);
         return "home/index";
@@ -59,12 +57,16 @@ public class HomeController {
         userStatisticsService.saveUserStatistics(request, "/add_vote");
         AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
         // save new entity
-        masterService.saveVote(voteDTO, authIdentity.getIdentityCode());
+        voteService.saveVote(voteDTO, authIdentity.getIdentityCode());
 
-        Candidate candidate = masterService.findCandidateById(voteDTO.getCandidateId());
+        Candidate candidate = candidateService.findCandidateById(voteDTO.getCandidateId());
         messagingTemplate.convertAndSend("/topic/votes", candidate);
 
         // redirect to home page where all candidates are displayed
         return "redirect:/";
+    }
+
+    private CandidateForVotingDTO mapEntityToDTO(Candidate candidate) {
+        return new CandidateForVotingDTO(candidate.getId().intValue(), candidate.getFirstName(), candidate.getLastName(), candidate.getRegion(), candidate.getParty());
     }
 }
