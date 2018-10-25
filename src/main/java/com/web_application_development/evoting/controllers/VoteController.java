@@ -1,10 +1,13 @@
 package com.web_application_development.evoting.controllers;
 
 import com.web_application_development.evoting.dtos.VoteDTO;
+import com.web_application_development.evoting.entities.Candidate;
 import com.web_application_development.evoting.services.CandidateService;
 import com.web_application_development.evoting.services.VoteService;
+import ee.sk.smartid.AuthenticationIdentity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,13 +29,12 @@ public class VoteController {
     }
 
     @PostMapping(value = "/vote")
-    public void sendVote(@RequestBody VoteDTO voteDTO) throws Exception {
-        throw new Exception();
-//        AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
-//        // save new entity
-//        voteService.saveVote(voteDTO, authIdentity.getIdentityCode());
-//
-//        Candidate candidate = candidateService.findCandidateById(voteDTO.getCandidateId());
-//        messagingTemplate.convertAndSend("/topic/votes", candidate);
+    public void sendVote(@RequestBody VoteDTO voteDTO) {
+        AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
+        // save new entity
+        voteService.saveVote(voteDTO, authIdentity.getIdentityCode());
+
+        Candidate candidate = candidateService.findCandidateById(voteDTO.getCandidateId());
+        messagingTemplate.convertAndSend("/topic/votes", candidate);
     }
 }
