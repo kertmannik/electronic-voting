@@ -14,3 +14,7 @@
 .tooltip {
     position: fixed;
 }
+
+#error-text{
+    display: none;
+}

@@ -64,13 +64,13 @@ public class SmartIdController {
     public Map<String, String> smartIdExceptionHandler(SmartIdException smartIdException) {
         Map<String, String> errorMap = new HashMap<>();
         if (smartIdException instanceof UserAccountNotFoundException) {
-            errorMap.put("errorMessage", "Account not found!");
-        }
-        if (smartIdException instanceof UserRefusedException) {
-            errorMap.put("errorMessage", "User cancelled Smart-ID request");
-        }
-        if (smartIdException instanceof DocumentUnusableException) {
-            errorMap.put("errorMessage", "The document is unusable");
+            errorMap.put("errorMessage", messageSource.getMessage("error.smartidnotfound", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
+        } else if (smartIdException instanceof UserRefusedException) {
+            errorMap.put("errorMessage", messageSource.getMessage("error.smartidrefused", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
+        } else if (smartIdException instanceof DocumentUnusableException) {
+            errorMap.put("errorMessage", messageSource.getMessage("error.smartidunusable", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
+        } else {
+            errorMap.put("errorMessage", messageSource.getMessage("error.smartidother", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
         }
         return errorMap;
     }

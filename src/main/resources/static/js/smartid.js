@@ -1,5 +1,7 @@
 $(function() {
+    $("#error-text")[0].style.display = 'none';
     $(".btn-block").click(function(e) {
+        $("#error-text")[0].style.display = 'none';
         e.preventDefault();
         $.ajax({
             url: '/smart-id/authentication/start',
@@ -36,7 +38,8 @@ function pollResult() {
         error: function (data) {
             console.log("Failure");
             console.log(data.responseJSON);
-            $("#main-text").text(data.responseJSON.errorMessage);
+            $("#error-text")[0].style.display = 'block';
+            $("#error-text").text(data.responseJSON.errorMessage);
             toggleContainerView("XXXX");
         }
     });
