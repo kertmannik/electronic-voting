@@ -34,8 +34,9 @@ public class CandidacyController {
     }
 
     @GetMapping(path = "/candidacy")
-    public String getTestPage() {
+    public String getPage(Model model) {
         userStatisticsService.saveUserStatistics(request, "/candidacy");
+        setCandidateFeedbacks(model);
         return "candidacy/index";
     }
 
@@ -49,7 +50,34 @@ public class CandidacyController {
         } catch (Exception exception) {
             model.addAttribute("candidacyErrorMessage", messageSource.getMessage("error.candidacyerror", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
         }
+        setCandidateFeedbacks(model);
         return "candidacy/index";
     }
 
+    @PostMapping(path = "/take_back_candidacy")
+    public String takeBackCandidacy(Model model) {
+        try {
+            userStatisticsService.saveUserStatistics(request, "/candidacy");
+            AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
+            candidateService.takeBackCandidacy(authIdentity.getIdentityCode());
+            model.addAttribute("candidacySuccessTakeBack", messageSource.getMessage("error.candidacytakebacksuccess", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
+        } catch (Exception exception) {
+            model.addAttribute("candidacyErrorTakeBack", messageSource.getMessage("error.candidacytakebackerror", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
+        }
+        setCandidateFeedbacks(model);
+        return "candidacy/index";
+    }
+
+    private boolean isCandidate() {
+        AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
+        return candidateService.isCandidate(authIdentity.getIdentityCode());
+    }
+
+    private void setCandidateFeedbacks(Model model) {
+        if (isCandidate()) {
+            model.addAttribute("iscandidate", true);
+        } else {
+            model.addAttribute("iscandidate", false);
+        }
+    }
 }
