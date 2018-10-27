@@ -36,7 +36,7 @@ public class CandidacyController {
     @GetMapping(path = "/candidacy")
     public String getPage(Model model) {
         userStatisticsService.saveUserStatistics(request, "/candidacy");
-        setCandidateFeedbacks(model);
+        setCandidateStatus(model);
         return "candidacy/index";
     }
 
@@ -50,7 +50,7 @@ public class CandidacyController {
         } catch (Exception exception) {
             model.addAttribute("candidacyErrorMessage", messageSource.getMessage("error.candidacyerror", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
         }
-        setCandidateFeedbacks(model);
+        setCandidateStatus(model);
         return "candidacy/index";
     }
 
@@ -64,7 +64,7 @@ public class CandidacyController {
         } catch (Exception exception) {
             model.addAttribute("candidacyErrorTakeBack", messageSource.getMessage("error.candidacytakebackerror", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
         }
-        setCandidateFeedbacks(model);
+        setCandidateStatus(model);
         return "candidacy/index";
     }
 
@@ -73,7 +73,7 @@ public class CandidacyController {
         return candidateService.isCandidate(authIdentity.getIdentityCode());
     }
 
-    private void setCandidateFeedbacks(Model model) {
+    private void setCandidateStatus(Model model) {
         if (isCandidate()) {
             model.addAttribute("iscandidate", true);
         } else {
