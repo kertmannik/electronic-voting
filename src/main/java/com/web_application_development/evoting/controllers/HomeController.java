@@ -47,10 +47,7 @@ public class HomeController {
     @GetMapping("/")
     public String showAllVotes(Model model) {
         userStatisticsService.saveUserStatistics(request, "/");
-
-        if (isAuthenticated()) {
-            hasVotedSelect(model);
-        }
+        hasVotedSelect(model);
         model.addAttribute("candidatesForVoting", createCandidateTableList());
         return "home/index";
     }
@@ -106,10 +103,15 @@ public class HomeController {
     }
 
     private void hasVotedSelect(Model model) {
-        if (hasVoted()) {
-            model.addAttribute("hasvoted", true);
-        } else {
-            model.addAttribute("hasvoted", false);
+        AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
+        if (isAuthenticated()) {
+            if (hasVoted()) {
+                model.addAttribute("hasvoted", true);
+                model.addAttribute("votedcandidate", candidateService.findCandidateUserVotedFor(authIdentity.getIdentityCode()));
+            } else {
+                model.addAttribute("hasvoted", false);
+                model.addAttribute("votedcandidate", "");
+            }
         }
     }
 
