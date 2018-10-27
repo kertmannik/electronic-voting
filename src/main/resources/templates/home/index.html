@@ -17,9 +17,9 @@
 
 <div class="container">
     <div th:if="${voteTakeBackSuccess != null}" class="alert alert-success" role="alert"
-         th:text="${voteTakeBackSuccess}"></div>
+         th:text="${voteTakeBackSuccess}" align="center"></div>
     <div th:if="${voteTakeBackError != null}" class="alert alert-danger" role="alert"
-         th:text="${voteTakeBackError}"></div>
+         th:text="${voteTakeBackError}" align="center"></div>
     <div th:if="${#authorization.expression('isAuthenticated()')}" align="center">
         <div th:if="${hasvoted}">
             <h3 class="voted"

@@ -103,8 +103,8 @@ public class HomeController {
     }
 
     private void hasVotedSelect(Model model) {
-        AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
         if (isAuthenticated()) {
+            AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
             if (hasVoted()) {
                 model.addAttribute("hasvoted", true);
                 model.addAttribute("votedcandidate", candidateService.findCandidateUserVotedFor(authIdentity.getIdentityCode()));
