@@ -3,10 +3,23 @@
 <head>
     <div th:replace="fragments/head :: head"></div>
     <link rel="stylesheet" href="css/statistics.css" type="text/css">
+    <link rel="stylesheet" href="css/banner.css" type="text/css">
     <title th:text="#{navbar.statistics}"></title>
+    <script src="js/banner.js"></script>
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar(userstatistics)"></div>
+
+<div class="modal fade" id="banner">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal">
+                <span>&times;</span>
+            </button>
+            <img class="img-responsive" th:src="@{/images/banner.gif}" alt="Banner">
+        </div>
+    </div>
+</div>
 
 <div class="container">
     <div class="row col-xs-12">
