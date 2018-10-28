@@ -1,0 +1,7 @@
+.modal-content button {
+    padding-right: 2%;
+}
+.modal-open {
+    overflow:hidden;
+    padding-right:0 !important;
+}
