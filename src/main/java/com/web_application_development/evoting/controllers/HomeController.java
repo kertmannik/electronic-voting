@@ -78,7 +78,7 @@ public class HomeController {
         }
         hasVotedSelect(model);
         model.addAttribute("candidatesForVoting", createCandidateTableList());
-        return "home/index";
+        return "redirect:/";
     }
 
     private boolean isAuthenticated() {
