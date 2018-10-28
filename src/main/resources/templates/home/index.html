@@ -16,7 +16,20 @@
 <div th:replace="fragments/navbar :: navbar(home)"></div>
 
 <div class="container">
-
+    <div th:if="${voteTakeBackSuccess != null}" class="alert alert-success" role="alert"
+         th:text="${voteTakeBackSuccess}" align="center"></div>
+    <div th:if="${voteTakeBackError != null}" class="alert alert-danger" role="alert"
+         th:text="${voteTakeBackError}" align="center"></div>
+    <div th:if="${#authorization.expression('isAuthenticated()')}" align="center">
+        <div th:if="${hasvoted}">
+            <h3 class="voted"
+                th:text="#{home.hasvoted} + ' ' + ${votedcandidate.firstName + ' ' + votedcandidate.lastName}"></h3>
+            <h3 th:text="#{home.hasvotedquestion}"></h3>
+            <form th:action="@{/remove_vote}" method="post">
+                <button type="submit" class="btn btn-primary" th:text="#{home.votetakebackbutton}"></button>
+            </form>
+        </div>
+    </div>
     <div class="row col-xs-12 table-responsive">
         <table id="candidateTable" class="table table-striped">
             <thead>

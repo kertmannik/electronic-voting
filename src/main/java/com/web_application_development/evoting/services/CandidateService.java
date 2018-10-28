@@ -30,6 +30,10 @@ public class CandidateService {
         return candidateRepository.findById(candidateId.longValue()).orElse(null);
     }
 
+    public Candidate findCandidateUserVotedFor(String idenCode) {
+        return candidateRepository.findCandidateUserVotedFor(idenCode).orElse(null);
+    }
+
     public void saveCandidate(CandidateDTO candidateDTO, AuthenticationIdentity authIdentity) {
         // map DTO to entity
         Candidate entity = mapDTOToEntity(candidateDTO, authIdentity);

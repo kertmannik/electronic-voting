@@ -42,4 +42,12 @@ public class VoteService {
         voteEntity.setVotingTime(LocalDateTime.now());
         return voteEntity;
     }
+
+    public boolean hasVoted(String identityCode) {
+        return voteRepository.hasVoted(identityCode);
+    }
+
+    public void takeBackVote(String identityCode) {
+        voteRepository.takeBackCandidacy(identityCode);
+    }
 }
