@@ -51,7 +51,7 @@ public class CandidacyController {
             model.addAttribute("candidacyErrorMessage", messageSource.getMessage("error.candidacyerror", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
         }
         setCandidateStatus(model);
-        return "candidacy/index";
+        return "redirect:/candidacy";
     }
 
     @PostMapping(path = "/take_back_candidacy")
@@ -65,7 +65,7 @@ public class CandidacyController {
             model.addAttribute("candidacyErrorTakeBack", messageSource.getMessage("error.candidacytakebackerror", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
         }
         setCandidateStatus(model);
-        return "candidacy/index";
+        return "redirect:/candidacy";
     }
 
     private boolean isCandidate() {
