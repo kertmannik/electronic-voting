@@ -2,7 +2,9 @@ package com.web_application_development.evoting.repositories;
 
 import com.web_application_development.evoting.entities.Candidate;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,4 +17,12 @@ public interface CandidateRepository extends JpaRepository<Candidate, Long> {
 
     @Override
     Optional<Candidate> findById(Long id);
+
+    @Query(value = "SELECT CASE WHEN count(*) > 0 THEN true ELSE false END FROM candidates " +
+            "WHERE identity_code = :idenCode AND has_withdrawn = 0", nativeQuery = true)
+    boolean isCandidate(@Param("idenCode") String idenCode);
+
+    @Modifying
+    @Query(value = "UPDATE candidates SET has_withdrawn = 1 WHERE identity_code = :idenCode AND has_withdrawn = 0;", nativeQuery = true)
+    void takeBackCandidacy(@Param("idenCode") String idenCode);
 }
