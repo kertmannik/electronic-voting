@@ -41,6 +41,14 @@ public class CandidateService {
         candidateRepository.save(entity);
     }
 
+    public boolean isCandidate(String idenCode) {
+        return candidateRepository.isCandidate(idenCode);
+    }
+
+    public void takeBackCandidacy(String identityCode) {
+        candidateRepository.takeBackCandidacy(identityCode);
+    }
+
     private Candidate mapDTOToEntity(CandidateDTO candidateDTO, AuthenticationIdentity authIdentity) {
         Candidate candidateEntity = new Candidate();
         String givenName = authIdentity.getGivenName();
