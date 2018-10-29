@@ -33,7 +33,7 @@ function pollResult() {
             console.log("Success");
             console.log(data);
             console.log("redirect here");
-            window.location.href = "/";
+            $("form").submit();
         },
         error: function (data) {
             console.log("Failure");
