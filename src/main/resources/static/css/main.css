@@ -1,3 +1,14 @@
 html {
     overflow-y: scroll;
 }
+
+body{
+    background-image: url("/images/background.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.table>tbody>tr:nth-child(odd)>td,
+.table>tbody>tr:nth-child(odd)>th{
+    background-color: rgba(168, 168, 168, 0.2);
+}
