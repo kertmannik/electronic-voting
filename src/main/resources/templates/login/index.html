@@ -10,7 +10,7 @@
 <body class="text-center">
 <div th:replace="fragments/navbar :: navbar(login)"></div>
 <div id="smart-id-login-container">
-    <form class="form-signin">
+    <form action="/smart-id/login/finalize" method="post" class="form-signin">
         <h1 class="h3 mb-3 font-weight-normal" data-toggle="tooltip" data-placement="top"
             th:title="#{login.tooltip}" th:text="#{login.introduction}"></h1>
         <input type="number" id="nationalIdentityNumber" name="nationalIdentityNumber" class="form-control"
