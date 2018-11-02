@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var selectedOption = document.getElementById("selected_language").innerHTML;
+    var selectedOption = document.getElementById("selected-language").innerHTML;
     if (selectedOption.trim() === "et") {
         $('#candidateTable').DataTable({
             "info": false,

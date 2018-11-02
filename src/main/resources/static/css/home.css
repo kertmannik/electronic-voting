@@ -20,5 +20,13 @@
 }
 
 .voted {
-    margin-top: 0px;
+    margin-top: 0em;
+}
+
+#selected-language {
+    display: none;
+}
+
+.container {
+    padding-top: 2em;
 }

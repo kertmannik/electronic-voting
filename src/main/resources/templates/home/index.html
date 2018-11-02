@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <div th:replace="fragments/head :: head"></div>
-    <link rel="stylesheet" href="css/home.css" type="text/css">
     <title th:text="#{navbar.home}"></title>
 
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
@@ -11,15 +10,18 @@
     <script src="js/vote-post.js"></script>
     <script src="js/login.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     <script src="js/homepage-table-filter.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="css/home.css" type="text/css">
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar(home)"></div>
 
 <div class="container">
-    <span id="selected_language" style="display: none;" th:text="${selectedLanguage}"></span>
+    <span id="selected-language" th:text="${selectedLanguage}"></span>
     <div th:if="${voteTakeBackSuccess != null}" class="alert alert-success" role="alert"
          th:text="${voteTakeBackSuccess}" align="center"></div>
     <div th:if="${voteTakeBackError != null}" class="alert alert-danger" role="alert"
