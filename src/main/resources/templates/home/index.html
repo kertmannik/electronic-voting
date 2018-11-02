@@ -11,11 +11,15 @@
     <script src="js/vote-post.js"></script>
     <script src="js/login.js"></script>
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script src="js/homepage-table-filter.js"></script>
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar(home)"></div>
 
 <div class="container">
+    <span id="selected_language" style="display: none;" th:text="${selectedLanguage}"></span>
     <div th:if="${voteTakeBackSuccess != null}" class="alert alert-success" role="alert"
          th:text="${voteTakeBackSuccess}" align="center"></div>
     <div th:if="${voteTakeBackError != null}" class="alert alert-danger" role="alert"

@@ -49,6 +49,7 @@ public class HomeController {
         userStatisticsService.saveUserStatistics(request, "/");
         hasVotedSelect(model);
         model.addAttribute("candidatesForVoting", createCandidateTableList());
+        model.addAttribute("selectedLanguage", LocaleContextHolder.getLocale());
         return "home/index";
     }
 
