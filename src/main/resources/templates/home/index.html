@@ -61,11 +61,12 @@
                                         th:value="${candidate.candidateId}"></button>
                             </form>
                         </td>
-                        <td th:unless="${#authorization.expression('isAuthenticated()')}" data-toggle="tooltip"
-                            data-placement="top"
-                            th:title="#{voting.tooltip}">
-                            <button disabled="disabled" class="btn btn-primary" th:text="#{home.vote}"></button>
+                        <td th:unless="${#authorization.expression('isAuthenticated()')}">
+                            <button class="btn btn-default" data-toggle="tooltip"
+                                    data-placement="top" th:title="#{voting.tooltip}" th:text="#{home.vote}">
+                            </button>
                         </td>
+
 
                     </tr>
 
