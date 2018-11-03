@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -22,6 +20,7 @@ import java.util.Map;
 @RequestMapping(value = "/smart-id/authentication")
 public class SmartIdController {
 
+    public static final String AUTHENTICATION_RESULT_KEY = "SMART_ID_AUTHENTICATION_RESULT";
     private final SmartIdClient smartIdClient;
     private final MessageSource messageSource;
 
@@ -51,12 +50,9 @@ public class SmartIdController {
                 .authenticate();
         AuthenticationResponseValidator authenticationResponseValidator = new AuthenticationResponseValidator();
         SmartIdAuthenticationResult authenticationResult = authenticationResponseValidator.validate(authenticationResponse);
-        Authentication auth = new SmartIdAuthenticationToken(
-                authenticationResult.getAuthenticationIdentity(),
-                null,
-                null
-        );
-        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        httpSession.setAttribute(AUTHENTICATION_RESULT_KEY, authenticationResult);
+
         return authenticationResult;
     }
     @ResponseStatus(HttpStatus.BAD_REQUEST)

@@ -27,11 +27,11 @@ public class CandidateService {
     }
 
     public Candidate findCandidateById(Integer candidateId) {
-        return candidateRepository.findById(candidateId.longValue()).orElse(null);
+        return candidateRepository.findById(candidateId.longValue()).orElse(new Candidate());
     }
 
     public Candidate findCandidateUserVotedFor(String idenCode) {
-        return candidateRepository.findCandidateUserVotedFor(idenCode).orElse(null);
+        return candidateRepository.findCandidateUserVotedFor(idenCode).orElse(new Candidate());
     }
 
     public void saveCandidate(CandidateDTO candidateDTO, AuthenticationIdentity authIdentity) {
