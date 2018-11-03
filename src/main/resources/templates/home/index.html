@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
     <div th:replace="fragments/head :: head"></div>
     <link rel="stylesheet" href="css/home.css" type="text/css">
+
     <title th:text="#{navbar.home}"></title>
 
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
@@ -11,6 +13,10 @@
     <script src="js/vote-post.js"></script>
     <script src="js/login.js"></script>
 
+
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script src="js/homepage-table-filter.js"></script>
 </head>
 <body>
 <div id="container">
@@ -18,6 +24,7 @@
         <div th:replace="fragments/navbar :: navbar(home)"></div>
 
         <div class="container">
+            <span id="selected_language" style="display: none;" th:text="${selectedLanguage}"></span>
             <div th:if="${voteTakeBackSuccess != null}" class="alert alert-success" role="alert"
                  th:text="${voteTakeBackSuccess}" align="center"></div>
             <div th:if="${voteTakeBackError != null}" class="alert alert-danger" role="alert"
@@ -60,10 +67,10 @@
                                         th:value="${candidate.candidateId}"></button>
                             </form>
                         </td>
-                        <td th:unless="${#authorization.expression('isAuthenticated()')}">
-                            <button class="btn btn-default" data-toggle="tooltip"
-                                    data-placement="top" th:title="#{voting.tooltip}" th:text="#{home.vote}">
-                            </button>
+                        <td th:unless="${#authorization.expression('isAuthenticated()')}" data-toggle="tooltip"
+                            data-placement="top"
+                            th:title="#{voting.tooltip}">
+                            <button disabled="disabled" class="btn btn-primary" th:text="#{home.vote}"></button>
                         </td>
 
                     </tr>
@@ -83,6 +90,6 @@
         <div th:replace="fragments/footer :: footer"></div>
     </div>
 </div>
-</body>
 
+</body>
 </html>
