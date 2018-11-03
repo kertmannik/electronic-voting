@@ -9,8 +9,10 @@
     <script src="js/vote.js"></script>
     <script src="js/vote-post.js"></script>
     <script src="js/login.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     <script src="js/homepage-table-filter.js"></script>
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
@@ -20,37 +22,37 @@
 <div id="container">
     <div id="content">
         <div th:replace="fragments/navbar :: navbar(home)"></div>
-<div class="container">
-    <span id="selected-language" th:text="${selectedLanguage}"></span>
-    <div th:if="${voteTakeBackSuccess != null}" class="alert alert-success" role="alert"
-         th:text="${voteTakeBackSuccess}" align="center"></div>
-    <div th:if="${voteTakeBackError != null}" class="alert alert-danger" role="alert"
-         th:text="${voteTakeBackError}" align="center"></div>
-    <div th:if="${#authorization.expression('isAuthenticated()')}" align="center">
-        <div th:if="${hasvoted}">
-            <h3 class="voted"
-                th:text="#{home.hasvoted} + ' ' + ${votedcandidate.firstName + ' ' + votedcandidate.lastName}"></h3>
-            <h3 th:text="#{home.hasvotedquestion}"></h3>
-            <form th:action="@{/remove_vote}" method="post">
-                <button type="submit" class="btn btn-primary" th:text="#{home.votetakebackbutton}"></button>
-            </form>
-        </div>
-    </div>
-    <div class="row col-xs-12 table-responsive">
-        <table id="candidateTable" class="table table-striped">
-            <thead>
-            <tr>
-                <th th:text="#{home.nr}"></th>
-                <th th:text="#{home.firstname}"></th>
-                <th th:text="#{home.lastname}"></th>
-                <th th:text="#{home.region}"></th>
-                <th th:text="#{home.party}"></th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="candidate, rowStat: ${candidatesForVoting}">
-              
+        <div class="container">
+            <span id="selected-language" th:text="${selectedLanguage}"></span>
+            <div th:if="${voteTakeBackSuccess != null}" class="alert alert-success" role="alert"
+                 th:text="${voteTakeBackSuccess}" align="center"></div>
+            <div th:if="${voteTakeBackError != null}" class="alert alert-danger" role="alert"
+                 th:text="${voteTakeBackError}" align="center"></div>
+            <div th:if="${#authorization.expression('isAuthenticated()')}" align="center">
+                <div th:if="${hasvoted}">
+                    <h3 class="voted"
+                        th:text="#{home.hasvoted} + ' ' + ${votedcandidate.firstName + ' ' + votedcandidate.lastName}"></h3>
+                    <h3 th:text="#{home.hasvotedquestion}"></h3>
+                    <form th:action="@{/remove_vote}" method="post">
+                        <button type="submit" class="btn btn-primary" th:text="#{home.votetakebackbutton}"></button>
+                    </form>
+                </div>
+            </div>
+            <div class="row col-xs-12 table-responsive">
+                <table id="candidateTable" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th th:text="#{home.nr}"></th>
+                        <th th:text="#{home.firstname}"></th>
+                        <th th:text="#{home.lastname}"></th>
+                        <th th:text="#{home.region}"></th>
+                        <th th:text="#{home.party}"></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="candidate, rowStat: ${candidatesForVoting}">
+
                         <td th:text="${candidate.candidateId}"></td>
                         <td th:text="${candidate.firstName}"></td>
                         <td th:text="${candidate.lastName}"></td>
