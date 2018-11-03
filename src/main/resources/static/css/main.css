@@ -33,5 +33,9 @@ body {
     background-color: #222222;
     color: white;
     text-align: center;
-    padding: 1%
+    display: table;
+}
+.footer{
+    display: table-cell;
+    vertical-align: middle;
 }
