@@ -29,12 +29,15 @@ public class VoteController {
     }
 
     @PostMapping(value = "/vote")
-    public void sendVote(@RequestBody VoteDTO voteDTO) {
+    public void sendVote(@RequestBody VoteDTO voteDTO) throws Exception {
         AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
-        // save new entity
-        voteService.saveVote(voteDTO, authIdentity.getIdentityCode());
 
         Candidate candidate = candidateService.findCandidateById(voteDTO.getCandidateId());
-        messagingTemplate.convertAndSend("/topic/votes", candidate);
+        if (authIdentity.getIdentityCode().equals(candidate.getIdentityCode())) {
+            throw new Exception("Can not vote for yourself");
+        } else {
+            voteService.saveVote(voteDTO, authIdentity.getIdentityCode());
+            messagingTemplate.convertAndSend("/topic/votes", candidate);
+        }
     }
 }
