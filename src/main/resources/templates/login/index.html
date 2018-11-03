@@ -8,22 +8,27 @@
     <title th:text="#{login.signin}"></title>
 </head>
 <body class="text-center">
-<div th:replace="fragments/navbar :: navbar(login)"></div>
-<div id="smart-id-login-container">
-    <form action="/smart-id/login/finalize" method="post" class="form-signin">
-        <h1 class="h3 mb-3 font-weight-normal" data-toggle="tooltip" data-placement="top"
-            th:title="#{login.tooltip}" th:text="#{login.introduction}"></h1>
-        <input type="number" id="nationalIdentityNumber" name="nationalIdentityNumber" class="form-control"
-               th:placeholder="#{login.placeholder}"
-               pattern=".{11,11}" required th:title="#{login.input}" autofocus maxlength="11">
-        <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.signin}"></button>
-    </form>
-    <div id="error-text" class="alert alert-danger" role="alert"></div>
+<div id="container">
+    <div id="content">
+        <div th:replace="fragments/navbar :: navbar(login)"></div>
+        <div id="smart-id-login-container">
+            <form action="/smart-id/login/finalize" method="post" class="form-signin">
+                 <h1 class="h3 mb-3 font-weight-normal" data-toggle="tooltip" data-placement="top"
+                     th:title="#{login.tooltip}" th:text="#{login.introduction}"></h1>
+                 <input type="number" id="nationalIdentityNumber" name="nationalIdentityNumber" class="form-control"
+                     th:placeholder="#{login.placeholder}"
+                     pattern=".{11,11}" required th:title="#{login.input}" autofocus maxlength="11">
+                 <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.signin}"></button>
+             </form>
+             <div id="error-text" class="alert alert-danger" role="alert"></div>
+        </div>
+        <div id="smart-id-verification-code-container" style="display:none;">
+            <h1 class="display-3" id="verification-code-text">XXXX</h1>
+        </div>
+    </div>
+    <div id="footer">
+        <div th:replace="fragments/footer :: footer"></div>
+    </div>
 </div>
-
-<div id="smart-id-verification-code-container" style="display:none;">
-    <h1 class="display-3" id="verification-code-text">XXXX</h1>
-</div>
-
 </body>
 </html>

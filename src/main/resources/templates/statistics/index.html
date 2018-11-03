@@ -6,39 +6,44 @@
     <title th:text="#{navbar.statistics}"></title>
 </head>
 <body>
-<div th:replace="fragments/navbar :: navbar(statistics)"></div>
+<div id="container">
+    <div id="content">
+        <div th:replace="fragments/navbar :: navbar(statistics)"></div>
 
-<div class="container">
+        <div class="container">
 
-    <div class="row col-xs-12">
-        <h2 th:text="#{statistics.votestatistics}"></h2>
+            <div class="row col-xs-12">
+                <h2 th:text="#{statistics.votestatistics}"></h2>
+            </div>
+            <div class="row col-xs-12 table-responsive">
+                <table id="votesTable" class="table">
+                    <thead>
+                    <tr>
+                        <th th:text="#{statistics.nr}"></th>
+                        <th th:text="#{statistics.firstname}"></th>
+                        <th th:text="#{statistics.lastname}"></th>
+                        <th th:text="#{statistics.region}"></th>
+                        <th th:text="#{statistics.party}"></th>
+                        <th th:text="#{statistics.votes}"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="candidate, rowStat: ${votes}">
+                        <td th:text="${candidate.id}"></td>
+                        <td th:text="${candidate.firstName}"></td>
+                        <td th:text="${candidate.lastName}"></td>
+                        <td th:text="${candidate.region}"></td>
+                        <td th:text="${candidate.party}"></td>
+                        <td th:text="${candidate.cnt}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-
-    <div class="row col-xs-12 table-responsive">
-        <table id="votesTable" class="table table-striped">
-            <thead>
-            <tr>
-                <th th:text="#{statistics.nr}"></th>
-                <th th:text="#{statistics.firstname}"></th>
-                <th th:text="#{statistics.lastname}"></th>
-                <th th:text="#{statistics.region}"></th>
-                <th th:text="#{statistics.party}"></th>
-                <th th:text="#{statistics.votes}"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="candidate, rowStat: ${votes}">
-                <td th:text="${candidate.id}"></td>
-                <td th:text="${candidate.firstName}"></td>
-                <td th:text="${candidate.lastName}"></td>
-                <td th:text="${candidate.region}"></td>
-                <td th:text="${candidate.party}"></td>
-                <td th:text="${candidate.cnt}"></td>
-            </tr>
-            </tbody>
-        </table>
+    <div id="footer">
+        <div th:replace="fragments/footer :: footer"></div>
     </div>
 </div>
-
 </body>
 </html>

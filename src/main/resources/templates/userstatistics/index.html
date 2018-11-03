@@ -8,61 +8,69 @@
     <script src="js/banner.js"></script>
 </head>
 <body>
-<div th:replace="fragments/navbar :: navbar(userstatistics)"></div>
+<div id="container">
+    <div id="content">
+        <div th:replace="fragments/navbar :: navbar(userstatistics)"></div>
 
-<div class="modal fade" id="banner">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal">
-                <span>&times;</span>
-            </button>
-            <img class="img-responsive" th:src="@{/images/banner.gif}" alt="Banner">
+        <div class="modal fade" id="banner">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <img class="img-responsive" th:src="@{/images/banner.gif}" alt="Banner">
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row col-xs-12">
+                <h2 th:text="#{userstatistics.userstatistics}"></h2>
+            </div>
+
+            <div class="row col-xs-12">
+                <p>
+                    <span th:text="#{userstatistics.uniquevisitors}"></span>
+                    <span th:text="${visitors}"></span>
+                </p>
+            </div>
+
+            <div class="row col-xs-12 table-responsive">
+                <table id="browserTable" class="table table-condensed">
+                    <thead>
+                    <tr>
+                        <th th:text="#{userstatistics.browsers}"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="browser, rowStat: ${browsers}">
+                        <td th:text="${browser}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row col-xs-12 table-responsive">
+                <table id="landingsTable" class="table table-condensed">
+                    <thead>
+                    <tr>
+                        <th th:text="#{userstatistics.landings}"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="landing, rowStat: ${landings}">
+                        <td th:text="${landing}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </div>
-</div>
 
-<div class="container">
-    <div class="row col-xs-12">
-        <h2 th:text="#{userstatistics.userstatistics}"></h2>
-    </div>
-
-    <div class="row col-xs-12">
-        <p>
-            <span th:text="#{userstatistics.uniquevisitors}"></span>
-            <span th:text="${visitors}"></span>
-        </p>
-    </div>
-
-    <div class="row col-xs-12 table-responsive">
-        <table id="browserTable" class="table table-condensed">
-            <thead>
-            <tr>
-                <th th:text="#{userstatistics.browsers}"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="browser, rowStat: ${browsers}">
-                <td th:text="${browser}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="row col-xs-12 table-responsive">
-        <table id="landingsTable" class="table table-condensed">
-            <thead>
-            <tr>
-                <th th:text="#{userstatistics.landings}"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="landing, rowStat: ${landings}">
-                <td th:text="${landing}"></td>
-            </tr>
-            </tbody>
-        </table>
+    <div id="footer">
+        <div th:replace="fragments/footer :: footer"></div>
     </div>
 
 </div>
-
 </body>
 </html>
