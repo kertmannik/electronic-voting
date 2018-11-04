@@ -6,13 +6,18 @@
     <title th:text="#{navbar.statistics}"></title>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="js/chart.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+    <script src="js/statistics-table-filter.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" type="text/css">
 </head>
 <body>
 <div id="container">
     <div id="content">
         <div th:replace="fragments/navbar :: navbar(statistics)"></div>
         <div class="container">
-            <div class="row col-xs-12">
+            <span id="selected-language" th:text="${selectedLanguage}"></span>
+            <div id="top-title" class="row col-xs-12">
                 <h2 th:text="#{statistics.votestatistics}"></h2>
             </div>
             <div class="row col-xs-12 table-responsive">

@@ -19,3 +19,11 @@
 #votesForPartyTable {
     display: none;
 }
+
+#selected-language {
+    display: none;
+}
+
+#top-title {
+    padding-bottom: 2em;
+}
