@@ -33,11 +33,15 @@ public class VoteController {
         AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
 
         Candidate candidate = candidateService.findCandidateById(voteDTO.getCandidateId());
-        if (authIdentity.getIdentityCode().equals(candidate.getIdentityCode())) {
+        if (isCandidateSameAsUser(authIdentity, candidate)) {
             throw new Exception("Can not vote for yourself");
         } else {
             voteService.saveVote(voteDTO, authIdentity.getIdentityCode());
             messagingTemplate.convertAndSend("/topic/votes", candidate);
         }
+    }
+
+    private boolean isCandidateSameAsUser(AuthenticationIdentity authIdentity, Candidate candidate) {
+        return authIdentity.getIdentityCode().equals(candidate.getIdentityCode());
     }
 }
