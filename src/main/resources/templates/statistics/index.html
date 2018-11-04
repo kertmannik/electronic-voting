@@ -39,6 +39,25 @@
                     </tbody>
                 </table>
             </div>
+            <div class="row col-xs-12">
+                <h2 th:text="#{statistics.partystatistics}"></h2>
+            </div>
+            <div class="row col-xs-12 table-responsive">
+                <table id="votesForPartyTable" class="table">
+                    <thead>
+                    <tr>
+                        <th th:text="#{statistics.party}"></th>
+                        <th th:text="#{statistics.votes}"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="party, rowStat: ${votesForParty}">
+                        <td th:text="${party.party}"></td>
+                        <td th:text="${party.count}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <div id="footer">

@@ -2,6 +2,7 @@ package com.web_application_development.evoting.controllers;
 
 import com.web_application_development.evoting.dtos.VoteResultsDTO;
 import com.web_application_development.evoting.entities.VoteResult;
+import com.web_application_development.evoting.entities.VoteResultForParty;
 import com.web_application_development.evoting.services.UserStatisticsService;
 import com.web_application_development.evoting.services.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,8 @@ public class StatisticsController {
 
     @GetMapping("/statistics")
     public String showAllVotes(Model model) {
-        userStatisticsService.saveUserStatistics(request,"/statistics");
+        userStatisticsService.saveUserStatistics(request, "/statistics");
+
         List<VoteResult> votesListObj = voteService.findAllVotes();
         List<VoteResultsDTO> votesList = new ArrayList<>();
         for (VoteResult candidate : votesListObj) {
@@ -37,7 +39,10 @@ public class StatisticsController {
             votesList.add(voteResult);
         }
 
+        List<VoteResultForParty> voteResultForPartyList = voteService.findAllVotesForEachParty();
+
         model.addAttribute("votes", votesList);
+        model.addAttribute("votesForParty", voteResultForPartyList);
         return "statistics/index";
     }
 
