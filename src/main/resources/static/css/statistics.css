@@ -10,3 +10,12 @@
 .table-responsive {
     border: 0em;
 }
+
+#piechart {
+    width: 100%;
+    min-height: 30em;
+}
+
+#votesForPartyTable {
+    display: none;
+}

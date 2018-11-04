@@ -4,14 +4,14 @@
     <div th:replace="fragments/head :: head"></div>
     <link rel="stylesheet" href="css/statistics.css" type="text/css">
     <title th:text="#{navbar.statistics}"></title>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="js/chart.js"></script>
 </head>
 <body>
 <div id="container">
     <div id="content">
         <div th:replace="fragments/navbar :: navbar(statistics)"></div>
-
         <div class="container">
-
             <div class="row col-xs-12">
                 <h2 th:text="#{statistics.votestatistics}"></h2>
             </div>
@@ -58,6 +58,7 @@
                     </tbody>
                 </table>
             </div>
+            <div id="piechart" class="row col-xs-12"></div>
         </div>
     </div>
     <div id="footer">
