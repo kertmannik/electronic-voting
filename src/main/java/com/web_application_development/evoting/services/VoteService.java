@@ -3,7 +3,9 @@ package com.web_application_development.evoting.services;
 import com.web_application_development.evoting.dtos.VoteDTO;
 import com.web_application_development.evoting.entities.Vote;
 import com.web_application_development.evoting.entities.VoteResult;
+import com.web_application_development.evoting.entities.VoteResultForParty;
 import com.web_application_development.evoting.repositories.VoteRepository;
+import com.web_application_development.evoting.repositories.VoteResultsForPartyRepository;
 import com.web_application_development.evoting.repositories.VoteResultsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,15 +20,21 @@ public class VoteService {
 
     private final VoteRepository voteRepository;
     private final VoteResultsRepository voteResultsRepository;
+    private final VoteResultsForPartyRepository voteResultsForPartyRepository;
 
     @Autowired
-    VoteService(VoteRepository voteRepository, VoteResultsRepository voteResultsRepository) {
+    VoteService(VoteRepository voteRepository, VoteResultsRepository voteResultsRepository, VoteResultsForPartyRepository voteResultsForPartyRepository) {
         this.voteRepository = voteRepository;
         this.voteResultsRepository = voteResultsRepository;
+        this.voteResultsForPartyRepository = voteResultsForPartyRepository;
     }
 
     public List<VoteResult> findAllVotes() {
         return voteResultsRepository.findAllVotes();
+    }
+
+    public List<VoteResultForParty> findAllVotesForEachParty() {
+        return voteResultsForPartyRepository.findAllVotesForEachParty();
     }
 
     public void saveVote(VoteDTO voteDTO, String voterId) {
