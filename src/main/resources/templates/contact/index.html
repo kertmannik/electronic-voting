@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="utf-8">
     <div th:replace="fragments/head :: head"></div>
     <link rel="stylesheet" href="css/contact.css" type="text/css">
     <script type="text/javascript">
@@ -11,47 +10,66 @@
     <title th:text="#{navbar.contact}"></title>
 </head>
 <body>
-<div th:replace="fragments/navbar :: navbar(contact)"></div>
-<div class="jumbotron center">
-    <div class="container-fluid" align="center">
-        <h2 th:text="#{contact.welcome}"></h2>
-        <address th:text="#{contact.phone}"></address>
-        <address th:text="#{contact.mail}"></address>
-        <address th:text="#{contact.address}"></address>
-        <div>
-            <div id="map">maps error</div>
-            <script src="js/map.js"></script>
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB39NlYkSsY9rVRLJB_X29-IS9MEiIwTas&callback=initMap"></script>
-        </div>
-        <h3 th:text="#{contact.form}"></h3>
-        <div class="form-row vorm">
-            <form method="post">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="name" name="name"
-                           th:placeholder="#{contact.name}" required>
+<div id="container">
+    <div id="content">
+        <div th:replace="fragments/navbar :: navbar(contact)"></div>
+        <div class="jumbotron center">
+            <div class="container-fluid">
+                <div class="container">
+                    <div th:if="${contactSuccessMessage != null}" class="alert alert-success"
+                         role="alert"
+                         th:text="${contactSuccessMessage}">
+                    </div>
+                    <div th:if="${contactErrorMessage != null}" class="alert alert-danger"
+                         role="alert"
+                         th:text="${contactErrorMessage}">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input type="email" class="form-control" id="email" name="email"
-                           th:placeholder="#{contact.email}" required>
+                <h2 th:text="#{contact.welcome}"></h2>
+                <address th:text="#{contact.phone}"></address>
+                <address th:text="#{contact.mail}"></address>
+                <address th:text="#{contact.address}"></address>
+                <div>
+                    <div id="map">maps error</div>
+                    <script src="js/map.js"></script>
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB39NlYkSsY9rVRLJB_X29-IS9MEiIwTas&callback=initMap"></script>
                 </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="subject" name="subject"
-                           th:placeholder="#{contact.subject}" required>
+                <h3 th:text="#{contact.form}"></h3>
+                <div class="form-row vorm">
+                    <form method="post">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="name" name="name"
+                                   th:placeholder="#{contact.name}" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="email" name="email"
+                                   th:placeholder="#{contact.email}" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="subject" name="subject"
+                                   th:placeholder="#{contact.subject}" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="body" name="body"
+                                   th:placeholder="#{contact.body}" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" th:text="#{contact.sendbutton}"></button>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="body" name="body"
-                           th:placeholder="#{contact.body}" required>
-                </div>
-                <button type="submit" class="btn btn-primary" th:text="#{contact.sendbutton}"></button>
-            </form>
-        </div>
 
-        <div>
-            <h3 th:text="#{contact.image}"></h3>
-            <img class="load-delay image" src="images/loading.gif"
-                 data-original="images/team.jpg"/>
+                <div>
+                    <h3 th:text="#{contact.image}"></h3>
+                    <img class="load-delay image" src="images/loading.gif"
+                         data-original="images/team.jpg" alt="Team Photo"/>
+                </div>
+            </div>
         </div>
     </div>
+
+    <div id="footer">
+        <div th:replace="fragments/footer :: footer"></div>
+    </div>
+
 </div>
 </body>
 </html>

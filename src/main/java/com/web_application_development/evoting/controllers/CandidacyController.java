@@ -1,59 +1,83 @@
 package com.web_application_development.evoting.controllers;
 
 import com.web_application_development.evoting.dtos.CandidateDTO;
-import com.web_application_development.evoting.entities.Candidate;
-import com.web_application_development.evoting.repositories.CandidateRepository;
+import com.web_application_development.evoting.services.CandidateService;
+import com.web_application_development.evoting.services.UserStatisticsService;
 import ee.sk.smartid.AuthenticationIdentity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.sql.Timestamp;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
 
 @Controller
 public class CandidacyController {
 
-    private final CandidateRepository candidateRepository;
+    private final HttpServletRequest request;
+    private final CandidateService candidateService;
+    private final UserStatisticsService userStatisticsService;
+    private final MessageSource messageSource;
 
     @Autowired
-    CandidacyController(CandidateRepository candidateRepository) {
-        this.candidateRepository = candidateRepository;
+    public CandidacyController(HttpServletRequest request, CandidateService candidateService, UserStatisticsService userStatisticsService, MessageSource messageSource) {
+        this.request = request;
+        this.candidateService = candidateService;
+        this.userStatisticsService = userStatisticsService;
+        this.messageSource = messageSource;
     }
 
-    @RequestMapping(path = "/candidacy", method = RequestMethod.GET)
-    public String getTestPage() {
+    @GetMapping(path = "/candidacy")
+    public String getPage(Model model) {
+        userStatisticsService.saveUserStatistics(request, "/candidacy");
+        setCandidateStatus(model);
         return "candidacy/index";
     }
 
     @PostMapping(path = "/candidacy")
-    public String sendSubscription(@ModelAttribute CandidateDTO candidateDTO) {
-        AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
-
-        // map DTO to entity
-        Candidate entity = mapDtoToEntity(candidateDTO, authIdentity);
-        // save new entity
-        candidateRepository.save(entity);
-        // redirect to home page where all candidates are displayed
-        return "redirect:/";
+    public String sendSubscription(@ModelAttribute CandidateDTO candidateDTO, Model model) {
+        try {
+            userStatisticsService.saveUserStatistics(request, "/candidacy");
+            AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
+            candidateService.saveCandidate(candidateDTO, authIdentity);
+            model.addAttribute("candidacySuccessMessage", messageSource.getMessage("error.candidacysuccess", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
+        } catch (Exception exception) {
+            model.addAttribute("candidacyErrorMessage", messageSource.getMessage("error.candidacyerror", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
+        }
+        setCandidateStatus(model);
+        return "redirect:/candidacy";
     }
 
-    private Candidate mapDtoToEntity(CandidateDTO candidateDTO, AuthenticationIdentity authIdentity) {
-        Candidate candidateEntity = new Candidate();
-        String givenName = authIdentity.getGivenName();
-        String lastName = authIdentity.getSurName();
-        candidateEntity.setFirstName(
-                givenName.substring(0, 1).toUpperCase() + givenName.substring(1).toLowerCase());
-        candidateEntity.setLastName(
-                lastName.substring(0, 1).toUpperCase() + lastName.substring(1).toLowerCase());
-        candidateEntity.setIdentityCode(authIdentity.getIdentityCode());
-        candidateEntity.setRegion(candidateDTO.getRegion());
-        candidateEntity.setParty(candidateDTO.getParty());
-        candidateEntity.setHasWithdrawn(0);
-        candidateEntity.setCandidacyAnnounced(new Timestamp(System.currentTimeMillis()));
-        return candidateEntity;
+    @PostMapping(path = "/take_back_candidacy")
+    public String takeBackCandidacy(Model model) {
+        try {
+            userStatisticsService.saveUserStatistics(request, "/candidacy");
+            AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
+            candidateService.takeBackCandidacy(authIdentity.getIdentityCode());
+            model.addAttribute("candidacySuccessTakeBack", messageSource.getMessage("error.candidacytakebacksuccess", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
+        } catch (Exception exception) {
+            model.addAttribute("candidacyErrorTakeBack", messageSource.getMessage("error.candidacytakebackerror", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
+        }
+        setCandidateStatus(model);
+        return "redirect:/candidacy";
+    }
+
+    private boolean isCandidate() {
+        AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
+        return candidateService.isCandidate(authIdentity.getIdentityCode());
+    }
+
+    private void setCandidateStatus(Model model) {
+        if (isCandidate()) {
+            model.addAttribute("iscandidate", true);
+        } else {
+            model.addAttribute("iscandidate", false);
+        }
     }
 }

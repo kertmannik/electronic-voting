@@ -4,7 +4,6 @@ html,body {
 
 body {
   align-items: center;
-  background-color: #f5f5f5;
 }
 
 .form-signin {
@@ -30,4 +29,7 @@ body {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+#error-text{
+  display: none;
 }

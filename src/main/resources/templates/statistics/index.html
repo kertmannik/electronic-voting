@@ -4,36 +4,71 @@
     <div th:replace="fragments/head :: head"></div>
     <link rel="stylesheet" href="css/statistics.css" type="text/css">
     <title th:text="#{navbar.statistics}"></title>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="js/chart.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+    <script src="js/statistics-table-filter.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" type="text/css">
 </head>
 <body>
-<div th:replace="fragments/navbar :: navbar(statistics)"></div>
-
-<div class="container">
-    <div class="row col-xs-12 table-responsive">
-        <table id="votesTable" class="table table-striped">
-            <thead>
-            <tr>
-                <th th:text="#{statistics.nr}"></th>
-                <th th:text="#{statistics.firstname}"></th>
-                <th th:text="#{statistics.lastname}"></th>
-                <th th:text="#{statistics.region}"></th>
-                <th th:text="#{statistics.party}"></th>
-                <th th:text="#{statistics.votes}"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="candidate, rowStat: ${votes}">
-                <td th:text="${candidate.id}"></td>
-                <td th:text="${candidate.firstName}"></td>
-                <td th:text="${candidate.lastName}"></td>
-                <td th:text="${candidate.region}"></td>
-                <td th:text="${candidate.party}"></td>
-                <td th:text="${candidate.cnt}"></td>
-            </tr>
-            </tbody>
-        </table>
+<div id="container">
+    <div id="content">
+        <div th:replace="fragments/navbar :: navbar(statistics)"></div>
+        <div class="container">
+            <span id="selected-language" th:text="${selectedLanguage}"></span>
+            <div id="top-title" class="row col-xs-12">
+                <h2 th:text="#{statistics.votestatistics}"></h2>
+            </div>
+            <div class="row col-xs-12 table-responsive">
+                <table id="votesTable" class="table">
+                    <thead>
+                    <tr>
+                        <th th:text="#{statistics.nr}"></th>
+                        <th th:text="#{statistics.firstname}"></th>
+                        <th th:text="#{statistics.lastname}"></th>
+                        <th th:text="#{statistics.region}"></th>
+                        <th th:text="#{statistics.party}"></th>
+                        <th th:text="#{statistics.votes}"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="candidate, rowStat: ${votes}">
+                        <td th:text="${candidate.id}"></td>
+                        <td th:text="${candidate.firstName}"></td>
+                        <td th:text="${candidate.lastName}"></td>
+                        <td th:text="${candidate.region}"></td>
+                        <td th:text="${candidate.party}"></td>
+                        <td th:text="${candidate.cnt}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row col-xs-12">
+                <h2 th:text="#{statistics.partystatistics}"></h2>
+            </div>
+            <div class="row col-xs-12 table-responsive">
+                <table id="votesForPartyTable" class="table">
+                    <thead>
+                    <tr>
+                        <th th:text="#{statistics.party}"></th>
+                        <th th:text="#{statistics.votes}"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="party, rowStat: ${votesForParty}">
+                        <td th:text="${party.party}"></td>
+                        <td th:text="${party.count}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="piechart" class="row col-xs-12"></div>
+        </div>
+    </div>
+    <div id="footer">
+        <div th:replace="fragments/footer :: footer"></div>
     </div>
 </div>
-
 </body>
 </html>

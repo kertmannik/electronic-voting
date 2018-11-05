@@ -2,64 +2,92 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <div th:replace="fragments/head :: head"></div>
-    <link rel="stylesheet" href="css/home.css" type="text/css">
     <title th:text="#{navbar.home}"></title>
-  
+
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="js/vote.js"></script>
-  
+    <script src="js/vote-post.js"></script>
     <script src="js/login.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+    <script src="js/homepage-table-filter.js"></script>
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/home.css" type="text/css">
 </head>
 <body>
-<div th:replace="fragments/navbar :: navbar(home)"></div>
+<div id="container">
+    <div id="content">
+        <div th:replace="fragments/navbar :: navbar(home)"></div>
+        <div class="container">
+            <span id="selected-language" th:text="${selectedLanguage}"></span>
+            <div th:if="${voteTakeBackSuccess != null}" class="alert alert-success" role="alert"
+                 th:text="${voteTakeBackSuccess}" align="center"></div>
+            <div th:if="${voteTakeBackError != null}" class="alert alert-danger" role="alert"
+                 th:text="${voteTakeBackError}" align="center"></div>
+            <div th:if="${#authorization.expression('isAuthenticated()')}" align="center">
+                <div th:if="${hasvoted}">
+                    <h3 class="voted"
+                        th:text="#{home.hasvoted} + ' ' + ${votedcandidate.firstName + ' ' + votedcandidate.lastName}"></h3>
+                    <h3 th:text="#{home.hasvotedquestion}"></h3>
+                    <form th:action="@{/remove_vote}" method="post">
+                        <button type="submit" class="btn btn-primary" th:text="#{home.votetakebackbutton}"></button>
+                    </form>
+                </div>
+            </div>
+            <div class="row col-xs-12 table-responsive">
+                <table id="candidateTable" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th th:text="#{home.nr}"></th>
+                        <th th:text="#{home.firstname}"></th>
+                        <th th:text="#{home.lastname}"></th>
+                        <th th:text="#{home.region}"></th>
+                        <th th:text="#{home.party}"></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="candidate, rowStat: ${candidatesForVoting}">
 
-<div class="container">
+                        <td th:text="${candidate.candidateId}"></td>
+                        <td th:text="${candidate.firstName}"></td>
+                        <td th:text="${candidate.lastName}"></td>
+                        <td th:text="${candidate.region}"></td>
+                        <td th:text="${candidate.party}"></td>
 
-    <div class="row col-xs-12 table-responsive">
-        <table id="candidateTable" class="table table-striped">
-            <thead>
-            <tr>
-                <th th:text="#{home.nr}"></th>
-                <th th:text="#{home.firstname}"></th>
-                <th th:text="#{home.lastname}"></th>
-                <th th:text="#{home.region}"></th>
-                <th th:text="#{home.party}"></th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="candidate, rowStat: ${candidatesForVoting}">
+                        <td th:if="${#authorization.expression('isAuthenticated()')}">
+                            <form th:object="${candidate}">
+                                <input type="hidden" th:value="${candidate.candidateId}" name="candidateId"/>
+                                <button type="submit" class="btn btn-primary btn-block" th:text="#{home.vote}"
+                                        th:value="${candidate.candidateId}"></button>
+                            </form>
+                        </td>
+                        <td th:unless="${#authorization.expression('isAuthenticated()')}">
+                            <button class="btn btn-default" data-toggle="tooltip"
+                                    data-placement="top" th:title="#{voting.tooltip}" th:text="#{home.vote}">
+                            </button>
+                        </td>
 
-                <form th:action="@{/add_vote}" method="post" th:object="${candidate}">
 
-                    <td th:text="${candidate.candidateId}"></td>
-                    <td th:text="${candidate.firstName}"></td>
-                    <td th:text="${candidate.lastName}"></td>
-                    <td th:text="${candidate.region}"></td>
-                    <td th:text="${candidate.party}"></td>
+                    </tr>
 
-                    <td th:if="${#authorization.expression('isAuthenticated()')}">
-                        <input type="hidden" th:value="${candidate.candidateId}" name="candidateId"/>
-                        <button type="submit" class="btn btn-primary" th:text="#{home.vote}"></button>
-                    </td>
-                    <td th:unless="${#authorization.expression('isAuthenticated()')}" data-toggle="tooltip"
-                        data-placement="top"
-                        th:title="#{voting.tooltip}">
-                        <button disabled="disabled" class="btn btn-primary" th:text="#{home.vote}"></button>
-                    </td>
-                </form>
+                    </tbody>
+                </table>
+                <div class="alert alert-danger text-center" id="error-text" role="alert" th:text="#{error.vote}"></div>
+            </div>
+        </div>
 
-            </tr>
-
-            </tbody>
-        </table>
+        <div class="container">
+            <h3 th:text="#{home.realtime}"></h3>
+            <div id="vote-notifications-container"></div>
+        </div>
+    </div>
+    <div id="footer">
+        <div th:replace="fragments/footer :: footer"></div>
     </div>
 </div>
-
-<h3 th:text="#{home.realtime}"></h3>
-<div id="vote-notifications-container"></div>
 
 </body>
 </html>
