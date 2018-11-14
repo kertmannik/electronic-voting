@@ -1,5 +1,6 @@
 package com.web_application_development.evoting.smartid;
 
+import ee.sk.smartid.AuthenticationResponseValidator;
 import ee.sk.smartid.SmartIdClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -15,5 +16,10 @@ public class SmartIdClientConfig {
         client.setRelyingPartyName(name);
         client.setHostUrl(hosturl);
         return client;
+    }
+
+    @Bean
+    AuthenticationResponseValidator authenticationResponseValidator() {
+        return new AuthenticationResponseValidator();
     }
 }

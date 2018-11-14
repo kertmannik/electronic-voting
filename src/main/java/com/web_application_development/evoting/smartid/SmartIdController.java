@@ -21,18 +21,18 @@ import java.util.Map;
 public class SmartIdController {
 
     public static final String AUTHENTICATION_RESULT_KEY = "SMART_ID_AUTHENTICATION_RESULT";
-    private final SmartIdClient smartIdClient;
+    private final SmartIdService smartIdService;
     private final MessageSource messageSource;
 
     @Autowired
-    SmartIdController(SmartIdClient smartIdClient, MessageSource messageSource) {
-        this.smartIdClient = smartIdClient;
+    SmartIdController(SmartIdService smartIdService, MessageSource messageSource) {
+        this.smartIdService = smartIdService;
         this.messageSource = messageSource;
     }
     @PostMapping(value = "/start")
     public Verification startAuthentication(@RequestBody NationalIdentity nationalIdentity, HttpSession httpSession) {
         // For security reasons a new hash value must be created for each new authentication request
-        AuthenticationHash authenticationHash = AuthenticationHash.generateRandomHash();
+        AuthenticationHash authenticationHash = smartIdService.getAuthenticationHash();
         httpSession.setAttribute("nationalIdentity", nationalIdentity);
         httpSession.setAttribute("authenticationHash", authenticationHash);
         Verification verification = new Verification();
@@ -41,15 +41,10 @@ public class SmartIdController {
     }
     @PostMapping(value = "/poll")
     public SmartIdAuthenticationResult pollAuthenticationResult(HttpSession httpSession) {
-        SmartIdAuthenticationResponse authenticationResponse = smartIdClient
-                .createAuthentication()
-                .withNationalIdentity((NationalIdentity) httpSession.getAttribute("nationalIdentity"))
-                .withAuthenticationHash((AuthenticationHash) httpSession.getAttribute("authenticationHash"))
-                .withCertificateLevel("QUALIFIED") // Certificate level can either be "QUALIFIED" or "ADVANCED"
-                .withDisplayText(messageSource.getMessage("smartid.welcome", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()))
-                .authenticate();
-        AuthenticationResponseValidator authenticationResponseValidator = new AuthenticationResponseValidator();
-        SmartIdAuthenticationResult authenticationResult = authenticationResponseValidator.validate(authenticationResponse);
+
+        NationalIdentity nationalIdentity = (NationalIdentity) httpSession.getAttribute("nationalIdentity");
+        AuthenticationHash authenticationHash = (AuthenticationHash) httpSession.getAttribute("authenticationHash");
+        SmartIdAuthenticationResult authenticationResult = smartIdService.authenticate(nationalIdentity, authenticationHash);
 
         httpSession.setAttribute(AUTHENTICATION_RESULT_KEY, authenticationResult);
 
