@@ -3,6 +3,7 @@ package com.web_application_development.evoting.controllers;
 import com.web_application_development.evoting.dtos.ContactDTO;
 import com.web_application_development.evoting.services.UserStatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -28,6 +29,9 @@ public class ContactController {
             + "\n" + "\n" + "---------------" + "\n" + "\n" +
             "Tervist!" + "\n" + "\n" + "Täname teid, et meiega ühendust võtsite! Vastame teile peagi." + "\n" + "\n" + "E-hääletamise arendajad";
 
+    @Value("${google.maps.url}")
+    private String GOOGLE;
+
     private final JavaMailSender mailSender;
     private final HttpServletRequest request;
     private final UserStatisticsService userStatisticsService;
@@ -42,8 +46,9 @@ public class ContactController {
     }
 
     @RequestMapping(path = "/contact", method = RequestMethod.GET)
-    public String getTestPage() {
+    public String getTestPage(Model model) {
         userStatisticsService.saveUserStatistics(request, "/contact");
+        addGoogleMapsAPIURL(model);
         return "contact/index";
     }
 
@@ -56,6 +61,7 @@ public class ContactController {
             String subject = contactDTO.getSubject();
             String body = contactDTO.getBody();
 
+            addGoogleMapsAPIURL(model);
             createAndSendEmail(mail, SUBJECT, BODY);
             createAndSendEmail(DEVELOPER_EMAIL, subject, body);
             model.addAttribute("contactSuccessMessage", messageSource.getMessage("error.contactsuccess", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
@@ -77,6 +83,10 @@ public class ContactController {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
+    }
+
+    private void addGoogleMapsAPIURL(Model model) {
+        model.addAttribute("googleMapsUrl", GOOGLE);
     }
 
 }

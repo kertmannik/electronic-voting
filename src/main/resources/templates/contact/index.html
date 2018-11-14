@@ -32,7 +32,7 @@
                 <div>
                     <div id="map">maps error</div>
                     <script src="js/map.js"></script>
-                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB39NlYkSsY9rVRLJB_X29-IS9MEiIwTas&callback=initMap"></script>
+                    <script th:src="${googleMapsUrl}"></script>
                 </div>
                 <h3 th:text="#{contact.form}"></h3>
                 <div class="form-row vorm">
