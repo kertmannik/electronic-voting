@@ -29,7 +29,7 @@ public class ContactController {
             + "\n" + "\n" + "---------------" + "\n" + "\n" +
             "Tervist!" + "\n" + "\n" + "Täname teid, et meiega ühendust võtsite! Vastame teile peagi." + "\n" + "\n" + "E-hääletamise arendajad";
 
-    @Value("${google.maps.url:https://www.neti.ee}")
+    @Value("${google.maps.url}")
     private String GOOGLE;
 
     private final JavaMailSender mailSender;
