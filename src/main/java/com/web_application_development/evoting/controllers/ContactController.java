@@ -3,7 +3,6 @@ package com.web_application_development.evoting.controllers;
 import com.web_application_development.evoting.dtos.ContactDTO;
 import com.web_application_development.evoting.services.UserStatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -29,8 +28,7 @@ public class ContactController {
             + "\n" + "\n" + "---------------" + "\n" + "\n" +
             "Tervist!" + "\n" + "\n" + "Täname teid, et meiega ühendust võtsite! Vastame teile peagi." + "\n" + "\n" + "E-hääletamise arendajad";
 
-    @Value("${google.maps.url}")
-    private String GOOGLE;
+    private String GOOGLE = "https://maps.googleapis.com/maps/api/js?key=AIzaSyB39NlYkSsY9rVRLJB_X29-IS9MEiIwTas&callback=initMap";
 
 
     private final JavaMailSender mailSender;
