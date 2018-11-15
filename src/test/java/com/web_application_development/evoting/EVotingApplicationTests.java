@@ -73,4 +73,17 @@ public class EVotingApplicationTests {
         driver.navigate().refresh();
         assertNotEquals(0, driver.findElements(By.id("take-back-vote-button")).size());
     }
+
+    @Test
+    public void candidacy() {
+        driver.get("http://localhost:8080/candidacy");
+        try {
+            driver.findElement(By.id("take-back-candidacy-button")).click();
+        } catch (NoSuchElementException e) {
+            System.out.println("No active candidacy");
+        }
+        assertEquals(0, driver.findElements(By.id("take-back-candidacy-button")).size());
+        driver.findElement(By.id("submit-candidacy-button")).click();
+        assertNotEquals(0, driver.findElements(By.id("take-back-candidacy-button")).size());
+    }
 }
