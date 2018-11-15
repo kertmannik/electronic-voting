@@ -1,4 +1,4 @@
-package com.web_application_development.evoting;
+package com.web_application_development.evoting.security.smartid;
 
 import com.web_application_development.evoting.smartid.SmartIdService;
 import ee.sk.smartid.*;
