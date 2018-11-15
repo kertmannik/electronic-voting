@@ -32,7 +32,7 @@
                         th:text="#{home.hasvoted} + ' ' + ${votedcandidate.firstName + ' ' + votedcandidate.lastName}"></h3>
                     <h3 th:text="#{home.hasvotedquestion}"></h3>
                     <form th:action="@{/remove_vote}" method="post">
-                        <button type="submit" class="btn btn-primary" th:text="#{home.votetakebackbutton}"></button>
+                        <button id="take-back-vote-button" type="submit" class="btn btn-primary" th:text="#{home.votetakebackbutton}"></button>
                     </form>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                         <td th:if="${#authorization.expression('isAuthenticated()')}">
                             <form th:object="${candidate}">
                                 <input type="hidden" th:value="${candidate.candidateId}" name="candidateId"/>
-                                <button type="submit" class="btn btn-primary btn-block" th:text="#{home.vote}"
+                                <button id="vote-button" type="submit" class="btn btn-primary btn-block" th:text="#{home.vote}"
                                         th:value="${candidate.candidateId}"></button>
                             </form>
                         </td>
