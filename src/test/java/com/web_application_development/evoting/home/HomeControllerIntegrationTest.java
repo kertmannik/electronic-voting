@@ -2,25 +2,16 @@ package com.web_application_development.evoting.home;
 
 import com.web_application_development.evoting.configurations.SecurityConfiguration;
 import com.web_application_development.evoting.controllers.HomeController;
-import com.web_application_development.evoting.dtos.CandidateForVotingDTO;
 import com.web_application_development.evoting.entities.Candidate;
-import com.web_application_development.evoting.repositories.CandidateRepository;
 import com.web_application_development.evoting.services.CandidateService;
-import com.web_application_development.evoting.services.UserStatisticsService;
-import com.web_application_development.evoting.services.VoteService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.ui.Model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,35 +20,17 @@ import java.util.List;
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(HomeController.class)
 @Import(SecurityConfiguration.class)
-public class HomeControllerTest {
-
+public class HomeControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
     @MockBean
-    private SimpMessageSendingOperations messagingTemplate;
-    @MockBean
-    private CandidateRepository candidateRepository;
-    @MockBean
     private CandidateService candidateService;
-    @MockBean
-    private VoteService voteService;
-    @MockBean
-    private UserStatisticsService userStatisticsService;
-    @Captor
-    private ArgumentCaptor<Candidate> subscriptionArgumentCaptor;
-    @Captor
-    private ArgumentCaptor<CandidateForVotingDTO> subscriptionDTOArgumentCaptor;
-
-
-    @Mock
-    private Model model;
 
     @Test
     public void testModelIsPopulatedWithDataFromDB() throws Exception {
