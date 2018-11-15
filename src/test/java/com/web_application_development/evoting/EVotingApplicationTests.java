@@ -16,48 +16,61 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class EVotingApplicationTests {
 
-	private WebDriver driver;
+    private WebDriver driver;
 
-	@BeforeClass
-	public static void setUpClass() {
-		ChromeDriverManager.getInstance().setup();
-	}
+    @BeforeClass
+    public static void setUpClass() {
+        ChromeDriverManager.getInstance().setup();
+    }
 
-	@Before
-	public void setUp() {
-		driver = new ChromeDriver();
-		driver.get("http://localhost:8080/");
-		logIn();
-	}
+    @Before
+    public void setUp() {
+        driver = new ChromeDriver();
+        driver.get("http://localhost:8080/");
+        logIn();
+    }
 
-	@After
-	public void tearDown() {
-		logOut();
-		driver.close();
-	}
+    @After
+    public void tearDown() {
+        logOut();
+        driver.close();
+    }
 
-	@Test
-	public void contextLoads() {
-	}
+    @Test
+    public void contextLoads() {
+    }
 
-	private void logOut() {
-		driver.findElement(By.className("dropdown-toggle")).click();
-		driver.findElement(By.className("linkButton")).click();
-		assertEquals("http://localhost:8080/login", driver.getCurrentUrl());
+    private void logOut() {
+        driver.findElement(By.className("dropdown-toggle")).click();
+        driver.findElement(By.className("linkButton")).click();
+        assertEquals("http://localhost:8080/login", driver.getCurrentUrl());
 
-	}
+    }
 
-	private void logIn() {
-		driver.get("http://localhost:8080/login");
-		driver.findElement(By.id("nationalIdentityNumber")).sendKeys("10101010005");
-		driver.findElement(By.className("btn")).click();
-		new WebDriverWait(driver, 60).until(ExpectedConditions.titleContains("Home"));
-		assertEquals("http://localhost:8080/", driver.getCurrentUrl());
-	}
+    private void logIn() {
+        driver.get("http://localhost:8080/login");
+        driver.findElement(By.id("nationalIdentityNumber")).sendKeys("10101010005");
+        driver.findElement(By.className("btn")).click();
+        new WebDriverWait(driver, 1000).until(ExpectedConditions.titleContains("Home"));
+        assertEquals("http://localhost:8080/", driver.getCurrentUrl());
+    }
 
+    @Test
+    public void vote() {
+        try {
+            driver.findElement(By.id("take-back-vote-button")).click();
+        } catch (NoSuchElementException e) {
+            System.out.println("No active vote");
+        }
+        assertEquals(0, driver.findElements(By.id("take-back-vote-button")).size());
+        driver.findElement(By.id("vote-button")).click();
+        driver.navigate().refresh();
+        assertNotEquals(0, driver.findElements(By.id("take-back-vote-button")).size());
+    }
 }
