@@ -7,6 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -30,7 +31,7 @@ public class EVotingApplicationTests {
 	@Before
 	public void setUp() {
 		driver = new ChromeDriver();
-		driver.get("https://evalimised.herokuapp.com");
+		driver.get("http://localhost:8080/");
 		logIn();
 	}
 
@@ -47,16 +48,16 @@ public class EVotingApplicationTests {
 	private void logOut() {
 		driver.findElement(By.className("dropdown-toggle")).click();
 		driver.findElement(By.className("linkButton")).click();
-		assertEquals("https://evalimised.herokuapp.com/login", driver.getCurrentUrl());
+		assertEquals("http://localhost:8080/login", driver.getCurrentUrl());
 
 	}
 
 	private void logIn() {
-		driver.get("https://evalimised.herokuapp.com/login");
+		driver.get("http://localhost:8080/login");
 		driver.findElement(By.id("nationalIdentityNumber")).sendKeys("10101010005");
 		driver.findElement(By.className("btn")).click();
 		new WebDriverWait(driver, 60).until(ExpectedConditions.titleContains("Home"));
-		assertEquals("https://evalimised.herokuapp.com/", driver.getCurrentUrl());
+		assertEquals("http://localhost:8080/", driver.getCurrentUrl());
 	}
 
 }
