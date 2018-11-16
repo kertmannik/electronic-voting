@@ -15,9 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -109,8 +107,14 @@ public class EVotingApplicationTests {
     }
 
     @Test
-    public void searchForCandidate() throws InterruptedException {
+    public void searchForCandidate() {
         driver.findElement(By.id("candidateTable_filter")).findElement(By.className("form-control")).sendKeys("Demo");
         assertTrue("Couldn't find candidate", driver.findElement(By.tagName("body")).getText().contains("Demo"));
+    }
+
+    @Test
+    public void searchForParty() {
+        driver.findElement(By.id("candidateTable_filter")).findElement(By.className("form-control")).sendKeys("Erakond Eesti Normaalsed");
+        assertFalse("Found a party that shouldn't be display", driver.findElement(By.tagName("body")).getText().contains("Ükskõiksuserakond"));
     }
 }
