@@ -4,12 +4,15 @@ import com.web_application_development.evoting.configurations.SecurityConfigurat
 import com.web_application_development.evoting.controllers.HomeController;
 import com.web_application_development.evoting.entities.Candidate;
 import com.web_application_development.evoting.services.CandidateService;
+import com.web_application_development.evoting.services.UserStatisticsService;
+import com.web_application_development.evoting.services.VoteService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -29,6 +32,12 @@ public class HomeControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
+    @MockBean
+    private SimpMessageSendingOperations messagingTemplate;
+    @MockBean
+    private VoteService voteService;
+    @MockBean
+    private UserStatisticsService userStatisticsService;
     @MockBean
     private CandidateService candidateService;
 
