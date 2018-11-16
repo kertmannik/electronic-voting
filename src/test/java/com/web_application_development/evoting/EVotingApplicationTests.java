@@ -61,6 +61,26 @@ public class EVotingApplicationTests {
         assertEquals("http://localhost:8080/", driver.getCurrentUrl());
     }
 
+    private void failLogInWith(String identityCode, String errorMessage) {
+        logOut();
+        driver.get("http://localhost:8080/login");
+        driver.findElement(By.id("nationalIdentityNumber")).sendKeys(identityCode);
+        driver.findElement(By.className("btn")).click();
+        new WebDriverWait(driver, 1000).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("error-text"))));
+        assertEquals(errorMessage, driver.findElement(By.id("error-text")).getText());
+        logIn();
+    }
+
+    @Test
+    public void failLogInWithAccountNotFound() {
+        failLogInWith("12345", "Account not found!");
+    }
+
+    @Test
+    public void failLogInWithUserRefused() {
+        failLogInWith("10101010016", "User cancelled Smart-ID request!");
+    }
+
     @Test
     public void vote() {
         try {
