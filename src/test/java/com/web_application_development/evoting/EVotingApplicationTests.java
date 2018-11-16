@@ -115,6 +115,12 @@ public class EVotingApplicationTests {
     @Test
     public void searchForParty() {
         driver.findElement(By.id("candidateTable_filter")).findElement(By.className("form-control")).sendKeys("Erakond Eesti Normaalsed");
-        assertFalse("Found a party that shouldn't be display", driver.findElement(By.tagName("body")).getText().contains("Ükskõiksuserakond"));
+        assertFalse("Found a party that shouldn't be displayed", driver.findElement(By.tagName("body")).getText().contains("Ükskõiksuserakond"));
+    }
+
+    @Test
+    public void searchForRegion() {
+        driver.findElement(By.id("candidateTable_filter")).findElement(By.className("form-control")).sendKeys("Põhja-Eesti");
+        assertFalse("Found a region that shouldn't be displayed", driver.findElement(By.tagName("body")).getText().contains("Lääne-Eesti"));
     }
 }
