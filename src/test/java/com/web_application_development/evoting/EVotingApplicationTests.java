@@ -53,11 +53,15 @@ public class EVotingApplicationTests {
     }
 
     private void logIn() {
+        logIn(driver);
+        assertEquals("http://localhost:8080/", driver.getCurrentUrl());
+    }
+
+    private void logIn(WebDriver driver) {
         driver.get("http://localhost:8080/login");
         driver.findElement(By.id("nationalIdentityNumber")).sendKeys("10101010005");
         driver.findElement(By.className("btn")).click();
         new WebDriverWait(driver, 1000).until(ExpectedConditions.titleContains("Home"));
-        assertEquals("http://localhost:8080/", driver.getCurrentUrl());
     }
 
     private void failLogInWith(String identityCode, String errorMessage) {
@@ -80,8 +84,7 @@ public class EVotingApplicationTests {
         failLogInWith("10101010016", "User cancelled Smart-ID request!");
     }
 
-    @Test
-    public void vote() {
+    private void vote(WebDriver driver) {
         try {
             driver.findElement(By.id("take-back-vote-button")).click();
         } catch (NoSuchElementException e) {
@@ -89,6 +92,22 @@ public class EVotingApplicationTests {
         }
         assertEquals(0, driver.findElements(By.id("take-back-vote-button")).size());
         driver.findElement(By.id("vote-button")).click();
+    }
+
+    @Test
+    public void realTimeVotes() {
+        String parentWindow= driver.getWindowHandle();
+        ChromeDriver secondDriver = new ChromeDriver();
+        logIn(secondDriver);
+        vote(secondDriver);
+        secondDriver.close();
+        driver.switchTo().window(parentWindow);
+        assertTrue(driver.findElement(By.id("vote-notifications-container")).getText().contains("+1"));
+    }
+
+    @Test
+    public void vote() {
+        vote(driver);
         driver.navigate().refresh();
         assertNotEquals(0, driver.findElements(By.id("take-back-vote-button")).size());
     }
