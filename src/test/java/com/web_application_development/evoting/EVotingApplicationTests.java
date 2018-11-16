@@ -123,4 +123,26 @@ public class EVotingApplicationTests {
         driver.findElement(By.id("candidateTable_filter")).findElement(By.className("form-control")).sendKeys("Põhja-Eesti");
         assertFalse("Found a region that shouldn't be displayed", driver.findElement(By.tagName("body")).getText().contains("Lääne-Eesti"));
     }
+
+    private void confirmStatisticsSearchResultsWithAssertFalse(String keysToSend, String message, String condition) {
+        driver.get("http://localhost:8080/statistics");
+        driver.findElement(By.id("votesTable_filter")).findElement(By.className("form-control")).sendKeys(keysToSend);
+        assertFalse(message, driver.findElement(By.id("votesTable_wrapper")).getText().contains(condition));
+    }
+
+    @Test
+    public void filterVotingResultsByRegion() {
+        confirmStatisticsSearchResultsWithAssertFalse("Lääne-Eesti", "Found a region that shouldn't be displayed", "Põhja-Eesti");
+    }
+
+    @Test
+    public void filterVotingResultsByParty() {
+        confirmStatisticsSearchResultsWithAssertFalse("Ükskõiksuserakond", "Found a party that shouldn't be displayed", "Fašistlik erakond");
+    }
+
+    @Test
+    public void filterVotingResultsThroughoutTheCountry() {
+        driver.get("http://localhost:8080/statistics");
+        assertTrue(driver.findElement(By.id("piechart")).getText().contains("Ükskõiksuserakond"));
+    }
 }
