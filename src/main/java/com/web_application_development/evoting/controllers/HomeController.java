@@ -7,6 +7,8 @@ import com.web_application_development.evoting.services.CandidateService;
 import com.web_application_development.evoting.services.UserStatisticsService;
 import com.web_application_development.evoting.services.VoteService;
 import ee.sk.smartid.AuthenticationIdentity;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -27,6 +29,8 @@ import java.util.List;
 @Controller
 public class HomeController {
 
+    private static final Logger logger = LogManager.getLogger(HomeController.class);
+
     private final SimpMessageSendingOperations messagingTemplate;
     private final HttpServletRequest request;
     private final CandidateService candidateService;
@@ -46,6 +50,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String showAllVotes(Model model) {
+        logger.debug("Home page GET request");
         userStatisticsService.saveUserStatistics(request, "/");
         hasVotedSelect(model);
         model.addAttribute("candidatesForVoting", createCandidateTableList());
@@ -58,10 +63,12 @@ public class HomeController {
     public String sendVote(@ModelAttribute VoteDTO voteDTO, Model model) {
         userStatisticsService.saveUserStatistics(request, "/add_vote");
         AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
+
         // save new entity
         voteService.saveVote(voteDTO, authIdentity.getIdentityCode());
 
         Candidate candidate = candidateService.findCandidateById(voteDTO.getCandidateId());
+        logger.debug("Send vote POST request: to " + candidate.getIdentityCode() + " from " + authIdentity.getIdentityCode());
         messagingTemplate.convertAndSend("/topic/votes", candidate);
         hasVotedSelect(model);
         return "home/index";
@@ -69,12 +76,14 @@ public class HomeController {
 
     @PostMapping(value = "/remove_vote")
     public String removeVote(Model model) {
+        AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
         try {
             userStatisticsService.saveUserStatistics(request, "/candidacy");
-            AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
             voteService.takeBackVote(authIdentity.getIdentityCode());
             model.addAttribute("voteTakeBackSuccess", messageSource.getMessage("error.votetakebacksuccess", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
+            logger.debug("Remove vote POST request SUCCESSFUL: take vote back from " + authIdentity.getIdentityCode());
         } catch (Exception exception) {
+            logger.error("Remove vote POST request ERROR: take vote back from " + authIdentity.getIdentityCode());
             model.addAttribute("voteTakeBackError", messageSource.getMessage("error.votetakebackerror", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
         }
         hasVotedSelect(model);

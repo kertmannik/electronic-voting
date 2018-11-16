@@ -16,19 +16,14 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.cors().and().csrf().disable();
-
         http.addFilterAfter(smartIdAuthenticationFilter(), RequestHeaderAuthenticationFilter.class);
-
         http.authorizeRequests()
                 .antMatchers("/candidacy").authenticated()
                 .antMatchers("/**").permitAll()
                 .and().logout()    //logout configuration
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login");
-
-        // set default login page redirect
         http.formLogin().loginPage("/login");
     }
 

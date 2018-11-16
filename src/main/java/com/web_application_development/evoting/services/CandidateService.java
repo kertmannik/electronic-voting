@@ -4,6 +4,8 @@ import com.web_application_development.evoting.dtos.CandidateDTO;
 import com.web_application_development.evoting.entities.Candidate;
 import com.web_application_development.evoting.repositories.CandidateRepository;
 import ee.sk.smartid.AuthenticationIdentity;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +16,8 @@ import java.util.List;
 @Service
 @Transactional
 public class CandidateService {
+
+    private static final Logger logger = LogManager.getLogger(CandidateService.class);
 
     private final CandidateRepository candidateRepository;
 
@@ -27,10 +31,12 @@ public class CandidateService {
     }
 
     public Candidate findCandidateById(Integer candidateId) {
+        logger.debug("Request: candidateRepository.findById: " + candidateId);
         return candidateRepository.findById(candidateId.longValue()).orElse(new Candidate());
     }
 
     public Candidate findCandidateUserVotedFor(String idenCode) {
+        logger.debug("Request: candidateRepository.findCandidateUserVotedFor(idenCode): " + idenCode);
         return candidateRepository.findCandidateUserVotedFor(idenCode).orElse(new Candidate());
     }
 
@@ -38,6 +44,7 @@ public class CandidateService {
         // map DTO to entity
         Candidate entity = mapDTOToEntity(candidateDTO, authIdentity);
         // save new entity
+        logger.debug("Request: candidateRepository.save(entity): " + entity.getIdentityCode());
         candidateRepository.save(entity);
     }
 
