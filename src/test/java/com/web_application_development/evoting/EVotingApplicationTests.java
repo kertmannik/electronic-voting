@@ -21,6 +21,7 @@ import static org.junit.Assert.*;
 @SpringBootTest
 public class EVotingApplicationTests {
 
+    final String url = "https://evalimised.herokuapp.com/";
     private WebDriver driver;
 
     @BeforeClass
@@ -31,7 +32,7 @@ public class EVotingApplicationTests {
     @Before
     public void setUp() {
         driver = new ChromeDriver();
-        driver.get("http://localhost:8080/");
+        driver.get(url);
         logIn();
     }
 
@@ -48,17 +49,17 @@ public class EVotingApplicationTests {
     private void logOut() {
         driver.findElement(By.className("dropdown-toggle")).click();
         driver.findElement(By.className("linkButton")).click();
-        assertEquals("http://localhost:8080/login", driver.getCurrentUrl());
+        assertEquals(url + "login", driver.getCurrentUrl());
 
     }
 
     private void logIn() {
         logIn(driver);
-        assertEquals("http://localhost:8080/", driver.getCurrentUrl());
+        assertEquals(url, driver.getCurrentUrl());
     }
 
     private void logIn(WebDriver driver) {
-        driver.get("http://localhost:8080/login");
+        driver.get(url + "login");
         driver.findElement(By.id("nationalIdentityNumber")).sendKeys("10101010005");
         driver.findElement(By.className("btn")).click();
         new WebDriverWait(driver, 1000).until(ExpectedConditions.titleContains("Home"));
@@ -66,7 +67,7 @@ public class EVotingApplicationTests {
 
     private void failLogInWith(String identityCode, String errorMessage) {
         logOut();
-        driver.get("http://localhost:8080/login");
+        driver.get(url + "login");
         driver.findElement(By.id("nationalIdentityNumber")).sendKeys(identityCode);
         driver.findElement(By.className("btn")).click();
         new WebDriverWait(driver, 1000).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("error-text"))));
@@ -96,7 +97,7 @@ public class EVotingApplicationTests {
 
     @Test
     public void realTimeVotes() {
-        String parentWindow= driver.getWindowHandle();
+        String parentWindow = driver.getWindowHandle();
         ChromeDriver secondDriver = new ChromeDriver();
         logIn(secondDriver);
         vote(secondDriver);
@@ -109,12 +110,13 @@ public class EVotingApplicationTests {
     public void vote() {
         vote(driver);
         driver.navigate().refresh();
+        new WebDriverWait(driver, 1000).until(ExpectedConditions.presenceOfElementLocated(By.id("take-back-vote-button")));
         assertNotEquals(0, driver.findElements(By.id("take-back-vote-button")).size());
     }
 
     @Test
     public void candidacy() {
-        driver.get("http://localhost:8080/candidacy");
+        driver.get(url + "candidacy");
         try {
             driver.findElement(By.id("take-back-candidacy-button")).click();
         } catch (NoSuchElementException e) {
@@ -128,23 +130,26 @@ public class EVotingApplicationTests {
     @Test
     public void searchForCandidate() {
         driver.findElement(By.id("candidateTable_filter")).findElement(By.className("form-control")).sendKeys("Demo");
-        assertTrue("Couldn't find candidate", driver.findElement(By.tagName("body")).getText().contains("Demo"));
+        assertTrue("Couldn't find candidate", driver.findElement(By.id("candidateTable_wrapper")).getText().contains("Demo"));
+    }
+
+    private void confirmHomePageSearchResultsWithAssertFalse(String keysToSend, String message, String condition) {
+        driver.findElement(By.id("candidateTable_filter")).findElement(By.className("form-control")).sendKeys(keysToSend);
+        assertFalse(message, driver.findElement(By.id("candidateTable_wrapper")).getText().contains(condition));
     }
 
     @Test
     public void searchForParty() {
-        driver.findElement(By.id("candidateTable_filter")).findElement(By.className("form-control")).sendKeys("Erakond Eesti Normaalsed");
-        assertFalse("Found a party that shouldn't be displayed", driver.findElement(By.tagName("body")).getText().contains("Ükskõiksuserakond"));
+        confirmHomePageSearchResultsWithAssertFalse("Erakond Eesti Normaalsed", "Found a party that shouldn't be displayed", "Ükskõiksuserakond");
     }
 
     @Test
     public void searchForRegion() {
-        driver.findElement(By.id("candidateTable_filter")).findElement(By.className("form-control")).sendKeys("Põhja-Eesti");
-        assertFalse("Found a region that shouldn't be displayed", driver.findElement(By.tagName("body")).getText().contains("Lääne-Eesti"));
+        confirmHomePageSearchResultsWithAssertFalse("Põhja-Eesti", "Found a region that shouldn't be displayed", "Lääne-Eesti");
     }
 
     private void confirmStatisticsSearchResultsWithAssertFalse(String keysToSend, String message, String condition) {
-        driver.get("http://localhost:8080/statistics");
+        driver.get(url + "statistics");
         driver.findElement(By.id("votesTable_filter")).findElement(By.className("form-control")).sendKeys(keysToSend);
         assertFalse(message, driver.findElement(By.id("votesTable_wrapper")).getText().contains(condition));
     }
@@ -161,7 +166,7 @@ public class EVotingApplicationTests {
 
     @Test
     public void filterVotingResultsThroughoutTheCountry() {
-        driver.get("http://localhost:8080/statistics");
+        driver.get(url + "statistics");
         assertTrue(driver.findElement(By.id("piechart")).getText().contains("Ükskõiksuserakond"));
     }
 }
