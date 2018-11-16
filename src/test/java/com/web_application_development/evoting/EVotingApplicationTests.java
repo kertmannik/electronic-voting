@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -105,5 +106,11 @@ public class EVotingApplicationTests {
         assertEquals(0, driver.findElements(By.id("take-back-candidacy-button")).size());
         driver.findElement(By.id("submit-candidacy-button")).click();
         assertNotEquals(0, driver.findElements(By.id("take-back-candidacy-button")).size());
+    }
+
+    @Test
+    public void searchForCandidate() throws InterruptedException {
+        driver.findElement(By.id("candidateTable_filter")).findElement(By.className("form-control")).sendKeys("Demo");
+        assertTrue("Couldn't find candidate", driver.findElement(By.tagName("body")).getText().contains("Demo"));
     }
 }
