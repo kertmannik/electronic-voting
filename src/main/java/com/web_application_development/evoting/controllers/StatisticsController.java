@@ -5,6 +5,8 @@ import com.web_application_development.evoting.entities.VoteResult;
 import com.web_application_development.evoting.entities.VoteResultForParty;
 import com.web_application_development.evoting.services.UserStatisticsService;
 import com.web_application_development.evoting.services.VoteService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,8 @@ import java.util.List;
 
 @Controller
 public class StatisticsController {
+
+    private static final Logger logger = LogManager.getLogger(StatisticsController.class);
 
     private final HttpServletRequest request;
     private final VoteService voteService;
@@ -31,6 +35,7 @@ public class StatisticsController {
 
     @GetMapping("/statistics")
     public String showAllVotes(Model model) {
+        logger.debug("Statistics page GET request");
         userStatisticsService.saveUserStatistics(request, "/statistics");
 
         List<VoteResult> votesListObj = voteService.findAllVotes();

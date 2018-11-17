@@ -4,6 +4,8 @@ import com.web_application_development.evoting.dtos.CandidateDTO;
 import com.web_application_development.evoting.services.CandidateService;
 import com.web_application_development.evoting.services.UserStatisticsService;
 import ee.sk.smartid.AuthenticationIdentity;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -20,6 +22,8 @@ import java.util.Collections;
 @Controller
 public class CandidacyController {
 
+    private static final Logger logger = LogManager.getLogger(CandidacyController.class);
+
     private final HttpServletRequest request;
     private final CandidateService candidateService;
     private final UserStatisticsService userStatisticsService;
@@ -35,6 +39,7 @@ public class CandidacyController {
 
     @GetMapping(path = "/candidacy")
     public String getPage(Model model) {
+        logger.debug("Candidacy page GET request");
         userStatisticsService.saveUserStatistics(request, "/candidacy");
         setCandidateStatus(model);
         return "candidacy/index";
@@ -42,12 +47,14 @@ public class CandidacyController {
 
     @PostMapping(path = "/candidacy")
     public String sendSubscription(@ModelAttribute CandidateDTO candidateDTO, Model model) {
+        AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
         try {
             userStatisticsService.saveUserStatistics(request, "/candidacy");
-            AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
             candidateService.saveCandidate(candidateDTO, authIdentity);
             model.addAttribute("candidacySuccessMessage", messageSource.getMessage("error.candidacysuccess", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
+            logger.debug("New candidacy POST request SUCCESSFUL for user: ", authIdentity.getGivenName() + " " + authIdentity.getSurName() + " " + authIdentity.getIdentityCode());
         } catch (Exception exception) {
+            logger.error("New candidacy POST request FAILED for user : ", authIdentity.getGivenName() + " " + authIdentity.getSurName() + " " + authIdentity.getIdentityCode());
             model.addAttribute("candidacyErrorMessage", messageSource.getMessage("error.candidacyerror", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
         }
         setCandidateStatus(model);
@@ -56,12 +63,14 @@ public class CandidacyController {
 
     @PostMapping(path = "/take_back_candidacy")
     public String takeBackCandidacy(Model model) {
+        AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
         try {
             userStatisticsService.saveUserStatistics(request, "/candidacy");
-            AuthenticationIdentity authIdentity = ((AuthenticationIdentity) (SecurityContextHolder.getContext().getAuthentication()).getPrincipal());
             candidateService.takeBackCandidacy(authIdentity.getIdentityCode());
             model.addAttribute("candidacySuccessTakeBack", messageSource.getMessage("error.candidacytakebacksuccess", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
+            logger.debug("Take back candidacy POST request SUCCESSFUL: ", authIdentity.getGivenName() + " " + authIdentity.getSurName() + " " + authIdentity.getIdentityCode());
         } catch (Exception exception) {
+            logger.error("Take back candidacy POST request ERROR: ", authIdentity.getGivenName() + " " + authIdentity.getSurName() + " " + authIdentity.getIdentityCode());
             model.addAttribute("candidacyErrorTakeBack", messageSource.getMessage("error.candidacytakebackerror", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
         }
         setCandidateStatus(model);

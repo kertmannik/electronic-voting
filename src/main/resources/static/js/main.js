@@ -30,40 +30,51 @@ function initMap() {
     });
 }
 
-//voting
+//Voting notification
 /**
  * Example based on https://spring.io/guides/gs/messaging-stomp-websocket/
  */
 var stompClient = null;
 var notificationsContainer = null;
-
-function connect() {
+ function connect() {
     var socket = new SockJS('/vote-websocket');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/votes', function (greeting) {
-            var candidate = JSON.parse(greeting.body);
+            try {
+                var candidate = JSON.parse(greeting.body);
+            } catch {
+                var candidate = greeting.body;
+            }
             console.log(candidate);
             showNotification(candidate);
         });
     });
 }
-
-function showNotification(candidate) {
-    var notificationMessage = $(
-        "<div class=\"alert alert-info\" align='center'>" +
-        candidate.firstName + " " + candidate.lastName + " +1" + "</div>");
-    notificationsContainer.append(notificationMessage);
-    setTimeout(function () {
-        notificationMessage.remove();
-    }, 5000);
+ function showNotification(candidate) {
+    if(candidate === "Can not vote for yourself!" || candidate === "Enda poolt ei saa hääletada!") {
+        var notificationMessage = $(
+            "<div class=\"alert alert-danger\" align='center'>" +
+                candidate + "</div>");
+        notificationsContainer.append(notificationMessage);
+        setTimeout(function() {
+            notificationMessage.remove();
+        }, 5000);
+    } else {
+        var notificationMessage = $(
+            "<div class=\"alert alert-info\" align='center'>" +
+                candidate.firstName + " " + candidate.lastName + " +1" + "</div>");
+        notificationsContainer.append(notificationMessage);
+        setTimeout(function() {
+            notificationMessage.remove();
+        }, 5000);
+    }
 }
-
-$(function () {
+ $(function () {
     notificationsContainer = $("#vote-notifications-container");
     connect();
-});
+ });
 
 //vote-post
 $(function () {
