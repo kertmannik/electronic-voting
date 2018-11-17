@@ -46,7 +46,7 @@ public class VoteController {
         if (isCandidateSameAsUser(authIdentity, candidate)) {
             logger.error("User " + authIdentity.getIdentityCode() + " tried to vote for themself -> ERROR");
             messagingTemplate.convertAndSend("/topic/votes", messageSource.getMessage("error.voteyourself", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
-            throw new Exception("Can not vote for yourself");
+            throw new Exception(messageSource.getMessage("error.voteyourself", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
         } else {
             voteService.saveVote(voteDTO, authIdentity.getIdentityCode());
             messagingTemplate.convertAndSend("/topic/votes", candidate);
