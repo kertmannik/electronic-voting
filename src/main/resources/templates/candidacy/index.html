@@ -41,7 +41,7 @@
                                     <option>Ükskõiksuserakond</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary" th:text="#{candidacy.sendbutton}"></button>
+                            <button id="submit-candidacy-button" type="submit" class="btn btn-primary" th:text="#{candidacy.sendbutton}"></button>
                         </form>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                             <h3 th:text="#{candidacy.applied}"></h3>
                             <h3 th:text="#{candidacy.takeback}"></h3>
                             <form th:action="@{/take_back_candidacy}" method="post">
-                                <button type="submit" class="btn btn-primary"
+                                <button id="take-back-candidacy-button" type="submit" class="btn btn-primary"
                                         th:text="#{candidacy.takebackbutton}"></button>
                             </form>
                         </div>
