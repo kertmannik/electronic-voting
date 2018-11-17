@@ -15,6 +15,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
@@ -71,6 +73,7 @@ public class EVotingApplicationTests {
     @Test
     public void vote() {
         vote(driver);
+        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         driver.navigate().refresh();
         new WebDriverWait(driver, 1000).until(ExpectedConditions.presenceOfElementLocated(By.id("take-back-vote-button")));
         assertNotEquals(0, driver.findElements(By.id("take-back-vote-button")).size());
