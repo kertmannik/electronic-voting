@@ -4,7 +4,7 @@ html {
 }
 
 body {
-    background-image: url("/images/background.png");
+    background-image: url("/images/background.webp");
     background-repeat: no-repeat;
     background-size: 100%;
     height: 100%;
@@ -39,7 +39,108 @@ table.dataTable tbody tr {
     text-align: center;
     display: table;
 }
-.footer{
+
+.footer {
     display: table-cell;
     vertical-align: middle;
+}
+
+/*navbar*/
+.navbar-brand {
+    padding: 0;
+    padding-left: 20%;
+}
+
+.navbar-collapse {
+    text-align: center;
+}
+
+.dropdown-menu {
+    text-align: center;
+}
+
+.dropdown-menu a:hover {
+    background-color: transparent !important;
+}
+
+.linkButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+#myNavbar img {
+    width: 1.5em;
+}
+
+/*home*/
+.col-xs-12 {
+    padding-right: 0em;
+    padding-left: 0em;
+}
+
+.row {
+    margin-left: 0em;
+}
+
+.table-responsive {
+    border: 0em;
+}
+
+.tooltip {
+    position: fixed;
+}
+
+#error-text {
+    display: none;
+}
+
+.voted {
+    margin-top: 0em;
+}
+
+#selected-language {
+    display: none;
+}
+
+.container {
+    padding-top: 2em;
+}
+
+.btn-block {
+    width: auto;
+}
+/*candidacy*/
+.jumbotron {
+    background-color: transparent;
+}
+
+.vertical-center {
+    display: flex;
+    align-items: center;
+}
+
+/*userstatistics*/
+.modal-content button {
+    padding-right: 2%;
+}
+
+.modal-open {
+    overflow: hidden;
+    padding-right: 0 !important;
+}
+
+/*statistics*/
+#piechart {
+    width: 100%;
+    min-height: 30em;
+}
+
+#votesForPartyTable {
+    display: none;
+}
+
+#top-title {
+    padding-bottom: 2em;
 }
