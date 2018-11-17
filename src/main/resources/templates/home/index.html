@@ -75,7 +75,6 @@
 
                     </tbody>
                 </table>
-                <div class="alert alert-danger text-center" id="error-text" role="alert" th:text="#{error.vote}"></div>
             </div>
         </div>
 
@@ -83,6 +82,7 @@
             <h3 th:text="#{home.realtime}"></h3>
             <div id="vote-notifications-container"></div>
         </div>
+        <div class="alert alert-danger text-center" id="error-text" role="alert" th:text="#{error.vote}"></div>
     </div>
     <div id="footer">
         <div th:replace="fragments/footer :: footer"></div>

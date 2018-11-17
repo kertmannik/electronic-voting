@@ -8,12 +8,16 @@ import ee.sk.smartid.AuthenticationIdentity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collections;
 
 @RestController
 @RequestMapping(value = "/voting")
@@ -24,12 +28,14 @@ public class VoteController {
     private final SimpMessageSendingOperations messagingTemplate;
     private final VoteService voteService;
     private final CandidateService candidateService;
+    private final MessageSource messageSource;
 
     @Autowired
-    VoteController(SimpMessageSendingOperations messagingTemplate, VoteService voteService, CandidateService candidateService) {
+    VoteController(SimpMessageSendingOperations messagingTemplate, VoteService voteService, CandidateService candidateService, MessageSource messageSource) {
         this.messagingTemplate = messagingTemplate;
         this.voteService = voteService;
         this.candidateService = candidateService;
+        this.messageSource = messageSource;
     }
 
     @PostMapping(value = "/vote")
@@ -39,6 +45,7 @@ public class VoteController {
         Candidate candidate = candidateService.findCandidateById(voteDTO.getCandidateId());
         if (isCandidateSameAsUser(authIdentity, candidate)) {
             logger.error("User " + authIdentity.getIdentityCode() + " tried to vote for themself -> ERROR");
+            messagingTemplate.convertAndSend("/topic/votes", messageSource.getMessage("error.voteyourself", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
             throw new Exception("Can not vote for yourself");
         } else {
             voteService.saveVote(voteDTO, authIdentity.getIdentityCode());
