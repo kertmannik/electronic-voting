@@ -30,6 +30,7 @@ function initMap() {
     });
 }
 
+//Voting notification
 /**
  * Example based on https://spring.io/guides/gs/messaging-stomp-websocket/
  */
@@ -54,7 +55,7 @@ var notificationsContainer = null;
  function showNotification(candidate) {
     if(candidate === "Can not vote for yourself!" || candidate === "Enda poolt ei saa hääletada!") {
         var notificationMessage = $(
-            "<div class=\"alert alert-info\" align='center'>" +
+            "<div class=\"alert alert-danger\" align='center'>" +
                 candidate + "</div>");
         notificationsContainer.append(notificationMessage);
         setTimeout(function() {
@@ -62,7 +63,7 @@ var notificationsContainer = null;
         }, 5000);
     } else {
         var notificationMessage = $(
-            "<div class=\"alert alert-info\" role=\"alert\" align='center'>" +
+            "<div class=\"alert alert-info\" align='center'>" +
                 candidate.firstName + " " + candidate.lastName + " +1" + "</div>");
         notificationsContainer.append(notificationMessage);
         setTimeout(function() {
