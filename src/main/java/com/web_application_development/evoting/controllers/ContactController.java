@@ -2,6 +2,8 @@ package com.web_application_development.evoting.controllers;
 
 import com.web_application_development.evoting.dtos.ContactDTO;
 import com.web_application_development.evoting.services.UserStatisticsService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -21,6 +23,8 @@ import java.util.Collections;
 
 @Controller
 public class ContactController {
+
+    private static final Logger logger = LogManager.getLogger(ContactController.class);
 
     private final String DEVELOPER_EMAIL = "kert.mannik@gmail.com";
     private final String SUBJECT = "E-voting / E-hääletamine ";
@@ -43,6 +47,7 @@ public class ContactController {
 
     @RequestMapping(path = "/contact", method = RequestMethod.GET)
     public String getTestPage() {
+        logger.debug("Contact page GET request");
         userStatisticsService.saveUserStatistics(request, "/contact");
         return "contact/index";
     }
@@ -55,6 +60,8 @@ public class ContactController {
             String mail = contactDTO.getEmail();
             String subject = contactDTO.getSubject();
             String body = contactDTO.getBody();
+
+            logger.debug("Contact page E-mail sending from " + name + " " + mail);
 
             createAndSendEmail(mail, SUBJECT, BODY);
             createAndSendEmail(DEVELOPER_EMAIL, subject, body);
@@ -74,7 +81,9 @@ public class ContactController {
             helper.setText(body, false);
             helper.setSubject(subject);
             mailSender.send(message);
+            logger.debug("E-mail sent SUCCESSFULLY to " + email);
         } catch (MessagingException e) {
+            logger.error("E-mail sent ERROR when sending to " + email);
             e.printStackTrace();
         }
     }

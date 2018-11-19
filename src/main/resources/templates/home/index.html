@@ -6,15 +6,11 @@
 
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-    <script src="js/vote.js"></script>
-    <script src="js/vote-post.js"></script>
-    <script src="js/login.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
-    <script src="js/homepage-table-filter.js"></script>
-
+    <script src="/js/home-table.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/home.css" type="text/css">
+
 </head>
 <body>
 <div id="container">
@@ -32,12 +28,12 @@
                         th:text="#{home.hasvoted} + ' ' + ${votedcandidate.firstName + ' ' + votedcandidate.lastName}"></h3>
                     <h3 th:text="#{home.hasvotedquestion}"></h3>
                     <form th:action="@{/remove_vote}" method="post">
-                        <button type="submit" class="btn btn-primary" th:text="#{home.votetakebackbutton}"></button>
+                        <button id="take-back-vote-button" type="submit" class="btn btn-primary" th:text="#{home.votetakebackbutton}"></button>
                     </form>
                 </div>
             </div>
             <div class="row col-xs-12 table-responsive">
-                <table id="candidateTable" class="table table-striped">
+                <table id="candidateTable" class="table table">
                     <thead>
                     <tr>
                         <th th:text="#{home.nr}"></th>
@@ -60,7 +56,7 @@
                         <td th:if="${#authorization.expression('isAuthenticated()')}">
                             <form th:object="${candidate}">
                                 <input type="hidden" th:value="${candidate.candidateId}" name="candidateId"/>
-                                <button type="submit" class="btn btn-primary btn-block" th:text="#{home.vote}"
+                                <button id="vote-button" type="submit" class="btn btn-primary btn-block" th:text="#{home.vote}"
                                         th:value="${candidate.candidateId}"></button>
                             </form>
                         </td>
@@ -75,12 +71,12 @@
 
                     </tbody>
                 </table>
-                <div class="alert alert-danger text-center" id="error-text" role="alert" th:text="#{error.vote}"></div>
             </div>
         </div>
 
         <div class="container">
             <h3 th:text="#{home.realtime}"></h3>
+            <div class="alert alert-danger text-center" id="error-text" role="alert" th:text="#{error.vote}"></div>
             <div id="vote-notifications-container"></div>
         </div>
     </div>

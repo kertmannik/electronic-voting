@@ -7,6 +7,8 @@ import com.web_application_development.evoting.entities.VoteResultForParty;
 import com.web_application_development.evoting.repositories.VoteRepository;
 import com.web_application_development.evoting.repositories.VoteResultsForPartyRepository;
 import com.web_application_development.evoting.repositories.VoteResultsRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,8 @@ import java.util.List;
 @Service
 @Transactional
 public class VoteService {
+
+    private static final Logger logger = LogManager.getLogger(CandidateService.class);
 
     private final VoteRepository voteRepository;
     private final VoteResultsRepository voteResultsRepository;
@@ -30,15 +34,18 @@ public class VoteService {
     }
 
     public List<VoteResult> findAllVotes() {
+        logger.debug("Request: voteResultsRepository.findAllVotes()");
         return voteResultsRepository.findAllVotes();
     }
 
     public List<VoteResultForParty> findAllVotesForEachParty() {
+        logger.debug("Request: voteResultsRepository.findAllVotesForEachParty()");
         return voteResultsForPartyRepository.findAllVotesForEachParty();
     }
 
     public void saveVote(VoteDTO voteDTO, String voterId) {
         Vote entity = mapDTOToEntity(voteDTO, voterId);
+        logger.debug("Request: voteRepository.save(entity): voter " + entity.getVoterIdentityCode() + " candidateID " + entity.getCandidateId());
         voteRepository.save(entity);
     }
 

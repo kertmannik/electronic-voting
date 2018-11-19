@@ -1,0 +1,10 @@
+{
+  "authenticationIdentity": {
+    "givenName": "Mari",
+    "surName": "Mets",
+    "identityCode": "12345678910",
+    "country": "EE"
+  },
+  "valid": true,
+  "errors": []
+}
