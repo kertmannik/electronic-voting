@@ -166,7 +166,4 @@ public class EVotingApplicationTests {
             driver.findElement(By.id("vote-button")).click();
         }
     }
-
-    // ignore this comment
-
 }
