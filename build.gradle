@@ -59,6 +59,14 @@ dependencies {
 	testCompile 'org.seleniumhq.selenium:selenium-java:3.3.1'
 }
 
+test {
+	testLogging {
+		events "skipped", "failed"
+		exceptionFormat "short"
+		info.events = ["failed", "skipped"]
+	}
+}
+
 configurations {
 	all {
 		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
