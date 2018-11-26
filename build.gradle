@@ -62,8 +62,8 @@ dependencies {
 test {
 	testLogging {
 		events "skipped", "failed"
-		exceptionFormat "short"
-		info.events = ["failed", "skipped"]
+		exceptionFormat "full"
+		showStandardStreams = true
 	}
 }
 
