@@ -36,7 +36,7 @@
                 </div>
                 <h3 th:text="#{contact.form}"></h3>
                 <div class="form-row vorm">
-                    <form method="post">
+                    <form th:action="@{/contact}" method="post">
                         <div class="form-group">
                             <input type="text" class="form-control" id="name" name="name"
                                    th:placeholder="#{contact.name}" required>
