@@ -8,35 +8,14 @@ $(window).on('load', function () {
     $('#banner').modal('show');
 });
 
-//map
-//Sain inspriratsiooni eelmise aasta projektist, aga tegin palju ümber
-function initMap() {
-    var myCenter = new google.maps.LatLng(58.378243, 26.714534);
-    var mapCanvas = document.getElementById("map");
-    var mapOptions = {center: myCenter, zoom: 10};
-    var map = new google.maps.Map(mapCanvas, mapOptions);
-    var marker = new google.maps.Marker({
-        position: myCenter,
-        icon: 'images/map.png',
-        map: map,
-        animation: google.maps.Animation.DROP
-    });
-    marker.setMap(map);
-
-    //Listener for click event, zooming and setting center
-    google.maps.event.addListener(marker, 'click', function () {
-        map.setZoom(16);
-        map.setCenter(marker.getPosition());
-    });
-}
-
 //Voting notification
 /**
  * Example based on https://spring.io/guides/gs/messaging-stomp-websocket/
  */
 var stompClient = null;
 var notificationsContainer = null;
- function connect() {
+
+function connect() {
     var socket = new SockJS('/vote-websocket');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
@@ -52,29 +31,31 @@ var notificationsContainer = null;
         });
     });
 }
- function showNotification(candidate) {
-    if(candidate === "Can not vote for yourself!" || candidate === "Enda poolt ei saa hääletada!") {
+
+function showNotification(candidate) {
+    if (candidate === "Can not vote for yourself!" || candidate === "Enda poolt ei saa hääletada!") {
         var notificationMessage = $(
             "<div class=\"alert alert-danger\" align='center'>" +
-                candidate + "</div>");
+            candidate + "</div>");
         notificationsContainer.append(notificationMessage);
-        setTimeout(function() {
+        setTimeout(function () {
             notificationMessage.remove();
         }, 5000);
     } else {
         var notificationMessage = $(
             "<div class=\"alert alert-info\" align='center'>" +
-                candidate.firstName + " " + candidate.lastName + " +1" + "</div>");
+            candidate.firstName + " " + candidate.lastName + " +1" + "</div>");
         notificationsContainer.append(notificationMessage);
-        setTimeout(function() {
+        setTimeout(function () {
             notificationMessage.remove();
         }, 5000);
     }
 }
- $(function () {
+
+$(function () {
     notificationsContainer = $("#vote-notifications-container");
     connect();
- });
+});
 
 //vote-post
 $(function () {
