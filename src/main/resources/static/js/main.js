@@ -59,7 +59,6 @@ $(function () {
 
 //vote-post
 $(function () {
-    $("#error-text")[0].style.display = 'none';
     $(".btn-block").click(function (e) {
         $("#error-text")[0].style.display = 'none';
         e.preventDefault();
