@@ -30,7 +30,7 @@ public class ContactController {
             "Tervist!" + "\n" + "\n" + "Täname teid, et meiega ühendust võtsite! Vastame teile peagi." + "\n" + "\n" + "E-hääletamise arendajad";
 
     @Value("${google.maps.url}")
-    private String GOOGLE;
+    public String GOOGLE;
 
     private final JavaMailSender mailSender;
     private final HttpServletRequest request;
