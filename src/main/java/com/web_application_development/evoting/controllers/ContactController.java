@@ -66,12 +66,12 @@ public class ContactController {
             createAndSendEmail(DEVELOPER_EMAIL, subject, body);
             model.addAttribute("contactSuccessMessage", messageSource.getMessage("error.contactsuccess", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
         } catch (Exception exception) {
-            model.addAttribute("contactErrorMessage", messageSource.getMessage("error.contacterror", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()) + "\n" + exception.getMessage());
+            model.addAttribute("contactErrorMessage", messageSource.getMessage("error.contacterror", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
         }
         return "contact/index";
     }
 
-    private void createAndSendEmail(String email, String subject, String body) throws Exception {
+    private void createAndSendEmail(String email, String subject, String body) {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
@@ -84,7 +84,6 @@ public class ContactController {
         } catch (Exception e) {
             logger.error("E-mail sent ERROR when sending to " + email);
             e.printStackTrace();
-            throw new Exception(e.getMessage());
         }
     }
 
