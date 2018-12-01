@@ -53,6 +53,7 @@ public class EVotingApplicationTests {
         failLogInWith("10101010016", "User cancelled Smart-ID request!");
     }
 
+    @Ignore
     @Test
     public void realTimeVotes() {
         String parentWindow = driver.getWindowHandle();
