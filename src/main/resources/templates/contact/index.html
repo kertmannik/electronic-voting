@@ -7,6 +7,7 @@
         window.jQuery || document.write('<script src="js/jquery-3.3.1.min.js"/>');
     </script>
     <script src="js/delayloading.js"></script>
+    <script src="js/map.js"></script>
     <title th:text="#{navbar.contact}"></title>
 </head>
 <body>
@@ -36,7 +37,7 @@
                 </div>
                 <h3 th:text="#{contact.form}"></h3>
                 <div class="form-row vorm">
-                    <form method="post">
+                    <form th:action="@{/contact}" method="post">
                         <div class="form-group">
                             <input type="text" class="form-control" id="name" name="name"
                                    th:placeholder="#{contact.name}" required>
