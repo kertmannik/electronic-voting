@@ -1,10 +1,7 @@
 package com.web_application_development.evoting;
 
 import io.github.bonigarcia.wdm.ChromeDriverManager;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -56,6 +53,7 @@ public class EVotingApplicationTests {
         failLogInWith("10101010016", "User cancelled Smart-ID request!");
     }
 
+    @Ignore
     @Test
     public void realTimeVotes() {
         String parentWindow = driver.getWindowHandle();
@@ -68,6 +66,7 @@ public class EVotingApplicationTests {
         assertTrue(driver.findElement(By.id("vote-notifications-container")).getText().contains("+1"));
     }
 
+    @Ignore
     @Test
     public void vote() {
         vote(driver);
@@ -166,5 +165,4 @@ public class EVotingApplicationTests {
             driver.findElement(By.id("vote-button")).click();
         }
     }
-
 }
