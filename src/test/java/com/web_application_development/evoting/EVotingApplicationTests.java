@@ -121,6 +121,17 @@ public class EVotingApplicationTests {
         assertTrue(driver.findElement(By.id("piechart")).getText().contains("Ükskõiksuserakond"));
     }
 
+    @Test
+    public void emailSending() {
+        driver.get(URL + "contact");
+        driver.findElement(By.id("name")).sendKeys("Automaattest");
+        driver.findElement(By.id("email")).sendKeys("automaattest@mailinator.com");
+        driver.findElement(By.id("subject")).sendKeys("Automaattest Title");
+        driver.findElement(By.id("body")).sendKeys("Automaattest Body");
+        driver.findElement(By.id("send-email-button")).click();
+        assertTrue(driver.findElement(By.id("email-success-message")).isDisplayed());
+    }
+
     private void logIn(WebDriver driver) {
         driver.get(URL + "login");
         driver.findElement(By.id("nationalIdentityNumber")).sendKeys("10101010005");
