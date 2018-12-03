@@ -130,8 +130,6 @@ public class EVotingApplicationTests {
         driver.findElement(By.id("body")).sendKeys("Automaattest Body");
         driver.findElement(By.id("send-email-button")).click();
         assertTrue(driver.findElement(By.id("email-success-message")).isDisplayed());
-
-
     }
 
     private void logIn(WebDriver driver) {
