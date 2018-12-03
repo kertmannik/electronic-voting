@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
@@ -82,7 +81,7 @@ public class ContactController {
             helper.setSubject(subject);
             mailSender.send(message);
             logger.debug("E-mail sent SUCCESSFULLY to " + email);
-        } catch (MessagingException e) {
+        } catch (Exception e) {
             logger.error("E-mail sent ERROR when sending to " + email);
             e.printStackTrace();
         }
