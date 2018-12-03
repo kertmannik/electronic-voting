@@ -17,11 +17,11 @@
         <div class="jumbotron center">
             <div class="container-fluid">
                 <div class="container">
-                    <div th:if="${contactSuccessMessage != null}" class="alert alert-success"
+                    <div id="email-success-message" th:if="${contactSuccessMessage != null}" class="alert alert-success"
                          role="alert"
                          th:text="${contactSuccessMessage}">
                     </div>
-                    <div th:if="${contactErrorMessage != null}" class="alert alert-danger"
+                    <div id="email-failure-message" th:if="${contactErrorMessage != null}" class="alert alert-danger"
                          role="alert"
                          th:text="${contactErrorMessage}">
                     </div>
@@ -54,7 +54,7 @@
                             <input type="text" class="form-control" id="body" name="body"
                                    th:placeholder="#{contact.body}" required>
                         </div>
-                        <button type="submit" class="btn btn-primary" th:text="#{contact.sendbutton}"></button>
+                        <button id="send-email-button" type="submit" class="btn btn-primary" th:text="#{contact.sendbutton}"></button>
                     </form>
                 </div>
 
