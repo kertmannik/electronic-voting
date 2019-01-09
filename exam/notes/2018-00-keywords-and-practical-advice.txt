@@ -1,0 +1,78 @@
+KORRASTAMATA JA TÄITSA VABAS VORMIS
+Peamiselt praksis läbitehtud näite põhjal (aga mõnesse kohta lisatud siimu täiendav kommentaar)
+
+Läbitehtud näide:
+https://kodu.ut.ee/~siim04/kursused/VL/eksam2018-00.htm
+
+Ül 1
+http://www.utilities-online.info/xmltojson/#.XAYex2gzY2w
+kompaktne xml: sisemistele muutujatele miinused ette
+vastupidi ka, võtta miinused ära
+*juurelement, jadad (loendid)?
+Xml -> json : ei tohiks mingeid sümboleid juurde, nimeruumid, loetelu elemendid
+
+Ül 2
+kopi intellijsse, tee ilusaks
+parem -> evaluate xpath
+/aruanne/lõpetajad/*/tasu   = annab kõik tasud
+/aruanne/lõpetajad/*[kogemus>=2]/tasu   (nsm näide)
+W3c xpath SYNTAX
+Netis ka võimalik katsetada intellij asemel
+__
+2015 näide vist:
+sum(//@punkte)+//@lisapunktid+//@eksam
+sum(//@punkte) | //@lisapunktid | //@eksam)
+
+Ül 2.b
+Loenguslaidid
+Googelda check if htmldocument close() exists
+Javascriptis kõik variandid läbi proovida
+Tee näidis test.html
+Body sisse <script>
+Parem -> open in browser, prindi konsooli
+Kolm erinevat js, googeldad stacki
+Igale poole if kontroll (turvalisem) if(document) { if (typeof … ) { console.log } }
+
+Siimu loengust:
+if(document.close !== “undefined”) – töötab olenemata sellest kuidas realiseeritud, kõige lihtsam, undefined töötab alati, kõige turvalisem
+try { document.close } catch (err) {   } see nr 2 turvalisuse poolest
+.hasimplementation(dom, versiooni nr)
+Arendaja ennustab ette user agenti järgi, väga halb
+
+Ül 3
+a)	Googleda doctype’i
+b)	Kopeeri, intellij näitab palju vigu (kontrolli googlest üle), pane tähele tagide jrk
+c)	Ilmselt saab googeldada
+d)	Ei saa, vastupidi saaks
+e)	Style eraldi main.css-I jne
+___
+XHTML 1.0 Transitional EKSAMIL XHTML1.0 kuni viieni välja!!!
+&nbsp ei tohi kasutada, muud imelikud sümbolid
+d) trikiga küsimus, kaks variant serialiseerida HTML 5, kuna XHTML on XML põhine, senikaua kuni kasutada XML ühilduvat osa siis saab
+kujunduse elemendid teha cssks
+
+Ül 4
+Jäta sama alles, loo vastav css, ava browseris (inspect)
+Kuna failis see inline ka style, siis see kirjutab üle
+Kõigepalt tuleb id järgi, siis klassi, siis tagi (h1)
+c) enda põhjendus oluline, veebilehele kindlasti, oleneb kas digitaalkunstnik just tahab pikslitega
+SELLINE KINDLASTI, kirjuta vastus valmis
+
+Suhtühikud ainult veebis, trükimeedias tollid sentimeetrid, kunstis pikslid
+
+Ül 5
+Üldiselt suvalises keeles
+Eksamil huvitab ainult parameetrid ja sql lause
+Praegu läheb katki, sest sgid parameeter on väärtustamata
+Eid peaks ka olema parameter, et ei saaks sql injectionit teha, sõnesid ei tohi liita st
+Head tavad praktikumide lehelt: Päringud vaadete pealt, kasuta protseduure (ehk ei tohiks olla select * vaid lihtsalt funktsiooni väljakutsumine)
+ d) achecker
+
+Ül 6
+Ilusat juttu vaja
+Vaata siimu slaidide pealt
+b) veebirakenduse optimeerimine (cache, minifitseerimine, cdn, mis ise tegime, delay loading scripts, erinevad kihid)
+c) peaasi, et hea põhjendus, nt UX spetsialist, sest kasutajamugavus oluline vms (kiirus), või vastupidi ilus ja inimene veedab kaua aega
+d) vähendada päringuid, lugeda tekstist, äkki ainult ajutine (pilvest), oluline põhjendus, äkki peabki kaua aega minema (nt youtube video üles laadimine)
+
+ise enda järgi vaatan, kuidas kõige loogilisem, kihtidesse jaotamine
