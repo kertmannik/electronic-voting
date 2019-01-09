@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<aruanne>
+    <lõpetajad>
+        <aasta>2012</aasta>
+        <eriala>informaatika</eriala>
+        <koostaja>
+            <eesnimi>Mari</eesnimi>
+            <perekonnanimi>Maasikas</perekonnanimi>
+        </koostaja>
+        <BSc>
+            <kood>A012345</kood>
+            <kogemus>2</kogemus>
+            <positsioon>programmeerija</positsioon>
+            <tasu>900</tasu>
+        </BSc>
+        <MSc>
+            <kood>A012347</kood>
+            <kogemus>2,5</kogemus>
+            <positsioon>testija</positsioon>
+            <tasu>1500</tasu>
+        </MSc>
+        <MSc>
+            <kood>B022347</kood>
+            <kogemus>3</kogemus>
+            <positsioon>spetsialist</positsioon>
+            <tasu>2300</tasu>
+        </MSc>
+    </lõpetajad>
+    <lõpetajad>
+        <aasta>2012</aasta>
+        <eriala>tarkvaratehnika</eriala>
+        <koostaja>
+            <eesnimi>Mati</eesnimi>
+            <perekonnanimi>Vaarikas</perekonnanimi>
+        </koostaja>
+        <MSc>
+            <kood>A022347</kood>
+            <kogemus>1,5</kogemus>
+            <positsioon>analüütik</positsioon>
+            <tasu>1800</tasu>
+        </MSc>
+        <MSc>
+            <kood>B012344</kood>
+            <kogemus>3</kogemus>
+            <positsioon>arhitekt</positsioon>
+            <tasu>2200</tasu>
+        </MSc>
+    </lõpetajad>
+</aruanne>
+        <!--https://www.w3schools.com/xml/xpath_syntax.asp-->
+        <!--vastus:        /aruanne/lõpetajad/*[tasu>2000]/kood-->

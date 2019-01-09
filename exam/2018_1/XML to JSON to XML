@@ -1,0 +1,61 @@
+http://www.utilities-online.info/xmltojson/
+
+JSON - XML Compact
+{
+  "aruanne": {
+    "lõpetajad": [
+      {
+        "aasta": "2012",
+        "eriala": "informaatika",
+        "koostaja": {
+          "-eesnimi": "Mari",
+          "-perekonnanimi": "Maasikas"
+        },
+        "BSc": {
+          "-kood": "A012345",
+          "-kogemus": "2",
+          "-positsioon": "programmeerija",
+          "-tasu": "900"
+        },
+        "MSc": [
+          {
+            "-kood": "A012347",
+            "-kogemus": "2,5",
+            "-positsioon": "testija",
+            "-tasu": "1500"
+          },
+          {
+            "-kood": "B022347",
+            "-kogemus": "3",
+            "-positsioon": "spetsialist",
+            "-tasu": "2300"
+          }
+        ]
+      },
+      {
+        "aasta": "2012",
+        "eriala": "tarkvaratehnika",
+        "koostaja": {
+          "-eesnimi": "Mati",
+          "-perekonnanimi": "Vaarikas"
+        },
+        "MSc": [
+          {
+            "-kood": "A022347",
+            "-kogemus": "1,5",
+            "-positsioon": "analüütik",
+            "-tasu": "1800"
+          },
+          {
+            "-kood": "B012344",
+            "-kogemus": "3",
+            "-positsioon": "arhitekt",
+            "-tasu": "2200"
+          }
+        ]
+      }
+    ]
+  }
+}
+XML compact to JSON: EEMALDA JSON-st miinused
+XML to XML Compact
