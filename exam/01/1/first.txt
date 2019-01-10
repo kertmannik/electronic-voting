@@ -1,0 +1,5 @@
+http://www.utilities-online.info/xmltojson/
+
+XML -> JSON lebo
+
+JSON -> Xml min. miinused ette
