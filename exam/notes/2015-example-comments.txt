@@ -1,0 +1,53 @@
+Siimu kommentaarid näidis2015:
+CSSi XMLil ei kasutata atribuute (on kompaktsel), mingi juurelemendi juurdetekitamine? JSONis pole nimeruume (võib lihtsalt ära kaotada), online konventerid ei saa loenditega hakkama, XML -> JSON tüüpvead: lisatakse mingeid sümbole atribuutide nimedesse (lisasümbolid ära kustutada), ei saa aru nimeruumi deklaratsioonidest (võivad lisada mingi kirjelduse), ei pruugi osata loetelu elemente õigesti teisendada
+
+sum(//@punkte) + //@lisapunktid + //@eksam
+sum(//@punkte |  //@lisapunktid | //@eksam)
+
+2.
+Javascript
+1)if(document.close != “undefined”)
+See on kõige lihtsam ja kõige turvalisem. Saab kõige jaoks kasutada (kõik teegid), töötab alati.
+2) try{ } catch(){}
+3) .hasImplementation(...)
+
+3.
+XHTML 1.0 Transactional
+Elementide ja nimeruumi kasutuse järgi saab HTML5 eristada
+nbsp ei saa (XMLis?) kasutada, suurem väiksem kui sümboleid ei tohi kasutada, kas kõik elemendid on suletud õiges kohas, kas selles versioonis võib kõiki asju kasutada
+c) trikiga küsimus, HTML5 on kaks viisi seda realiseerida, üks neist on XHTML põhine. Kuniks kasutame XMLiga ühilduvat osa, siis saab kasutada. HTML dokumendis XHTMLi kasutada ei saa.
+
+4.
+c) em on omane ainult veebile, trükis alati cm, mm vms, digitaalkunstis px
+
+5.
+Turvaviga - sõnesid ei tohi liita
+
+6.
+Kihtideks jaotamine käib failide põhjal. Kihtide arv oleneb sellest kuidas ise tahad jaotada neid.
+Optimeerimine - skripte vähem, delay loading, kombineerimine
+Kasutajakogemus või kasutatavus? Kas eesmärk on saada inimesi kauem aega seal veetma? Siis kasutajakogemus.
+d) mitu arvutit? Üks? Saaks näiteks andmebaasi eraldi tõsta, kas kasv on ootamatu või perioodiline? Kas näiteks promoti meedias ja seetõttu rohkem külastajaid? Äkki vaja lihtsalt paindlikult jõudlust suurendada, äkki ongi selline rakendus, kus läheb aega (nt YouTubei video  üleslaadimine). Oluline põhjendada, kas, miks ja kuidas muuta. Perioodilise kasvu puhul saab pilvest rohkem jõudlust võtta.
+
+
+Mingid Maku kommentaarid praxist:
+
+converter - utilities online
+Kompaktne xml - json-is muutujatele - märgid ette (nt 2018 eksam “-koostaja”, “-aasta”) Siimule ei tohiks jsonina esitada varianti, kus - märgid ees on.
+Xpaht - intellijs evaluate xpath kui parem hiireklikk (/aruanne/lõpetajad/tasu*[kogemus >= 2]
+Googeldada w3c xpath
+2. b) googeldada javascripti
+Var testDoc = document.implementation.createHTMLDocument(“New”);
+console.log(testDoc.hasOwnProperty(“close”))
+Kõige turvalisem kontrollida kas on dokument olemas, siis Instanceof, typeof asjaga kõige turvalisem
+If (document({
+If (typeof documet.close == ‘function’)
+Turvalisus tähendab, et javascript ei tohi katki minna
+
+HTMLidega googeldada mis on erinevates versioonides lubatud, kopeerida intellijsse - see näitab ka päris palju ära
+CSS - lihtsam kopeerida intellijsse koodid ja võtta html brauseris lahti (id -> klass -> element) (useragent asja inspectis mitte vaadata).
+Kui on pikslid, siis trükimeediale pole (siis pigem protsendid või isegi cm)
+
+ODBC andmebaasipärinugd
+Tavaliselt suvalises keeles, huvitab ainult sql päringu osa. Vaadata kas kõik parameetrid on väärtustatud.
+Siimu jaoks hea tava protseduurid ja vaated - pole mingit select päringut, vaid mingi funktsioon
