@@ -5,8 +5,8 @@ JSON - XML Compact
   "aruanne": {
     "lõpetajad": [
       {
-        "aasta": "2012",
-        "eriala": "informaatika",
+        "-aasta": "2012",
+        "-eriala": "informaatika",
         "koostaja": {
           "-eesnimi": "Mari",
           "-perekonnanimi": "Maasikas"
@@ -33,8 +33,8 @@ JSON - XML Compact
         ]
       },
       {
-        "aasta": "2012",
-        "eriala": "tarkvaratehnika",
+        "-aasta": "2012",
+        "-eriala": "tarkvaratehnika",
         "koostaja": {
           "-eesnimi": "Mati",
           "-perekonnanimi": "Vaarikas"
