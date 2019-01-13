@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<kursused>
+    <nimi>Veebirakenduste loomine</nimi>
+    <kood>MTAT.03.230</kood>
+    <hinded>
+        <nimi>Mari Maasikas</nimi>
+        <matriklinumber>A012345</matriklinumber>
+        <punktid>
+            <ülesanne>Praktikum</ülesanne>
+            <punkte>35</punkte>
+        </punktid>
+        <punktid>
+            <ülesanne>Lisapunktid</ülesanne>
+            <punkte>5</punkte>
+        </punktid>
+        <punktid>
+            <ülesanne>Eksam</ülesanne>
+            <punkte>42</punkte>
+        </punktid>
+    </hinded>
+    <hinded>
+        <nimi>Mart Vaarikas</nimi>
+        <matriklinumber>A012745</matriklinumber>
+        <punktid>
+            <ülesanne>Praktikum</ülesanne>
+            <punkte>46</punkte>
+        </punktid>
+        <punktid>
+            <ülesanne>Lisapunktid</ülesanne>
+            <punkte>2</punkte>
+        </punktid>
+        <punktid>
+            <ülesanne>Eksam</ülesanne>
+            <punkte>38</punkte>
+        </punktid>
+    </hinded>
+</kursused>
+
+        <!--/kursused/hinded/punktid[ülesanne='Praktikum' and punkte>40]/../nimi-->
+        <!--/kursused/hinded[punktid[ülesanne='Praktikum' and punkte>40]]/nimi-->
