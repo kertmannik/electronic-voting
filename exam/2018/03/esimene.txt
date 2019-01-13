@@ -1,0 +1,46 @@
+{"kursused" : [
+   {
+     "-nimi" : "Veebirakenduste loomine",
+     "-kood" : "MTAT.03.230",
+     "hinded" : [
+        {
+          "-nimi" : "Mari Maasikas",
+          "-matriklinumber" : "A012345",
+          "punktid" : [
+             {
+                "-ülesanne" : "Praktikum",
+                "-punkte" : 35
+             },
+             {
+                "-ülesanne" : "Lisapunktid",
+                "-punkte" : 5
+             },
+             {
+                "-ülesanne" : "Eksam",
+                "-punkte" : 42
+             }
+          ]
+        },
+     {
+          "-nimi" : "Mart Vaarikas",
+          "-matriklinumber" : "A012745",
+          "punktid" : [
+             {
+                "-ülesanne" : "Praktikum",
+                "-punkte" : 46
+             },
+             {
+                "-ülesanne" : "Lisapunktid",
+                "-punkte" : 2
+             },
+             {
+                "-ülesanne" : "Eksam",
+                "-punkte" : 38
+             }
+          ]
+        }
+     ]
+   }
+]}
+
+JSON -> XML Compact
