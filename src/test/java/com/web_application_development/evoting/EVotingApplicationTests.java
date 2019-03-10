@@ -118,7 +118,7 @@ public class EVotingApplicationTests {
     @Test
     public void filterVotingResultsThroughoutTheCountry() {
         driver.get(URL + "statistics");
-        assertTrue(driver.findElement(By.id("piechart")).getText().contains("Ükskõiksuserakond"));
+        assertTrue(driver.findElement(By.id("piechart")).getText().contains("Makud"));
     }
 
     @Test
