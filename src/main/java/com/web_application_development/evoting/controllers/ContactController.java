@@ -26,10 +26,6 @@ public class ContactController {
     private static final Logger logger = LogManager.getLogger(ContactController.class);
 
     private final String DEVELOPER_EMAIL = "kert.mannik@gmail.com";
-    private final String SUBJECT = "E-voting / E-hääletamine ";
-    private final String BODY = "Hello!" + "\n" + "\n" + "Thank you for contacting us! We will answer you shortly." + "\n" + "\n" + "E-voting developers"
-            + "\n" + "\n" + "---------------" + "\n" + "\n" +
-            "Tervist!" + "\n" + "\n" + "Täname teid, et meiega ühendust võtsite! Vastame teile peagi." + "\n" + "\n" + "E-hääletamise arendajad";
 
     private final JavaMailSender mailSender;
     private final HttpServletRequest request;
@@ -55,15 +51,18 @@ public class ContactController {
     public String sendEmailNotification(@ModelAttribute ContactDTO contactDTO, Model model) {
         try {
             userStatisticsService.saveUserStatistics(request, "/contact");
-            String name = contactDTO.getName();
-            String mail = contactDTO.getEmail();
-            String subject = contactDTO.getSubject();
-            String body = contactDTO.getBody();
+            String userName = contactDTO.getName();
+            String userMail = contactDTO.getEmail();
+            String userSubject = contactDTO.getSubject();
+            String userBody = contactDTO.getBody();
 
-            logger.debug("Contact page E-mail sending from " + name + " " + mail);
+            logger.debug("Contact page E-mail sending from " + userName + " " + userMail);
 
-            createAndSendEmail(mail, SUBJECT, BODY);
-            createAndSendEmail(DEVELOPER_EMAIL, subject, body);
+            String message = messageSource.getMessage("email.lettersent", Collections.emptyList().toArray(), LocaleContextHolder.getLocale());
+            String subject = messageSource.getMessage("email.title", Collections.emptyList().toArray(), LocaleContextHolder.getLocale());
+
+            createAndSendEmail(userMail, subject, message);
+            createAndSendEmail(DEVELOPER_EMAIL, userSubject, userBody);
             model.addAttribute("contactSuccessMessage", messageSource.getMessage("error.contactsuccess", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
         } catch (Exception exception) {
             model.addAttribute("contactErrorMessage", messageSource.getMessage("error.contacterror", Collections.emptyList().toArray(), LocaleContextHolder.getLocale()));
